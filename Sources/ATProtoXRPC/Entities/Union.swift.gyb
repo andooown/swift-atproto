@@ -1,0 +1,78 @@
+
+%{
+    maxUnionSize = 10
+
+    def typeParameter(i):
+        return "T{}".format(i)
+
+    def caseName(i):
+        return "type{}".format(i)
+
+    def asVariableName(i):
+        return "asType{}".format(i)
+}%
+
+import Foundation
+
+private enum UnionTypeCodingKeys: String, CodingKey {
+    case type = "$type"
+}
+
+% for unionSize in range(1, maxUnionSize + 1):
+%   unionTypeParameters = ", ".join([typeParameter(i) for i in range(unionSize)])
+
+// Union${unionSize}
+
+public enum Union${unionSize}<${unionTypeParameters}> {
+
+%   for i in range(unionSize):
+    case ${caseName(i)}(${typeParameter(i)})
+%   end
+
+%   for i in range(unionSize):
+    public var ${asVariableName(i)}: ${typeParameter(i)}? {
+        guard case .${caseName(i)}(let value) = self else {
+            return nil
+        }
+        return value
+    }
+%   end
+
+}
+
+extension Union${unionSize}: Encodable where ${", ".join([typeParameter(i) + ": UnionEncodable" for i in range(unionSize)])} {
+    public func encode(to encoder: Encoder) throws {
+        var typeContainer = encoder.container(keyedBy: UnionTypeCodingKeys.self)
+
+        switch self {
+%   for i in range(unionSize):
+        case .${caseName(i)}(let value):
+            try typeContainer.encode(${typeParameter(i)}.typeValue, forKey: .type)
+            try value.encode(to: encoder)
+%   end
+        }
+    }
+}
+
+extension Union${unionSize}: Decodable where ${", ".join([typeParameter(i) + ": UnionDecodable" for i in range(unionSize)])} {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
+
+        let typeValue = try container.decode(String.self, forKey: .type)
+        switch typeValue {
+%   for i in range(unionSize):
+        case ${typeParameter(i)}.typeValue:
+            self = .${caseName(i)}(try ${typeParameter(i)}(from: decoder))
+%   end
+        default:
+            throw DecodingError.dataCorrupted(
+                .init(codingPath: decoder.codingPath, debugDescription: "unexpected $type value: \(typeValue)")
+            )
+        }
+    }
+}
+
+extension Union${unionSize}: Equatable where ${", ".join([typeParameter(i) + ": Equatable" for i in range(unionSize)])} {}
+extension Union${unionSize}: Hashable where ${", ".join([typeParameter(i) + ": Hashable" for i in range(unionSize)])} {}
+
+% end
