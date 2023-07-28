@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "ATProto",
+    name: "swift-atproto",
     platforms: [
         .iOS(.v16),
         .macOS(.v13),
