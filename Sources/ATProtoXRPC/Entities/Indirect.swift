@@ -25,44 +25,14 @@ extension Indirect: Encodable where T: Encodable {
     }
 }
 
-// TODO: It is better to have custom JSONDecoder
 public protocol IndirectLexiconDecodable {
     init(forIndirect decoder: Decoder) throws
 }
 
-extension URL: IndirectLexiconDecodable {
-    public init(forIndirect decoder: Decoder) throws {
-        let value = try String(from: decoder)
-        guard let url = URL(string: value) else {
-            throw DecodingError.dataCorrupted(
-                DecodingError.Context(
-                    codingPath: decoder.codingPath,
-                    debugDescription: "Invalid URL string."
-                )
-            )
-        }
-
-        self = url
-    }
-}
-
 extension Date: IndirectLexiconDecodable {
     public init(forIndirect decoder: Decoder) throws {
-        let value = try String(from: decoder)
-
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-        guard let date = formatter.date(from: value) else {
-            throw DecodingError.dataCorrupted(
-                DecodingError.Context(
-                    codingPath: decoder.codingPath,
-                    debugDescription: "Invalid Date string."
-                )
-            )
-        }
-
-        self = date
+        let container = try decoder.singleValueContainer()
+        self = try container.decode(Date.self)
     }
 }
 
