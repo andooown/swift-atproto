@@ -289,12 +289,12 @@ public extension App.Bsky.Actor.Defs {
 public extension App.Bsky.Actor.Defs {
     public struct SavedFeedsPref: UnionCodable, Hashable {
         @Indirect
-        public var pinned: [String]
+        public var pinned: [URL]
         @Indirect
-        public var saved: [String]
+        public var saved: [URL]
         public init(
-            pinned: [String], 
-            saved: [String]
+            pinned: [URL], 
+            saved: [URL]
         ) {
             self._pinned = .wrapped(pinned)
             self._saved = .wrapped(saved)
@@ -307,20 +307,20 @@ public extension App.Bsky.Actor.Defs {
         @Indirect
         public var blockedBy: Optional < Bool > 
         @Indirect
-        public var blocking: Optional < String > 
+        public var blocking: Optional < URL > 
         @Indirect
-        public var followedBy: Optional < String > 
+        public var followedBy: Optional < URL > 
         @Indirect
-        public var following: Optional < String > 
+        public var following: Optional < URL > 
         @Indirect
         public var muted: Optional < Bool > 
         @Indirect
         public var mutedByList: Optional < App.Bsky.Graph.Defs.ListViewBasic > 
         public init(
             blockedBy: Optional < Bool > = nil, 
-            blocking: Optional < String > = nil, 
-            followedBy: Optional < String > = nil, 
-            following: Optional < String > = nil, 
+            blocking: Optional < URL > = nil, 
+            followedBy: Optional < URL > = nil, 
+            following: Optional < URL > = nil, 
             muted: Optional < Bool > = nil, 
             mutedByList: Optional < App.Bsky.Graph.Defs.ListViewBasic > = nil
         ) {
@@ -756,9 +756,9 @@ public extension App.Bsky.Embed.Record {
 public extension App.Bsky.Embed.Record {
     public struct ViewBlocked: UnionCodable, Hashable {
         @Indirect
-        public var uri: String
+        public var uri: URL
         public init(
-            uri: String
+            uri: URL
         ) {
             self._uri = .wrapped(uri)
         }
@@ -768,9 +768,9 @@ public extension App.Bsky.Embed.Record {
 public extension App.Bsky.Embed.Record {
     public struct ViewNotFound: UnionCodable, Hashable {
         @Indirect
-        public var uri: String
+        public var uri: URL
         public init(
-            uri: String
+            uri: URL
         ) {
             self._uri = .wrapped(uri)
         }
@@ -790,7 +790,7 @@ public extension App.Bsky.Embed.Record {
         @Indirect
         public var labels: Optional < [Com.Atproto.Label.Defs.Label] > 
         @Indirect
-        public var uri: String
+        public var uri: URL
         @Indirect
         public var value: LexiconUnknownUnion
         public init(
@@ -799,7 +799,7 @@ public extension App.Bsky.Embed.Record {
             embeds: Optional < [Union4 < App.Bsky.Embed.Images.View, App.Bsky.Embed.External.View, App.Bsky.Embed.Record.View, App.Bsky.Embed.RecordWithMedia.View > ] > = nil, 
             indexedAt: Date, 
             labels: Optional < [Com.Atproto.Label.Defs.Label] > = nil, 
-            uri: String, 
+            uri: URL, 
             value: LexiconUnknownUnion
         ) {
             self._author = .wrapped(author)
@@ -850,10 +850,10 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var blocked: Bool
         @Indirect
-        public var uri: String
+        public var uri: URL
         public init(
             blocked: Bool, 
-            uri: String
+            uri: URL
         ) {
             self._blocked = .wrapped(blocked)
             self._uri = .wrapped(uri)
@@ -902,7 +902,7 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var likeCount: Optional < Int > 
         @Indirect
-        public var uri: String
+        public var uri: URL
         @Indirect
         public var viewer: Optional < App.Bsky.Feed.Defs.GeneratorViewerState > 
         public init(
@@ -915,7 +915,7 @@ public extension App.Bsky.Feed.Defs {
             displayName: String, 
             indexedAt: Date, 
             likeCount: Optional < Int > = nil, 
-            uri: String, 
+            uri: URL, 
             viewer: Optional < App.Bsky.Feed.Defs.GeneratorViewerState > = nil
         ) {
             self._avatar = .wrapped(avatar)
@@ -936,9 +936,9 @@ public extension App.Bsky.Feed.Defs {
 public extension App.Bsky.Feed.Defs {
     public struct GeneratorViewerState: UnionCodable, Hashable {
         @Indirect
-        public var like: Optional < String > 
+        public var like: Optional < URL > 
         public init(
-            like: Optional < String > = nil
+            like: Optional < URL > = nil
         ) {
             self._like = .wrapped(like)
         }
@@ -950,10 +950,10 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var notFound: Bool
         @Indirect
-        public var uri: String
+        public var uri: URL
         public init(
             notFound: Bool, 
-            uri: String
+            uri: URL
         ) {
             self._notFound = .wrapped(notFound)
             self._uri = .wrapped(uri)
@@ -982,7 +982,7 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var repostCount: Optional < Int > 
         @Indirect
-        public var uri: String
+        public var uri: URL
         @Indirect
         public var viewer: Optional < App.Bsky.Feed.Defs.ViewerState > 
         public init(
@@ -995,7 +995,7 @@ public extension App.Bsky.Feed.Defs {
             record: LexiconUnknownUnion, 
             replyCount: Optional < Int > = nil, 
             repostCount: Optional < Int > = nil, 
-            uri: String, 
+            uri: URL, 
             viewer: Optional < App.Bsky.Feed.Defs.ViewerState > = nil
         ) {
             self._author = .wrapped(author)
@@ -1048,11 +1048,11 @@ public extension App.Bsky.Feed.Defs {
 public extension App.Bsky.Feed.Defs {
     public struct SkeletonFeedPost: UnionCodable, Hashable {
         @Indirect
-        public var post: String
+        public var post: URL
         @Indirect
         public var reason: Optional < Union1 < App.Bsky.Feed.Defs.SkeletonReasonRepost > > 
         public init(
-            post: String, 
+            post: URL, 
             reason: Optional < Union1 < App.Bsky.Feed.Defs.SkeletonReasonRepost > > = nil
         ) {
             self._post = .wrapped(post)
@@ -1064,9 +1064,9 @@ public extension App.Bsky.Feed.Defs {
 public extension App.Bsky.Feed.Defs {
     public struct SkeletonReasonRepost: UnionCodable, Hashable {
         @Indirect
-        public var repost: String
+        public var repost: URL
         public init(
-            repost: String
+            repost: URL
         ) {
             self._repost = .wrapped(repost)
         }
@@ -1096,12 +1096,12 @@ public extension App.Bsky.Feed.Defs {
 public extension App.Bsky.Feed.Defs {
     public struct ViewerState: UnionCodable, Hashable {
         @Indirect
-        public var like: Optional < String > 
+        public var like: Optional < URL > 
         @Indirect
-        public var repost: Optional < String > 
+        public var repost: Optional < URL > 
         public init(
-            like: Optional < String > = nil, 
-            repost: Optional < String > = nil
+            like: Optional < URL > = nil, 
+            repost: Optional < URL > = nil
         ) {
             self._like = .wrapped(like)
             self._repost = .wrapped(repost)
@@ -1112,9 +1112,9 @@ public extension App.Bsky.Feed.Defs {
 public extension App.Bsky.Feed.DescribeFeedGenerator {
     public struct Feed: UnionCodable, Hashable {
         @Indirect
-        public var uri: String
+        public var uri: URL
         public init(
-            uri: String
+            uri: URL
         ) {
             self._uri = .wrapped(uri)
         }
@@ -1299,12 +1299,12 @@ public extension App.Bsky.Feed {
             @Indirect
             public var cursor: Optional < String > 
             @Indirect
-            public var feed: String
+            public var feed: URL
             @Indirect
             public var limit: Optional < Int > 
             public init(
                 cursor: Optional < String > = nil, 
-                feed: String, 
+                feed: URL, 
                 limit: Optional < Int > = nil
             ) {
                 self._cursor = .wrapped(cursor)
@@ -1347,9 +1347,9 @@ public extension App.Bsky.Feed {
     struct GetFeedGenerator: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var feed: String
+            public var feed: URL
             public init(
-                feed: String
+                feed: URL
             ) {
                 self._feed = .wrapped(feed)
             }
@@ -1391,9 +1391,9 @@ public extension App.Bsky.Feed {
     struct GetFeedGenerators: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var feeds: [String]
+            public var feeds: [URL]
             public init(
-                feeds: [String]
+                feeds: [URL]
             ) {
                 self._feeds = .wrapped(feeds)
             }
@@ -1429,12 +1429,12 @@ public extension App.Bsky.Feed {
             @Indirect
             public var cursor: Optional < String > 
             @Indirect
-            public var feed: String
+            public var feed: URL
             @Indirect
             public var limit: Optional < Int > 
             public init(
                 cursor: Optional < String > = nil, 
-                feed: String, 
+                feed: URL, 
                 limit: Optional < Int > = nil
             ) {
                 self._cursor = .wrapped(cursor)
@@ -1503,12 +1503,12 @@ public extension App.Bsky.Feed {
             @Indirect
             public var limit: Optional < Int > 
             @Indirect
-            public var uri: String
+            public var uri: URL
             public init(
                 cid: Optional < String > = nil, 
                 cursor: Optional < String > = nil, 
                 limit: Optional < Int > = nil, 
-                uri: String
+                uri: URL
             ) {
                 self._cid = .wrapped(cid)
                 self._cursor = .wrapped(cursor)
@@ -1533,12 +1533,12 @@ public extension App.Bsky.Feed {
             @Indirect
             public var likes: [App.Bsky.Feed.GetLikes.Like]
             @Indirect
-            public var uri: String
+            public var uri: URL
             public init(
                 cid: Optional < String > = nil, 
                 cursor: Optional < String > = nil, 
                 likes: [App.Bsky.Feed.GetLikes.Like], 
-                uri: String
+                uri: URL
             ) {
                 self._cid = .wrapped(cid)
                 self._cursor = .wrapped(cursor)
@@ -1564,11 +1564,11 @@ public extension App.Bsky.Feed {
             @Indirect
             public var parentHeight: Optional < Int > 
             @Indirect
-            public var uri: String
+            public var uri: URL
             public init(
                 depth: Optional < Int > = nil, 
                 parentHeight: Optional < Int > = nil, 
-                uri: String
+                uri: URL
             ) {
                 self._depth = .wrapped(depth)
                 self._parentHeight = .wrapped(parentHeight)
@@ -1606,9 +1606,9 @@ public extension App.Bsky.Feed {
     struct GetPosts: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var uris: [String]
+            public var uris: [URL]
             public init(
-                uris: [String]
+                uris: [URL]
             ) {
                 self._uris = .wrapped(uris)
             }
@@ -1648,12 +1648,12 @@ public extension App.Bsky.Feed {
             @Indirect
             public var limit: Optional < Int > 
             @Indirect
-            public var uri: String
+            public var uri: URL
             public init(
                 cid: Optional < String > = nil, 
                 cursor: Optional < String > = nil, 
                 limit: Optional < Int > = nil, 
-                uri: String
+                uri: URL
             ) {
                 self._cid = .wrapped(cid)
                 self._cursor = .wrapped(cursor)
@@ -1678,12 +1678,12 @@ public extension App.Bsky.Feed {
             @Indirect
             public var repostedBy: [App.Bsky.Actor.Defs.ProfileView]
             @Indirect
-            public var uri: String
+            public var uri: URL
             public init(
                 cid: Optional < String > = nil, 
                 cursor: Optional < String > = nil, 
                 repostedBy: [App.Bsky.Actor.Defs.ProfileView], 
-                uri: String
+                uri: URL
             ) {
                 self._cid = .wrapped(cid)
                 self._cursor = .wrapped(cursor)
@@ -1921,7 +1921,7 @@ public extension App.Bsky.Graph.Defs {
         @Indirect
         public var purpose: App.Bsky.Graph.Defs.ListPurpose
         @Indirect
-        public var uri: String
+        public var uri: URL
         @Indirect
         public var viewer: Optional < App.Bsky.Graph.Defs.ListViewerState > 
         public init(
@@ -1933,7 +1933,7 @@ public extension App.Bsky.Graph.Defs {
             indexedAt: Date, 
             name: String, 
             purpose: App.Bsky.Graph.Defs.ListPurpose, 
-            uri: String, 
+            uri: URL, 
             viewer: Optional < App.Bsky.Graph.Defs.ListViewerState > = nil
         ) {
             self._avatar = .wrapped(avatar)
@@ -1963,7 +1963,7 @@ public extension App.Bsky.Graph.Defs {
         @Indirect
         public var purpose: App.Bsky.Graph.Defs.ListPurpose
         @Indirect
-        public var uri: String
+        public var uri: URL
         @Indirect
         public var viewer: Optional < App.Bsky.Graph.Defs.ListViewerState > 
         public init(
@@ -1972,7 +1972,7 @@ public extension App.Bsky.Graph.Defs {
             indexedAt: Optional < Date > = nil, 
             name: String, 
             purpose: App.Bsky.Graph.Defs.ListPurpose, 
-            uri: String, 
+            uri: URL, 
             viewer: Optional < App.Bsky.Graph.Defs.ListViewerState > = nil
         ) {
             self._avatar = .wrapped(avatar)
@@ -2177,11 +2177,11 @@ public extension App.Bsky.Graph {
             @Indirect
             public var limit: Optional < Int > 
             @Indirect
-            public var list: String
+            public var list: URL
             public init(
                 cursor: Optional < String > = nil, 
                 limit: Optional < Int > = nil, 
-                list: String
+                list: URL
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -2396,12 +2396,12 @@ public extension App.Bsky.Graph {
         @Indirect
         public var createdAt: Date
         @Indirect
-        public var list: String
+        public var list: URL
         @Indirect
         public var subject: String
         public init(
             createdAt: Date, 
-            list: String, 
+            list: URL, 
             subject: String
         ) {
             self._createdAt = .wrapped(createdAt)
@@ -2436,9 +2436,9 @@ public extension App.Bsky.Graph {
     struct MuteActorList: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
-            public var list: String
+            public var list: URL
             public init(
-                list: String
+                list: URL
             ) {
                 self._list = .wrapped(list)
             }
@@ -2478,9 +2478,9 @@ public extension App.Bsky.Graph {
     struct UnmuteActorList: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
-            public var list: String
+            public var list: URL
             public init(
-                list: String
+                list: URL
             ) {
                 self._list = .wrapped(list)
             }
@@ -2596,11 +2596,11 @@ public extension App.Bsky.Notification.ListNotifications {
         @Indirect
         public var reason: String
         @Indirect
-        public var reasonSubject: Optional < String > 
+        public var reasonSubject: Optional < URL > 
         @Indirect
         public var record: LexiconUnknownUnion
         @Indirect
-        public var uri: String
+        public var uri: URL
         public init(
             author: App.Bsky.Actor.Defs.ProfileView, 
             cid: String, 
@@ -2608,9 +2608,9 @@ public extension App.Bsky.Notification.ListNotifications {
             isRead: Bool, 
             labels: Optional < [Com.Atproto.Label.Defs.Label] > = nil, 
             reason: String, 
-            reasonSubject: Optional < String > = nil, 
+            reasonSubject: Optional < URL > = nil, 
             record: LexiconUnknownUnion, 
-            uri: String
+            uri: URL
         ) {
             self._author = .wrapped(author)
             self._cid = .wrapped(cid)
@@ -3059,7 +3059,7 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var repo: Com.Atproto.Admin.Defs.RepoView
         @Indirect
-        public var uri: String
+        public var uri: URL
         @Indirect
         public var value: LexiconUnknownUnion
         public init(
@@ -3068,7 +3068,7 @@ public extension Com.Atproto.Admin.Defs {
             indexedAt: Date, 
             moderation: Com.Atproto.Admin.Defs.Moderation, 
             repo: Com.Atproto.Admin.Defs.RepoView, 
-            uri: String, 
+            uri: URL, 
             value: LexiconUnknownUnion
         ) {
             self._blobCids = .wrapped(blobCids)
@@ -3097,7 +3097,7 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var repo: Com.Atproto.Admin.Defs.RepoView
         @Indirect
-        public var uri: String
+        public var uri: URL
         @Indirect
         public var value: LexiconUnknownUnion
         public init(
@@ -3107,7 +3107,7 @@ public extension Com.Atproto.Admin.Defs {
             labels: Optional < [Com.Atproto.Label.Defs.Label] > = nil, 
             moderation: Com.Atproto.Admin.Defs.ModerationDetail, 
             repo: Com.Atproto.Admin.Defs.RepoView, 
-            uri: String, 
+            uri: URL, 
             value: LexiconUnknownUnion
         ) {
             self._blobs = .wrapped(blobs)
@@ -3125,9 +3125,9 @@ public extension Com.Atproto.Admin.Defs {
 public extension Com.Atproto.Admin.Defs {
     public struct RecordViewNotFound: UnionCodable, Hashable {
         @Indirect
-        public var uri: String
+        public var uri: URL
         public init(
-            uri: String
+            uri: URL
         ) {
             self._uri = .wrapped(uri)
         }
@@ -3648,10 +3648,10 @@ public extension Com.Atproto.Admin {
             @Indirect
             public var cid: Optional < String > 
             @Indirect
-            public var uri: String
+            public var uri: URL
             public init(
                 cid: Optional < String > = nil, 
-                uri: String
+                uri: URL
             ) {
                 self._cid = .wrapped(cid)
                 self._uri = .wrapped(uri)
@@ -4316,10 +4316,10 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var cid: String
             @Indirect
-            public var uri: String
+            public var uri: URL
             public init(
                 cid: String, 
-                uri: String
+                uri: URL
             ) {
                 self._cid = .wrapped(cid)
                 self._uri = .wrapped(uri)
@@ -4460,12 +4460,12 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var cid: Optional < String > 
             @Indirect
-            public var uri: String
+            public var uri: URL
             @Indirect
             public var value: LexiconUnknownUnion
             public init(
                 cid: Optional < String > = nil, 
-                uri: String, 
+                uri: URL, 
                 value: LexiconUnknownUnion
             ) {
                 self._cid = .wrapped(cid)
@@ -4558,12 +4558,12 @@ public extension Com.Atproto.Repo.ListRecords {
         @Indirect
         public var cid: String
         @Indirect
-        public var uri: String
+        public var uri: URL
         @Indirect
         public var value: LexiconUnknownUnion
         public init(
             cid: String, 
-            uri: String, 
+            uri: URL, 
             value: LexiconUnknownUnion
         ) {
             self._cid = .wrapped(cid)
@@ -4612,10 +4612,10 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var cid: String
             @Indirect
-            public var uri: String
+            public var uri: URL
             public init(
                 cid: String, 
-                uri: String
+                uri: URL
             ) {
                 self._cid = .wrapped(cid)
                 self._uri = .wrapped(uri)
@@ -4661,10 +4661,10 @@ public extension Com.Atproto.Repo {
         @Indirect
         public var cid: String
         @Indirect
-        public var uri: String
+        public var uri: URL
         public init(
             cid: String, 
-            uri: String
+            uri: URL
         ) {
             self._cid = .wrapped(cid)
             self._uri = .wrapped(uri)
