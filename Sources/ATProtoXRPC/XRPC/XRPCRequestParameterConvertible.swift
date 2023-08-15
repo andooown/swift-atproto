@@ -40,6 +40,12 @@ extension Date: XRPCRequestParameterConvertible {
     }
 }
 
+extension URL: XRPCRequestParameterConvertible {
+    public func toQueryItems(name: String) -> [URLQueryItem] {
+        [URLQueryItem(name: name, value: absoluteString)]
+    }
+}
+
 extension Optional: XRPCRequestParameterConvertible where Wrapped: XRPCRequestParameterConvertible {
     public func toQueryItems(name: String) -> [URLQueryItem] {
         switch self {
