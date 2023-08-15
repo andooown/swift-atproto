@@ -36,6 +36,13 @@ extension Date: IndirectLexiconDecodable {
     }
 }
 
+extension URL: IndirectLexiconDecodable {
+    public init(forIndirect decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        self = try container.decode(URL.self)
+    }
+}
+
 extension Indirect: Decodable where T: Decodable {
     public init(from decoder: Decoder) throws {
         if let decodableType = T.self as? IndirectLexiconDecodable.Type {
