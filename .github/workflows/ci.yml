@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Build (${{ matrix.os }}, Swift ${{ matrix.swift-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        swift-version: ["5.8"]
+    steps:
+      - uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: ${{ matrix.swift-version }}
+      - uses: actions/checkout@v2
+      - name: Build
+        run: make build
+
+  test:
+    name: Test (${{ matrix.os }}, Swift ${{ matrix.swift-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        swift-version: ["5.8"]
+    steps:
+      - uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: ${{ matrix.swift-version }}
+      - uses: actions/checkout@v2
+      - name: Test
+        run: make test
