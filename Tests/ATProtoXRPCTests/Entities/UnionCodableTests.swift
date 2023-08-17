@@ -20,14 +20,16 @@ final class UnionCodableTests: XCTestCase {
     func testEncode() throws {
         let encoder = JSONEncoder()
 
-        XCTAssertEqual(
-            String(data: try encoder.encode(Union.type0(.init(val: 0))), encoding: .utf8),
-            #"{"$type":"com.example.testStructA","val":0}"#
-        )
+        let dataA = try encoder.encode(Union.type0(.init(val: 0)))
+        let jsonA = try XCTUnwrap(JSONSerialization.jsonObject(with: dataA) as? [String: Any])
+        XCTAssertEqual(jsonA.count, 2)
+        XCTAssertEqual(jsonA["$type"] as? String, "com.example.testStructA")
+        XCTAssertEqual(jsonA["val"] as? Int, 0)
 
-        XCTAssertEqual(
-            String(data: try encoder.encode(Union.type1(.init(val: "VALUE"))), encoding: .utf8),
-            #"{"$type":"com.example.testStructB","val":"VALUE"}"#
-        )
+        let dataB = try encoder.encode(Union.type1(.init(val: "VALUE")))
+        let jsonB = try XCTUnwrap(JSONSerialization.jsonObject(with: dataB) as? [String: Any])
+        XCTAssertEqual(jsonB.count, 2)
+        XCTAssertEqual(jsonB["$type"] as? String, "com.example.testStructB")
+        XCTAssertEqual(jsonB["val"] as? String, "VALUE")
     }
 }
