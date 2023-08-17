@@ -5,6 +5,8 @@ import XCTest
 
 final class JSONDecoderExtensionsTests: XCTestCase {
     func testDateDecode() throws {
+        // https://atproto.com/specs/lexicon#datetime
+
         let validCases = [
             // preferred
             "1985-04-12T23:20:50.123Z",
