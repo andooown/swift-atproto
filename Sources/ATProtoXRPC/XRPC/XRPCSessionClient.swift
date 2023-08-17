@@ -68,7 +68,7 @@ private extension XRPCSessionClient {
     func buildRequest<R>(from request: R) throws -> URLRequest where R: XRPCRequest {
         guard
             var urlComponent = URLComponents(
-                url: baseURL.appending(path: request.requestIdentifier),
+                url: baseURL.appendingPathComponent(request.requestIdentifier),
                 resolvingAgainstBaseURL: false
             )
         else {

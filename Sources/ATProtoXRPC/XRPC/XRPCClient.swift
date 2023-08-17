@@ -14,6 +14,6 @@ public struct XRPCClientMock: XRPCClient {
     public init() {}
 
     public func send<R>(_ request: R) async throws -> R.Output where R: XRPCRequest {
-        throw NSError()
+        throw NSError(domain: "Unimplemented", code: -1)
     }
 }
