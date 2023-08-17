@@ -150,13 +150,3 @@ private extension XRPCRequestType {
         }
     }
 }
-
-private extension ISO8601DateFormatter {
-    convenience init(options: Options) {
-        self.init()
-        formatOptions = options
-    }
-
-    static let withFractionalSeconds = ISO8601DateFormatter(options: [.withInternetDateTime, .withFractionalSeconds])
-    static let withTimeZone = ISO8601DateFormatter(options: [.withInternetDateTime, .withTimeZone])
-}
