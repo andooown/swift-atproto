@@ -1,4 +1,4 @@
-# swift-atproto
+# swift-atproto ![CI](https://github.com/andooown/swift-atproto/actions/workflows/ci.yml/badge.svg?branch=main)
 
 Swift package that provides a AT Protocol libraries.
 
