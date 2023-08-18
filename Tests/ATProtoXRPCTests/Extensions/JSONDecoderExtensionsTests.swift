@@ -7,7 +7,7 @@ final class JSONDecoderExtensionsTests: XCTestCase {
     func testDateDecode() throws {
         // https://atproto.com/specs/lexicon#datetime
 
-        let validCases = [
+        let cases = [
             // preferred
             "1985-04-12T23:20:50.123Z",
             "1985-04-12T23:20:50.123456Z",
@@ -20,8 +20,11 @@ final class JSONDecoderExtensionsTests: XCTestCase {
             "1985-04-12T23:20:50.0Z",
             "1985-04-12T23:20:50.123+00:00",
             "1985-04-12T23:20:50.123-07:00",
+
+            // Possible cases that was in actual response from bsky.social
+            "2023-08-18T06:45:26.132861",
         ]
-        for c in validCases {
+        for c in cases {
             let data = ("\"" + c + "\"").data(using: .utf8)!
             XCTAssertNoThrow(try JSONDecoder.forXRPC.decode(Date.self, from: data))
         }

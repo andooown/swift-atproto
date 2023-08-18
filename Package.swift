@@ -22,6 +22,9 @@ let package = Package(
             targets: ["ATProtoXRPC"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/pointfreeco/swift-parsing.git", from: "0.13.0"),
+    ],
     targets: [
         .target(
             name: "ATProto",
@@ -38,6 +41,9 @@ let package = Package(
         ),
         .target(
             name: "ATProtoXRPC",
+            dependencies: [
+                .product(name: "Parsing", package: "swift-parsing"),
+            ],
             exclude: [
                 "Entities/Union.swift.gyb"
             ]
