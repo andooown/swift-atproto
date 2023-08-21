@@ -56,7 +56,7 @@ extension XRPCSessionClient: XRPCClient {
 private extension XRPCSessionClient {
     var encoder: JSONEncoder {
         let encoder = JSONEncoder()
-        encoder.keyEncodingStrategy = .convertToSnakeCase
+        encoder.dateEncodingStrategy = .iso8601
 
         return encoder
     }
