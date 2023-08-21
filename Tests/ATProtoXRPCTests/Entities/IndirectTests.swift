@@ -5,6 +5,7 @@ import XCTest
 final class IndirectTests: XCTestCase {
     func testEncoding() throws {
         let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .secondsSince1970
 
         XCTAssertEqual(
             String(data: try encoder.encode(Indirect<String>.wrapped("TEXT")), encoding: .utf8),
@@ -13,6 +14,10 @@ final class IndirectTests: XCTestCase {
         XCTAssertEqual(
             String(data: try encoder.encode(Indirect<URL>.wrapped(URL(string: "https://example.com/")!)), encoding: .utf8),
             #""https:\/\/example.com\/""#
+        )
+        XCTAssertEqual(
+            String(data: try encoder.encode(Indirect<Date>.wrapped(Date(timeIntervalSince1970: 0))), encoding: .utf8),
+            #"0"#
         )
 
         XCTAssertEqual(
