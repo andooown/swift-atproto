@@ -3,6 +3,28 @@ import XCTest
 @testable import ATProtoXRPC
 
 final class IndirectTests: XCTestCase {
+    func testEncoding() throws {
+        let encoder = JSONEncoder()
+
+        XCTAssertEqual(
+            String(data: try encoder.encode(Indirect<String>.wrapped("TEXT")), encoding: .utf8),
+            #""TEXT""#
+        )
+        XCTAssertEqual(
+            String(data: try encoder.encode(Indirect<URL>.wrapped(URL(string: "https://example.com/")!)), encoding: .utf8),
+            #""https:\/\/example.com\/""#
+        )
+
+        XCTAssertEqual(
+            String(data: try encoder.encode(Object(value: 0)), encoding: .utf8),
+            #"{"value":0}"#
+        )
+        XCTAssertEqual(
+            String(data: try encoder.encode(Object(value: nil)), encoding: .utf8),
+            #"{}"#
+        )
+    }
+
     func testDecoding() throws {
         let decoder = JSONDecoder()
 
@@ -32,5 +54,16 @@ final class IndirectTests: XCTestCase {
             ),
             .wrapped(URL(string: "https://example.com/")!)
         )
+    }
+}
+
+private extension IndirectTests {
+    struct Object: Encodable {
+        @Indirect
+        var value: Int?
+
+        init(value: Int?) {
+            self._value = .wrapped(value)
+        }
     }
 }
