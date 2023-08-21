@@ -16,12 +16,35 @@ public indirect enum Indirect<T> {
     }
 }
 
+public protocol IndirectLexiconEncodable {
+    func encode(forIndirectTo encoder: Encoder) throws
+}
+
+extension Date: IndirectLexiconEncodable {
+    public func encode(forIndirectTo encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self)
+    }
+}
+
+extension URL: IndirectLexiconEncodable {
+    public func encode(forIndirectTo encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self)
+    }
+}
+
 extension Indirect: Encodable where T: Encodable {
     public func encode(to encoder: Encoder) throws {
         switch self {
         case .wrapped(let x):
-            try x.encode(to: encoder)
+            if let encodableX = x as? IndirectLexiconEncodable {
+                try encodableX.encode(forIndirectTo: encoder)
+            } else {
+                try x.encode(to: encoder)
+            }
         }
+
     }
 }
 
@@ -92,5 +115,11 @@ public extension KeyedDecodingContainer {
     func decode<T>(_ type: Indirect<T?>.Type, forKey key: Self.Key) throws -> Indirect<T?>
     where T: Decodable {
         return try decodeIfPresent(type, forKey: key) ?? .wrapped(nil)
+    }
+}
+
+public extension KeyedEncodingContainer {
+    mutating func encode<T>(_ value: Indirect<T?>, forKey key: KeyedEncodingContainer<K>.Key) throws where T : Encodable {
+        try encodeIfPresent(value.wrappedValue, forKey: key)
     }
 }
