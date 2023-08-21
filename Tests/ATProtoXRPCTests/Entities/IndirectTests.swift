@@ -5,7 +5,7 @@ import XCTest
 final class IndirectTests: XCTestCase {
     func testEncoding() throws {
         let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .secondsSince1970
+        encoder.dateEncodingStrategy = .iso8601
 
         XCTAssertEqual(
             String(data: try encoder.encode(Indirect<String>.wrapped("TEXT")), encoding: .utf8),
@@ -17,7 +17,7 @@ final class IndirectTests: XCTestCase {
         )
         XCTAssertEqual(
             String(data: try encoder.encode(Indirect<Date>.wrapped(Date(timeIntervalSince1970: 0))), encoding: .utf8),
-            #"0"#
+            #""1970-01-01T00:00:00Z""#
         )
 
         XCTAssertEqual(
