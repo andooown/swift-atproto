@@ -483,12 +483,16 @@ public extension App.Bsky.Actor {
         public var description: Optional < String > 
         @Indirect
         public var displayName: Optional < String > 
+        @Indirect
+        public var labels: Optional < Union1 < Com.Atproto.Label.Defs.SelfLabels > > 
         public init(
             description: Optional < String > = nil, 
-            displayName: Optional < String > = nil
+            displayName: Optional < String > = nil, 
+            labels: Optional < Union1 < Com.Atproto.Label.Defs.SelfLabels > > = nil
         ) {
             self._description = .wrapped(description)
             self._displayName = .wrapped(displayName)
+            self._labels = .wrapped(labels)
         }
         public static let typeValue = "app.bsky.actor.profile"
     }
@@ -756,10 +760,18 @@ public extension App.Bsky.Embed.Record {
 public extension App.Bsky.Embed.Record {
     public struct ViewBlocked: UnionCodable, Hashable {
         @Indirect
+        public var author: App.Bsky.Feed.Defs.BlockedAuthor
+        @Indirect
+        public var blocked: Bool
+        @Indirect
         public var uri: URL
         public init(
+            author: App.Bsky.Feed.Defs.BlockedAuthor, 
+            blocked: Bool, 
             uri: URL
         ) {
+            self._author = .wrapped(author)
+            self._blocked = .wrapped(blocked)
             self._uri = .wrapped(uri)
         }
         public static let typeValue = "app.bsky.embed.record#viewBlocked"
@@ -768,10 +780,14 @@ public extension App.Bsky.Embed.Record {
 public extension App.Bsky.Embed.Record {
     public struct ViewNotFound: UnionCodable, Hashable {
         @Indirect
+        public var notFound: Bool
+        @Indirect
         public var uri: URL
         public init(
+            notFound: Bool, 
             uri: URL
         ) {
+            self._notFound = .wrapped(notFound)
             self._uri = .wrapped(uri)
         }
         public static let typeValue = "app.bsky.embed.record#viewNotFound"
@@ -846,15 +862,35 @@ public extension App.Bsky.Embed.RecordWithMedia {
     }
 }
 public extension App.Bsky.Feed.Defs {
+    public struct BlockedAuthor: UnionCodable, Hashable {
+        @Indirect
+        public var did: String
+        @Indirect
+        public var viewer: Optional < App.Bsky.Actor.Defs.ViewerState > 
+        public init(
+            did: String, 
+            viewer: Optional < App.Bsky.Actor.Defs.ViewerState > = nil
+        ) {
+            self._did = .wrapped(did)
+            self._viewer = .wrapped(viewer)
+        }
+        public static let typeValue = "app.bsky.feed.defs#blockedAuthor"
+    }
+}
+public extension App.Bsky.Feed.Defs {
     public struct BlockedPost: UnionCodable, Hashable {
+        @Indirect
+        public var author: App.Bsky.Feed.Defs.BlockedAuthor
         @Indirect
         public var blocked: Bool
         @Indirect
         public var uri: URL
         public init(
+            author: App.Bsky.Feed.Defs.BlockedAuthor, 
             blocked: Bool, 
             uri: URL
         ) {
+            self._author = .wrapped(author)
             self._blocked = .wrapped(blocked)
             self._uri = .wrapped(uri)
         }
@@ -1177,18 +1213,22 @@ public extension App.Bsky.Feed {
         public var did: String
         @Indirect
         public var displayName: String
+        @Indirect
+        public var labels: Optional < Union1 < Com.Atproto.Label.Defs.SelfLabels > > 
         public init(
             createdAt: Date, 
             description: Optional < String > = nil, 
             descriptionFacets: Optional < [App.Bsky.Richtext.Facet] > = nil, 
             did: String, 
-            displayName: String
+            displayName: String, 
+            labels: Optional < Union1 < Com.Atproto.Label.Defs.SelfLabels > > = nil
         ) {
             self._createdAt = .wrapped(createdAt)
             self._description = .wrapped(description)
             self._descriptionFacets = .wrapped(descriptionFacets)
             self._did = .wrapped(did)
             self._displayName = .wrapped(displayName)
+            self._labels = .wrapped(labels)
         }
         public static let typeValue = "app.bsky.feed.generator"
     }
@@ -1244,7 +1284,7 @@ public extension App.Bsky.Feed {
     }
 }
 public extension App.Bsky.Feed {
-    struct GetAuthorFeed: XRPCRequest {
+    struct GetActorLikes: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
             public var actor: String
@@ -1265,6 +1305,61 @@ public extension App.Bsky.Feed {
                 var parameters = [URLQueryItem]()
                 parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var feed: [App.Bsky.Feed.Defs.FeedViewPost]
+            public init(
+                cursor: Optional < String > = nil, 
+                feed: [App.Bsky.Feed.Defs.FeedViewPost]
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._feed = .wrapped(feed)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "app.bsky.feed.getActorLikes"
+        public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Feed {
+    struct GetAuthorFeed: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var actor: String
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var filter: Optional < String > 
+            @Indirect
+            public var limit: Optional < Int > 
+            public init(
+                actor: String, 
+                cursor: Optional < String > = nil, 
+                filter: Optional < String > = nil, 
+                limit: Optional < Int > = nil
+            ) {
+                self._actor = .wrapped(actor)
+                self._cursor = .wrapped(cursor)
+                self._filter = .wrapped(filter)
+                self._limit = .wrapped(limit)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: filter.toQueryItems(name: "filter"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
 
                 return parameters
@@ -1798,6 +1893,8 @@ public extension App.Bsky.Feed {
         @Indirect
         public var facets: Optional < [App.Bsky.Richtext.Facet] > 
         @Indirect
+        public var labels: Optional < Union1 < Com.Atproto.Label.Defs.SelfLabels > > 
+        @Indirect
         public var langs: Optional < [String] > 
         @Indirect
         public var reply: Optional < App.Bsky.Feed.Post.ReplyRef > 
@@ -1808,6 +1905,7 @@ public extension App.Bsky.Feed {
             embed: Optional < Union4 < App.Bsky.Embed.Images, App.Bsky.Embed.External, App.Bsky.Embed.Record, App.Bsky.Embed.RecordWithMedia > > = nil, 
             entities: Optional < [App.Bsky.Feed.Post.Entity] > = nil, 
             facets: Optional < [App.Bsky.Richtext.Facet] > = nil, 
+            labels: Optional < Union1 < Com.Atproto.Label.Defs.SelfLabels > > = nil, 
             langs: Optional < [String] > = nil, 
             reply: Optional < App.Bsky.Feed.Post.ReplyRef > = nil, 
             text: String
@@ -1816,6 +1914,7 @@ public extension App.Bsky.Feed {
             self._embed = .wrapped(embed)
             self._entities = .wrapped(entities)
             self._facets = .wrapped(facets)
+            self._labels = .wrapped(labels)
             self._langs = .wrapped(langs)
             self._reply = .wrapped(reply)
             self._text = .wrapped(text)
@@ -2372,6 +2471,8 @@ public extension App.Bsky.Graph {
         @Indirect
         public var descriptionFacets: Optional < [App.Bsky.Richtext.Facet] > 
         @Indirect
+        public var labels: Optional < Union1 < Com.Atproto.Label.Defs.SelfLabels > > 
+        @Indirect
         public var name: String
         @Indirect
         public var purpose: App.Bsky.Graph.Defs.ListPurpose
@@ -2379,12 +2480,14 @@ public extension App.Bsky.Graph {
             createdAt: Date, 
             description: Optional < String > = nil, 
             descriptionFacets: Optional < [App.Bsky.Richtext.Facet] > = nil, 
+            labels: Optional < Union1 < Com.Atproto.Label.Defs.SelfLabels > > = nil, 
             name: String, 
             purpose: App.Bsky.Graph.Defs.ListPurpose
         ) {
             self._createdAt = .wrapped(createdAt)
             self._description = .wrapped(description)
             self._descriptionFacets = .wrapped(descriptionFacets)
+            self._labels = .wrapped(labels)
             self._name = .wrapped(name)
             self._purpose = .wrapped(purpose)
         }
@@ -2703,6 +2806,27 @@ public extension App.Bsky.Richtext.Facet {
     }
 }
 public extension App.Bsky.Unspecced {
+    struct ApplyLabels: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var labels: [Com.Atproto.Label.Defs.Label]
+            public init(
+                labels: [Com.Atproto.Label.Defs.Label]
+            ) {
+                self._labels = .wrapped(labels)
+            }
+        }
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "app.bsky.unspecced.applyLabels"
+        public let input: Input?
+    }
+}
+public extension App.Bsky.Unspecced {
     struct GetPopular: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
@@ -2754,22 +2878,52 @@ public extension App.Bsky.Unspecced {
 }
 public extension App.Bsky.Unspecced {
     struct GetPopularFeedGenerators: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var limit: Optional < Int > 
+            @Indirect
+            public var query: Optional < String > 
+            public init(
+                cursor: Optional < String > = nil, 
+                limit: Optional < Int > = nil, 
+                query: Optional < String > = nil
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._limit = .wrapped(limit)
+                self._query = .wrapped(query)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: query.toQueryItems(name: "query"))
+
+                return parameters
+            }
+        }
         public struct Output: Decodable, Hashable {
+            @Indirect
+            public var cursor: Optional < String > 
             @Indirect
             public var feeds: [App.Bsky.Feed.Defs.GeneratorView]
             public init(
+                cursor: Optional < String > = nil, 
                 feeds: [App.Bsky.Feed.Defs.GeneratorView]
             ) {
+                self._cursor = .wrapped(cursor)
                 self._feeds = .wrapped(feeds)
             }
         }
         public init(
-        
+            parameters: Parameters
         ) {
-        
+            self.parameters = parameters
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "app.bsky.unspecced.getPopularFeedGenerators"
+        public let parameters: Parameters
     }
 }
 public extension App.Bsky.Unspecced {
@@ -2853,6 +3007,8 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var createdBy: String
         @Indirect
+        public var durationInHours: Optional < Int > 
+        @Indirect
         public var id: Int
         @Indirect
         public var negateLabelVals: Optional < [String] > 
@@ -2871,6 +3027,7 @@ public extension Com.Atproto.Admin.Defs {
             createLabelVals: Optional < [String] > = nil, 
             createdAt: Date, 
             createdBy: String, 
+            durationInHours: Optional < Int > = nil, 
             id: Int, 
             negateLabelVals: Optional < [String] > = nil, 
             reason: String, 
@@ -2883,6 +3040,7 @@ public extension Com.Atproto.Admin.Defs {
             self._createLabelVals = .wrapped(createLabelVals)
             self._createdAt = .wrapped(createdAt)
             self._createdBy = .wrapped(createdBy)
+            self._durationInHours = .wrapped(durationInHours)
             self._id = .wrapped(id)
             self._negateLabelVals = .wrapped(negateLabelVals)
             self._reason = .wrapped(reason)
@@ -2899,12 +3057,16 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var action: Com.Atproto.Admin.Defs.ActionType
         @Indirect
+        public var durationInHours: Optional < Int > 
+        @Indirect
         public var id: Int
         public init(
             action: Com.Atproto.Admin.Defs.ActionType, 
+            durationInHours: Optional < Int > = nil, 
             id: Int
         ) {
             self._action = .wrapped(action)
+            self._durationInHours = .wrapped(durationInHours)
             self._id = .wrapped(id)
         }
         public static let typeValue = "com.atproto.admin.defs#actionViewCurrent"
@@ -2920,6 +3082,8 @@ public extension Com.Atproto.Admin.Defs {
         public var createdAt: Date
         @Indirect
         public var createdBy: String
+        @Indirect
+        public var durationInHours: Optional < Int > 
         @Indirect
         public var id: Int
         @Indirect
@@ -2939,6 +3103,7 @@ public extension Com.Atproto.Admin.Defs {
             createLabelVals: Optional < [String] > = nil, 
             createdAt: Date, 
             createdBy: String, 
+            durationInHours: Optional < Int > = nil, 
             id: Int, 
             negateLabelVals: Optional < [String] > = nil, 
             reason: String, 
@@ -2951,6 +3116,7 @@ public extension Com.Atproto.Admin.Defs {
             self._createLabelVals = .wrapped(createLabelVals)
             self._createdAt = .wrapped(createdAt)
             self._createdBy = .wrapped(createdBy)
+            self._durationInHours = .wrapped(durationInHours)
             self._id = .wrapped(id)
             self._negateLabelVals = .wrapped(negateLabelVals)
             self._reason = .wrapped(reason)
@@ -3157,6 +3323,8 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var indexedAt: Date
         @Indirect
+        public var inviteNote: Optional < String > 
+        @Indirect
         public var invitedBy: Optional < Com.Atproto.Server.Defs.InviteCode > 
         @Indirect
         public var invitesDisabled: Optional < Bool > 
@@ -3169,6 +3337,7 @@ public extension Com.Atproto.Admin.Defs {
             email: Optional < String > = nil, 
             handle: String, 
             indexedAt: Date, 
+            inviteNote: Optional < String > = nil, 
             invitedBy: Optional < Com.Atproto.Server.Defs.InviteCode > = nil, 
             invitesDisabled: Optional < Bool > = nil, 
             moderation: Com.Atproto.Admin.Defs.Moderation, 
@@ -3178,6 +3347,7 @@ public extension Com.Atproto.Admin.Defs {
             self._email = .wrapped(email)
             self._handle = .wrapped(handle)
             self._indexedAt = .wrapped(indexedAt)
+            self._inviteNote = .wrapped(inviteNote)
             self._invitedBy = .wrapped(invitedBy)
             self._invitesDisabled = .wrapped(invitesDisabled)
             self._moderation = .wrapped(moderation)
@@ -3197,6 +3367,8 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var indexedAt: Date
         @Indirect
+        public var inviteNote: Optional < String > 
+        @Indirect
         public var invitedBy: Optional < Com.Atproto.Server.Defs.InviteCode > 
         @Indirect
         public var invites: Optional < [Com.Atproto.Server.Defs.InviteCode] > 
@@ -3213,6 +3385,7 @@ public extension Com.Atproto.Admin.Defs {
             email: Optional < String > = nil, 
             handle: String, 
             indexedAt: Date, 
+            inviteNote: Optional < String > = nil, 
             invitedBy: Optional < Com.Atproto.Server.Defs.InviteCode > = nil, 
             invites: Optional < [Com.Atproto.Server.Defs.InviteCode] > = nil, 
             invitesDisabled: Optional < Bool > = nil, 
@@ -3224,6 +3397,7 @@ public extension Com.Atproto.Admin.Defs {
             self._email = .wrapped(email)
             self._handle = .wrapped(handle)
             self._indexedAt = .wrapped(indexedAt)
+            self._inviteNote = .wrapped(inviteNote)
             self._invitedBy = .wrapped(invitedBy)
             self._invites = .wrapped(invites)
             self._invitesDisabled = .wrapped(invitesDisabled)
@@ -3349,10 +3523,14 @@ public extension Com.Atproto.Admin {
         public struct Input: Encodable {
             @Indirect
             public var account: String
+            @Indirect
+            public var note: Optional < String > 
             public init(
-                account: String
+                account: String, 
+                note: Optional < String > = nil
             ) {
                 self._account = .wrapped(account)
+                self._note = .wrapped(note)
             }
         }
         public init(
@@ -3395,10 +3573,14 @@ public extension Com.Atproto.Admin {
         public struct Input: Encodable {
             @Indirect
             public var account: String
+            @Indirect
+            public var note: Optional < String > 
             public init(
-                account: String
+                account: String, 
+                note: Optional < String > = nil
             ) {
                 self._account = .wrapped(account)
+                self._note = .wrapped(note)
             }
         }
         public init(
@@ -3573,6 +3755,8 @@ public extension Com.Atproto.Admin {
             @Indirect
             public var actionType: Optional < String > 
             @Indirect
+            public var actionedBy: Optional < String > 
+            @Indirect
             public var cursor: Optional < String > 
             @Indirect
             public var ignoreSubjects: Optional < [String] > 
@@ -3588,6 +3772,7 @@ public extension Com.Atproto.Admin {
             public var subject: Optional < String > 
             public init(
                 actionType: Optional < String > = nil, 
+                actionedBy: Optional < String > = nil, 
                 cursor: Optional < String > = nil, 
                 ignoreSubjects: Optional < [String] > = nil, 
                 limit: Optional < Int > = nil, 
@@ -3597,6 +3782,7 @@ public extension Com.Atproto.Admin {
                 subject: Optional < String > = nil
             ) {
                 self._actionType = .wrapped(actionType)
+                self._actionedBy = .wrapped(actionedBy)
                 self._cursor = .wrapped(cursor)
                 self._ignoreSubjects = .wrapped(ignoreSubjects)
                 self._limit = .wrapped(limit)
@@ -3608,6 +3794,7 @@ public extension Com.Atproto.Admin {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem]()
                 parameters.append(contentsOf: actionType.toQueryItems(name: "actionType"))
+                parameters.append(contentsOf: actionedBy.toQueryItems(name: "actionedBy"))
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: ignoreSubjects.toQueryItems(name: "ignoreSubjects"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
@@ -3844,6 +4031,44 @@ public extension Com.Atproto.Admin {
     }
 }
 public extension Com.Atproto.Admin {
+    struct SendEmail: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var content: String
+            @Indirect
+            public var recipientDid: String
+            @Indirect
+            public var subject: Optional < String > 
+            public init(
+                content: String, 
+                recipientDid: String, 
+                subject: Optional < String > = nil
+            ) {
+                self._content = .wrapped(content)
+                self._recipientDid = .wrapped(recipientDid)
+                self._subject = .wrapped(subject)
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var sent: Bool
+            public init(
+                sent: Bool
+            ) {
+                self._sent = .wrapped(sent)
+            }
+        }
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.admin.sendEmail"
+        public let input: Input?
+    }
+}
+public extension Com.Atproto.Admin {
     struct TakeModerationAction: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
@@ -3852,6 +4077,8 @@ public extension Com.Atproto.Admin {
             public var createLabelVals: Optional < [String] > 
             @Indirect
             public var createdBy: String
+            @Indirect
+            public var durationInHours: Optional < Int > 
             @Indirect
             public var negateLabelVals: Optional < [String] > 
             @Indirect
@@ -3864,6 +4091,7 @@ public extension Com.Atproto.Admin {
                 action: String, 
                 createLabelVals: Optional < [String] > = nil, 
                 createdBy: String, 
+                durationInHours: Optional < Int > = nil, 
                 negateLabelVals: Optional < [String] > = nil, 
                 reason: String, 
                 subject: Union2 < Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef > , 
@@ -3872,6 +4100,7 @@ public extension Com.Atproto.Admin {
                 self._action = .wrapped(action)
                 self._createLabelVals = .wrapped(createLabelVals)
                 self._createdBy = .wrapped(createdBy)
+                self._durationInHours = .wrapped(durationInHours)
                 self._negateLabelVals = .wrapped(negateLabelVals)
                 self._reason = .wrapped(reason)
                 self._subject = .wrapped(subject)
@@ -4026,6 +4255,30 @@ public extension Com.Atproto.Label.Defs {
             self._val = .wrapped(val)
         }
         public static let typeValue = "com.atproto.label.defs#label"
+    }
+}
+public extension Com.Atproto.Label.Defs {
+    public struct SelfLabel: UnionCodable, Hashable {
+        @Indirect
+        public var val: String
+        public init(
+            val: String
+        ) {
+            self._val = .wrapped(val)
+        }
+        public static let typeValue = "com.atproto.label.defs#selfLabel"
+    }
+}
+public extension Com.Atproto.Label.Defs {
+    public struct SelfLabels: UnionCodable, Hashable {
+        @Indirect
+        public var values: [Com.Atproto.Label.Defs.SelfLabel]
+        public init(
+            values: [Com.Atproto.Label.Defs.SelfLabel]
+        ) {
+            self._values = .wrapped(values)
+        }
+        public static let typeValue = "com.atproto.label.defs#selfLabels"
     }
 }
 public extension Com.Atproto.Label {
