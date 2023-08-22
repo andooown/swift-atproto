@@ -61,4 +61,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh pr create -B main --head -t "Update bluesky-social/atproto to $(git submodule status atproto | awk '{ print $1 }')" -b ""
+          TITLE = "Update bluesky-social/atproto to $(git submodule status atproto | awk '{ print $1 }')"
+          gh pr create -B main --head -t "$TITLE" -b ""
