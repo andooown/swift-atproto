@@ -64,5 +64,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          git diff --stat main..${{ steps.switch-branch.outputs.branch-name }}
           TITLE="Update bluesky-social/atproto to $(git submodule status atproto | awk '{ print $1 }')"
           gh pr create -B main --head ${{ steps.switch-branch.outputs.branch-name }} -t "$TITLE" -b ""
