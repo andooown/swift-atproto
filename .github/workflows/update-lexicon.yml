@@ -58,5 +58,7 @@ jobs:
           fi
       - name: Create PR
         if: ${{ steps.commit-submodule.outputs.commit == 'true' || steps.commit-generated.outputs.commit == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh pr create -B main -t "Update bluesky-social/atproto to $(git submodule status atproto | awk '{ print $1 }')" -b ""
