@@ -20,8 +20,11 @@ jobs:
           # ref: main
           submodules: true
       - name: Switch to new branch
+        id: switch-branch
         run: |
-          git switch -c update-lexicon/$(date "+%Y-%m-%d-%H-%M-%S")
+          BRANCH_NAME="update-lexicon/$(date "+%Y-%m-%d-%H-%M-%S")"
+          echo "branch-name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          git switch -c $BRANCH_NAME
       - name: Update submodule
         run: git submodule update --remote --recursive atproto
       - name: Commit updates of submodule
@@ -62,5 +65,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           TITLE="Update bluesky-social/atproto to $(git submodule status atproto | awk '{ print $1 }')"
-          echo $TITLE
-          gh pr create -B main --head -t "$TITLE" -b ""
+          gh pr create -B main --head ${{ steps.switch-branch.outputs.branch-name }} -t "$TITLE" -b ""
