@@ -56,10 +56,10 @@ jobs:
             git commit -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
             echo "commit=true" >> $GITHUB_OUTPUT
           fi
-      - name: Create PR
-        if: ${{ steps.commit-submodule.outputs.commit == 'true' || steps.commit-generated.outputs.commit == 'true' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          TITLE = "Update bluesky-social/atproto to $(git submodule status atproto | awk '{ print $1 }')"
-          gh pr create -B main --head -t "$TITLE" -b ""
+      # - name: Create PR
+      #   if: ${{ steps.commit-submodule.outputs.commit == 'true' || steps.commit-generated.outputs.commit == 'true' }}
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}
+      #   run: |
+      #     TITLE = "Update bluesky-social/atproto to $(git submodule status atproto | awk '{ print $1 }')"
+      #     gh pr create -B main --head -t "$TITLE" -b ""
