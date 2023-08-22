@@ -1,5 +1,5 @@
 TOOLS_PACKAGE_PATH := Tools
-TOOLS_PATH := ${TOOLS_PACKAGE_PATH}/.build/release.PHONY: gyb
+TOOLS_PATH := ${TOOLS_PACKAGE_PATH}/.build/release
 
 
 gyb:
