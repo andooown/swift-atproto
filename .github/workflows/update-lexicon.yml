@@ -1,0 +1,68 @@
+name: Update Lexicons
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: 5.8
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+          submodules: true
+      - name: Switch to new branch
+        id: switch-branch
+        run: |
+          BRANCH_NAME="update-lexicon/$(date "+%Y-%m-%d-%H-%M-%S")"
+          echo "branch-name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          git switch -c $BRANCH_NAME
+      - name: Update submodule
+        run: git submodule update --remote --recursive atproto
+      - name: Commit updates of submodule
+        id: commit-submodule
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git commit -m "Update bluesky-social/atproto to $(git submodule status atproto | awk '{ print $1 }') at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
+            echo "commit=true" >> $GITHUB_OUTPUT
+          fi
+      - uses: actions/cache@v3
+        id: tools-cache
+        with:
+          path: Tools/.build
+          key: ${{ runner.os }}-spm-tools-${{ hashFiles('**/Tools/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-tools-
+      - name: Build tools
+        if: steps.tools-cache.outputs.cache-hit != 'true'
+        run: make build-tools
+      - name: Generate
+        run: make lexicon-gen
+      - name: Commit updates of generated files
+        id: commit-generated
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git commit -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
+            echo "commit=true" >> $GITHUB_OUTPUT
+          fi
+      - name: Create PR
+        if: ${{ steps.commit-submodule.outputs.commit == 'true' || steps.commit-generated.outputs.commit == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git diff --stat main..${{ steps.switch-branch.outputs.branch-name }}
+          TITLE="Update bluesky-social/atproto to $(git submodule status atproto | awk '{ print $1 }')"
+          gh pr create -B main --head ${{ steps.switch-branch.outputs.branch-name }} -t "$TITLE" -b ""
