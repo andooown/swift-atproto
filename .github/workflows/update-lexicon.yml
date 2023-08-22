@@ -36,7 +36,7 @@ jobs:
         run: make build-tools
       - name: Generate
         run: make lexicon-gen
-      - name: Commit updates of submodules 
+      - name: Commit updates of generated files
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git add .
