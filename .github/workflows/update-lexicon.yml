@@ -1,0 +1,56 @@
+name: Update Lexicons
+
+on:
+  workflow_dispatch:
+  push:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: 5.8
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+          submodules: true
+      - name: Switch to new branch
+        run: |
+          git switch -c update-lexicon/$(date "%Y%m%d-%H%M%S")
+      - name: Update submodule
+        run: git submodule update --remote --recursive atproto
+      - name: Commit updates of submodule
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git commit -m "Update bluesky-social/atproto to $(git submodule status atproto | awk '{ print $1 }') at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
+          fi
+      - name: Build tools
+        run: make build-tools
+      - name: Generate
+        run: make lexicon-gen
+      - name: Commit updates of submodules 
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git commit -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
+          fi
+      - name: Check diff
+        id: diff
+        run: |
+          if [ -n "$(git rev-list main..HEAD)" ]; then
+            echo "has-diff=true" >> $GITHUB_OUTPUT
+          fi
+      - name: Create PR
+        if: ${{ steps.diff.outputs.has-diff == "true" }}
+        run: |
+          gh pr create -B main -t Update bluesky-social/atproto to $(git submodule status atproto | awk '{ print $1 }') -b ""
