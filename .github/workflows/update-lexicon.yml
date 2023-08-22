@@ -21,7 +21,7 @@ jobs:
           submodules: true
       - name: Switch to new branch
         run: |
-          git switch -c update-lexicon/$(date "%Y%m%d-%H%M%S")
+          git switch -c update-lexicon/$(date "+%Y-%m-%d-%H-%M-%S")
       - name: Update submodule
         run: git submodule update --remote --recursive atproto
       - name: Commit updates of submodule
