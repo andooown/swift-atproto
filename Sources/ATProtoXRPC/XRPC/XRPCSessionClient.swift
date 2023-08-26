@@ -105,6 +105,9 @@ private extension XRPCSessionClient {
         }
 
         switch httpResponse.statusCode {
+        case 200..<300 where Response.self == EmptyOutput.self:
+            return EmptyOutput() as! Response
+
         case 200..<300:
             let decoded: Response
             do {
