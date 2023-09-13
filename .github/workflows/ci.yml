@@ -47,4 +47,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test
-        run: xcodebuild test -scheme swift-atproto-Package -destination "OS=17.0"
+        run: |
+          xcodebuild test \
+            -scheme swift-atproto-Package \
+            -destination "platform=iOS Simulator,OS=17.0"
