@@ -49,6 +49,7 @@ let package = Package(
         .target(
             name: "ATProtoXRPC",
             dependencies: [
+                .target(name: "ATProtoCore"),
                 .product(name: "Parsing", package: "swift-parsing"),
             ],
             exclude: [
