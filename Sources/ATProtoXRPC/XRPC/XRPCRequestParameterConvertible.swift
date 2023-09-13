@@ -1,3 +1,4 @@
+import ATProtoCore
 import Foundation
 
 public protocol XRPCRequestParameterConvertible {
@@ -40,9 +41,9 @@ extension Date: XRPCRequestParameterConvertible {
     }
 }
 
-extension URL: XRPCRequestParameterConvertible {
+extension ATURI: XRPCRequestParameterConvertible {
     public func toQueryItems(name: String) -> [URLQueryItem] {
-        [URLQueryItem(name: name, value: absoluteString)]
+        [URLQueryItem(name: name, value: toString())]
     }
 }
 
