@@ -19,6 +19,14 @@ public struct ATURI {
         self.query = match[Self.queryRef].map(String.init)
         self.hash = match[Self.hashRef].map(String.init)
     }
+
+    public var collection: String? {
+        path?.split(separator: "/").filter { !$0.isEmpty }.first.map(String.init)
+    }
+
+    public var rkey: String? {
+        path?.split(separator: "/").filter { !$0.isEmpty }.dropFirst().first.map(String.init)
+    }
 }
 
 private extension ATURI {

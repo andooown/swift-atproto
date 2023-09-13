@@ -4,7 +4,7 @@ import XCTest
 
 final class ATURITests: XCTestCase {
     // https://github.com/bluesky-social/atproto/blob/0533fab68ea32df4e00948ddfc2422c6f900223a/packages/syntax/tests/aturi.test.ts#L4
-    func testInit() throws {
+    func testParsing() throws {
         let cases: [(String, String, String?, String?, String?, UInt)] = [
             ("foo.com", "foo.com", nil, nil, nil, #line),
             ("at://foo.com", "foo.com", nil, nil, nil, #line),
@@ -282,6 +282,22 @@ final class ATURITests: XCTestCase {
             XCTAssertEqual(uri.path, path, line: line)
             XCTAssertEqual(uri.query, query, line: line)
             XCTAssertEqual(uri.hash, hash, line: line)
+        }
+    }
+
+    // https://github.com/bluesky-social/atproto/blob/0533fab68ea32df4e00948ddfc2422c6f900223a/packages/syntax/tests/aturi.test.ts#L258
+    func testATProtoSpecificParsing() throws {
+        let cases: [(String, String?, String?, UInt)] = [
+            ("at://foo.com", nil, nil, #line),
+            ("at://foo.com/com.example.foo", "com.example.foo", nil, #line),
+            ("at://foo.com/com.example.foo/123", "com.example.foo", "123", #line),
+        ]
+
+        for (input, collection, rkey, line) in cases {
+            let uri = try XCTUnwrap(ATURI(string: input), line: line)
+
+            XCTAssertEqual(uri.collection, collection, line: line)
+            XCTAssertEqual(uri.rkey, rkey, line: line)
         }
     }
 }
