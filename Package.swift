@@ -21,6 +21,10 @@ let package = Package(
             name: "ATProtoXRPC",
             targets: ["ATProtoXRPC"]
         ),
+        .library(
+            name: "ATProtoCore",
+            targets: ["ATProtoCore"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-parsing.git", from: "0.13.0"),
@@ -31,12 +35,14 @@ let package = Package(
             dependencies: [
                 "ATProtoAPI",
                 "ATProtoXRPC",
+                "ATProtoCore",
             ]
         ),
         .target(
             name: "ATProtoAPI",
             dependencies: [
-                "ATProtoXRPC"
+                "ATProtoXRPC",
+                "ATProtoCore",
             ]
         ),
         .target(
@@ -52,6 +58,15 @@ let package = Package(
             name: "ATProtoXRPCTests",
             dependencies: [
                 "ATProtoXRPC"
+            ]
+        ),
+        .target(
+            name: "ATProtoCore"
+        ),
+        .testTarget(
+            name: "ATProtoCoreTests",
+            dependencies: [
+                "ATProtoCore"
             ]
         ),
     ]
