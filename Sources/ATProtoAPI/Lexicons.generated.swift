@@ -98,7 +98,7 @@ public extension Com.Atproto {
     enum Sync {
     }
 }
-public typealias LexiconUnknownUnion = Union9 < App.Bsky.Actor.Profile, App.Bsky.Feed.Generator, App.Bsky.Feed.Like, App.Bsky.Feed.Post, App.Bsky.Feed.Repost, App.Bsky.Graph.Block, App.Bsky.Graph.Follow, App.Bsky.Graph.List, App.Bsky.Graph.Listitem > 
+public typealias LexiconUnknownUnion = Union10 < App.Bsky.Actor.Profile, App.Bsky.Feed.Generator, App.Bsky.Feed.Like, App.Bsky.Feed.Post, App.Bsky.Feed.Repost, App.Bsky.Graph.Block, App.Bsky.Graph.Follow, App.Bsky.Graph.List, App.Bsky.Graph.Listblock, App.Bsky.Graph.Listitem > 
 extension LexiconUnknownUnion {
     public var asProfile: App.Bsky.Actor.Profile? {
         asType0
@@ -124,8 +124,11 @@ extension LexiconUnknownUnion {
     public var asList: App.Bsky.Graph.List? {
         asType7
     }
-    public var asListitem: App.Bsky.Graph.Listitem? {
+    public var asListblock: App.Bsky.Graph.Listblock? {
         asType8
+    }
+    public var asListitem: App.Bsky.Graph.Listitem? {
+        asType9
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -157,7 +160,19 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    typealias Preferences = [Union3 < App.Bsky.Actor.Defs.AdultContentPref, App.Bsky.Actor.Defs.ContentLabelPref, App.Bsky.Actor.Defs.SavedFeedsPref > ]
+    public struct PersonalDetailsPref: UnionCodable, Hashable {
+        @Indirect
+        public var birthDate: Optional < Date > 
+        public init(
+            birthDate: Optional < Date > = nil
+        ) {
+            self._birthDate = .wrapped(birthDate)
+        }
+        public static let typeValue = "app.bsky.actor.defs#personalDetailsPref"
+    }
+}
+public extension App.Bsky.Actor.Defs {
+    typealias Preferences = [Union4 < App.Bsky.Actor.Defs.AdultContentPref, App.Bsky.Actor.Defs.ContentLabelPref, App.Bsky.Actor.Defs.SavedFeedsPref, App.Bsky.Actor.Defs.PersonalDetailsPref > ]
 }
 public extension App.Bsky.Actor.Defs {
     public struct ProfileView: UnionCodable, Hashable {
@@ -679,13 +694,33 @@ public extension App.Bsky.Embed.External {
     }
 }
 public extension App.Bsky.Embed.Images {
+    public struct AspectRatio: UnionCodable, Hashable {
+        @Indirect
+        public var height: Int
+        @Indirect
+        public var width: Int
+        public init(
+            height: Int, 
+            width: Int
+        ) {
+            self._height = .wrapped(height)
+            self._width = .wrapped(width)
+        }
+        public static let typeValue = "app.bsky.embed.images#aspectRatio"
+    }
+}
+public extension App.Bsky.Embed.Images {
     public struct Image: UnionCodable, Hashable {
         @Indirect
         public var alt: String
+        @Indirect
+        public var aspectRatio: Optional < App.Bsky.Embed.Images.AspectRatio > 
         public init(
-            alt: String
+            alt: String, 
+            aspectRatio: Optional < App.Bsky.Embed.Images.AspectRatio > = nil
         ) {
             self._alt = .wrapped(alt)
+            self._aspectRatio = .wrapped(aspectRatio)
         }
         public static let typeValue = "app.bsky.embed.images#image"
     }
@@ -719,15 +754,19 @@ public extension App.Bsky.Embed.Images {
         @Indirect
         public var alt: String
         @Indirect
+        public var aspectRatio: Optional < App.Bsky.Embed.Images.AspectRatio > 
+        @Indirect
         public var fullsize: String
         @Indirect
         public var thumb: String
         public init(
             alt: String, 
+            aspectRatio: Optional < App.Bsky.Embed.Images.AspectRatio > = nil, 
             fullsize: String, 
             thumb: String
         ) {
             self._alt = .wrapped(alt)
+            self._aspectRatio = .wrapped(aspectRatio)
             self._fullsize = .wrapped(fullsize)
             self._thumb = .wrapped(thumb)
         }
@@ -1798,6 +1837,51 @@ public extension App.Bsky.Feed {
     }
 }
 public extension App.Bsky.Feed {
+    struct GetSuggestedFeeds: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var limit: Optional < Int > 
+            public init(
+                cursor: Optional < String > = nil, 
+                limit: Optional < Int > = nil
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._limit = .wrapped(limit)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var feeds: [App.Bsky.Feed.Defs.GeneratorView]
+            public init(
+                cursor: Optional < String > = nil, 
+                feeds: [App.Bsky.Feed.Defs.GeneratorView]
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._feeds = .wrapped(feeds)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "app.bsky.feed.getSuggestedFeeds"
+        public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Feed {
     struct GetTimeline: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
@@ -2089,10 +2173,14 @@ public extension App.Bsky.Graph.Defs {
 public extension App.Bsky.Graph.Defs {
     public struct ListViewerState: UnionCodable, Hashable {
         @Indirect
+        public var blocked: Optional < ATURI > 
+        @Indirect
         public var muted: Optional < Bool > 
         public init(
+            blocked: Optional < ATURI > = nil, 
             muted: Optional < Bool > = nil
         ) {
+            self._blocked = .wrapped(blocked)
             self._muted = .wrapped(muted)
         }
         public static let typeValue = "app.bsky.graph.defs#listViewerState"
@@ -2324,6 +2412,51 @@ public extension App.Bsky.Graph {
     }
 }
 public extension App.Bsky.Graph {
+    struct GetListBlocks: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var limit: Optional < Int > 
+            public init(
+                cursor: Optional < String > = nil, 
+                limit: Optional < Int > = nil
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._limit = .wrapped(limit)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var lists: [App.Bsky.Graph.Defs.ListView]
+            public init(
+                cursor: Optional < String > = nil, 
+                lists: [App.Bsky.Graph.Defs.ListView]
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._lists = .wrapped(lists)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "app.bsky.graph.getListBlocks"
+        public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Graph {
     struct GetListMutes: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
@@ -2493,6 +2626,22 @@ public extension App.Bsky.Graph {
             self._purpose = .wrapped(purpose)
         }
         public static let typeValue = "app.bsky.graph.list"
+    }
+}
+public extension App.Bsky.Graph {
+    public struct Listblock: UnionCodable, Hashable {
+        @Indirect
+        public var createdAt: Date
+        @Indirect
+        public var subject: ATURI
+        public init(
+            createdAt: Date, 
+            subject: ATURI
+        ) {
+            self._createdAt = .wrapped(createdAt)
+            self._subject = .wrapped(subject)
+        }
+        public static let typeValue = "app.bsky.graph.listblock"
     }
 }
 public extension App.Bsky.Graph {
@@ -2727,6 +2876,39 @@ public extension App.Bsky.Notification.ListNotifications {
             self._uri = .wrapped(uri)
         }
         public static let typeValue = "app.bsky.notification.listNotifications#notification"
+    }
+}
+public extension App.Bsky.Notification {
+    struct RegisterPush: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var appId: String
+            @Indirect
+            public var platform: String
+            @Indirect
+            public var serviceDid: String
+            @Indirect
+            public var token: String
+            public init(
+                appId: String, 
+                platform: String, 
+                serviceDid: String, 
+                token: String
+            ) {
+                self._appId = .wrapped(appId)
+                self._platform = .wrapped(platform)
+                self._serviceDid = .wrapped(serviceDid)
+                self._token = .wrapped(token)
+            }
+        }
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "app.bsky.notification.registerPush"
+        public let input: Input?
     }
 }
 public extension App.Bsky.Notification {
@@ -3892,31 +4074,6 @@ public extension Com.Atproto.Admin {
     }
 }
 public extension Com.Atproto.Admin {
-    struct RebaseRepo: XRPCRequest {
-        public struct Input: Encodable {
-            @Indirect
-            public var repo: String
-            @Indirect
-            public var swapCommit: Optional < String > 
-            public init(
-                repo: String, 
-                swapCommit: Optional < String > = nil
-            ) {
-                self._repo = .wrapped(repo)
-                self._swapCommit = .wrapped(swapCommit)
-            }
-        }
-        public init(
-            input: Input
-        ) {
-            self.input = input
-        }
-        public let type = XRPCRequestType.procedure
-        public let requestIdentifier = "com.atproto.admin.rebaseRepo"
-        public let input: Input?
-    }
-}
-public extension Com.Atproto.Admin {
     struct ResolveModerationReports: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
@@ -4886,31 +5043,6 @@ public extension Com.Atproto.Repo {
     }
 }
 public extension Com.Atproto.Repo {
-    struct RebaseRepo: XRPCRequest {
-        public struct Input: Encodable {
-            @Indirect
-            public var repo: String
-            @Indirect
-            public var swapCommit: Optional < String > 
-            public init(
-                repo: String, 
-                swapCommit: Optional < String > = nil
-            ) {
-                self._repo = .wrapped(repo)
-                self._swapCommit = .wrapped(swapCommit)
-            }
-        }
-        public init(
-            input: Input
-        ) {
-            self.input = input
-        }
-        public let type = XRPCRequestType.procedure
-        public let requestIdentifier = "com.atproto.repo.rebaseRepo"
-        public let input: Input?
-    }
-}
-public extension Com.Atproto.Repo {
     public struct StrongRef: UnionCodable, Hashable {
         @Indirect
         public var cid: String
@@ -5605,19 +5737,14 @@ public extension Com.Atproto.Sync {
     struct GetCheckout: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var commit: Optional < String > 
-            @Indirect
             public var did: String
             public init(
-                commit: Optional < String > = nil, 
                 did: String
             ) {
-                self._commit = .wrapped(commit)
                 self._did = .wrapped(did)
             }
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem]()
-                parameters.append(contentsOf: commit.toQueryItems(name: "commit"))
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
 
                 return parameters
@@ -5630,52 +5757,6 @@ public extension Com.Atproto.Sync {
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "com.atproto.sync.getCheckout"
-        public let parameters: Parameters
-    }
-}
-public extension Com.Atproto.Sync {
-    struct GetCommitPath: XRPCRequest {
-        public struct Parameters: XRPCRequestParametersConvertible {
-            @Indirect
-            public var did: String
-            @Indirect
-            public var earliest: Optional < String > 
-            @Indirect
-            public var latest: Optional < String > 
-            public init(
-                did: String, 
-                earliest: Optional < String > = nil, 
-                latest: Optional < String > = nil
-            ) {
-                self._did = .wrapped(did)
-                self._earliest = .wrapped(earliest)
-                self._latest = .wrapped(latest)
-            }
-            public var queryItems: [URLQueryItem] {
-                var parameters = [URLQueryItem]()
-                parameters.append(contentsOf: did.toQueryItems(name: "did"))
-                parameters.append(contentsOf: earliest.toQueryItems(name: "earliest"))
-                parameters.append(contentsOf: latest.toQueryItems(name: "latest"))
-
-                return parameters
-            }
-        }
-        public struct Output: Decodable, Hashable {
-            @Indirect
-            public var commits: [String]
-            public init(
-                commits: [String]
-            ) {
-                self._commits = .wrapped(commits)
-            }
-        }
-        public init(
-            parameters: Parameters
-        ) {
-            self.parameters = parameters
-        }
-        public let type = XRPCRequestType.query
-        public let requestIdentifier = "com.atproto.sync.getCommitPath"
         public let parameters: Parameters
     }
 }
@@ -5712,6 +5793,46 @@ public extension Com.Atproto.Sync {
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "com.atproto.sync.getHead"
+        public let parameters: Parameters
+    }
+}
+public extension Com.Atproto.Sync {
+    struct GetLatestCommit: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var did: String
+            public init(
+                did: String
+            ) {
+                self._did = .wrapped(did)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: did.toQueryItems(name: "did"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var cid: String
+            @Indirect
+            public var rev: String
+            public init(
+                cid: String, 
+                rev: String
+            ) {
+                self._cid = .wrapped(cid)
+                self._rev = .wrapped(rev)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "com.atproto.sync.getLatestCommit"
         public let parameters: Parameters
     }
 }
@@ -5763,23 +5884,18 @@ public extension Com.Atproto.Sync {
             @Indirect
             public var did: String
             @Indirect
-            public var earliest: Optional < String > 
-            @Indirect
-            public var latest: Optional < String > 
+            public var since: Optional < String > 
             public init(
                 did: String, 
-                earliest: Optional < String > = nil, 
-                latest: Optional < String > = nil
+                since: Optional < String > = nil
             ) {
                 self._did = .wrapped(did)
-                self._earliest = .wrapped(earliest)
-                self._latest = .wrapped(latest)
+                self._since = .wrapped(since)
             }
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem]()
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
-                parameters.append(contentsOf: earliest.toQueryItems(name: "earliest"))
-                parameters.append(contentsOf: latest.toQueryItems(name: "latest"))
+                parameters.append(contentsOf: since.toQueryItems(name: "since"))
 
                 return parameters
             }
@@ -5798,25 +5914,30 @@ public extension Com.Atproto.Sync {
     struct ListBlobs: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
             public var did: String
             @Indirect
-            public var earliest: Optional < String > 
+            public var limit: Optional < Int > 
             @Indirect
-            public var latest: Optional < String > 
+            public var since: Optional < String > 
             public init(
+                cursor: Optional < String > = nil, 
                 did: String, 
-                earliest: Optional < String > = nil, 
-                latest: Optional < String > = nil
+                limit: Optional < Int > = nil, 
+                since: Optional < String > = nil
             ) {
+                self._cursor = .wrapped(cursor)
                 self._did = .wrapped(did)
-                self._earliest = .wrapped(earliest)
-                self._latest = .wrapped(latest)
+                self._limit = .wrapped(limit)
+                self._since = .wrapped(since)
             }
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
-                parameters.append(contentsOf: earliest.toQueryItems(name: "earliest"))
-                parameters.append(contentsOf: latest.toQueryItems(name: "latest"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: since.toQueryItems(name: "since"))
 
                 return parameters
             }
@@ -5824,10 +5945,14 @@ public extension Com.Atproto.Sync {
         public struct Output: Decodable, Hashable {
             @Indirect
             public var cids: [String]
+            @Indirect
+            public var cursor: Optional < String > 
             public init(
-                cids: [String]
+                cids: [String], 
+                cursor: Optional < String > = nil
             ) {
                 self._cids = .wrapped(cids)
+                self._cursor = .wrapped(cursor)
             }
         }
         public init(
@@ -5952,7 +6077,11 @@ public extension Com.Atproto.Sync.SubscribeRepos {
         @Indirect
         public var repo: String
         @Indirect
+        public var rev: String
+        @Indirect
         public var seq: Int
+        @Indirect
+        public var since: String
         @Indirect
         public var time: Date
         @Indirect
@@ -5961,14 +6090,18 @@ public extension Com.Atproto.Sync.SubscribeRepos {
             ops: [Com.Atproto.Sync.SubscribeRepos.RepoOp], 
             rebase: Bool, 
             repo: String, 
+            rev: String, 
             seq: Int, 
+            since: String, 
             time: Date, 
             tooBig: Bool
         ) {
             self._ops = .wrapped(ops)
             self._rebase = .wrapped(rebase)
             self._repo = .wrapped(repo)
+            self._rev = .wrapped(rev)
             self._seq = .wrapped(seq)
+            self._since = .wrapped(since)
             self._time = .wrapped(time)
             self._tooBig = .wrapped(tooBig)
         }
