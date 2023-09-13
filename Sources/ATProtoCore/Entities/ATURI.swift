@@ -62,6 +62,29 @@ public struct ATURI: Hashable {
     }
 }
 
+extension ATURI: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.toString())
+    }
+}
+
+extension ATURI: Decodable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let string = try container.decode(String.self)
+
+        guard let atURI = Self(string: string) else {
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Invalid AT URI string: \(string)"
+            )
+        }
+
+        self = atURI
+    }
+}
+
 private extension ATURI {
     static let hostRef = Reference(Substring.self)
     static let pathRef = Reference(Substring?.self)

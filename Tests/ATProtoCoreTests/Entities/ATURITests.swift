@@ -332,4 +332,24 @@ final class ATURITests: XCTestCase {
         uri.hash = "hash"
         XCTAssertEqual(uri.toString(), "at://foo.com/foo?foo=bar&baz=buux#hash")
     }
+
+    func testEncoding() throws {
+        let uri = try XCTUnwrap(ATURI(string: "at://did:A:B/collection/rkey?foo=bar#hash"))
+
+        let encoder = JSONEncoder()
+        XCTAssertEqual(
+            String(data: try encoder.encode(uri), encoding: .utf8),
+            #""at:\/\/did:A:B\/collection\/rkey?foo=bar#hash""#
+        )
+    }
+
+    func testDecoding() throws {
+        let uri = try XCTUnwrap(ATURI(string: "at://did:A:B/collection/rkey?foo=bar#hash"))
+
+        let decoder = JSONDecoder()
+        XCTAssertEqual(
+            try decoder.decode(ATURI.self, from: #""at:\/\/did:A:B\/collection\/rkey?foo=bar#hash""#.data(using: .utf8)!),
+            uri
+        )
+    }
 }
