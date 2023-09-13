@@ -16,6 +16,9 @@ swift-atproto includes the following libraries.
 ### ATProtoXRPC
 `ATProtoXRPC` is a library that provides XRPC client and fundamental types for XRPC.
 
+### ATProtoCore
+`ATProtoCore` is a library that provides fundamental types for AT Protocol.
+
 ## Author
 - [andooown](https://github.com/andooown)
 
