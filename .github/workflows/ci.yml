@@ -50,4 +50,4 @@ jobs:
         run: |
           xcodebuild test \
             -scheme swift-atproto-Package \
-            -destination "platform=iOS Simulator,OS=17.0"
+            -destination "platform=iOS Simulator,OS=17.0" | xcpretty
