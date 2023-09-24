@@ -98,7 +98,7 @@ public extension Com.Atproto {
     enum Sync {
     }
 }
-public typealias LexiconUnknownUnion = Union10 < App.Bsky.Actor.Profile, App.Bsky.Feed.Generator, App.Bsky.Feed.Like, App.Bsky.Feed.Post, App.Bsky.Feed.Repost, App.Bsky.Graph.Block, App.Bsky.Graph.Follow, App.Bsky.Graph.List, App.Bsky.Graph.Listblock, App.Bsky.Graph.Listitem > 
+public typealias LexiconUnknownUnion = Union11 < App.Bsky.Actor.Profile, App.Bsky.Feed.Generator, App.Bsky.Feed.Like, App.Bsky.Feed.Post, App.Bsky.Feed.Repost, App.Bsky.Feed.Threadgate, App.Bsky.Graph.Block, App.Bsky.Graph.Follow, App.Bsky.Graph.List, App.Bsky.Graph.Listblock, App.Bsky.Graph.Listitem > 
 extension LexiconUnknownUnion {
     public var asProfile: App.Bsky.Actor.Profile? {
         asType0
@@ -115,20 +115,23 @@ extension LexiconUnknownUnion {
     public var asRepost: App.Bsky.Feed.Repost? {
         asType4
     }
-    public var asBlock: App.Bsky.Graph.Block? {
+    public var asThreadgate: App.Bsky.Feed.Threadgate? {
         asType5
     }
-    public var asFollow: App.Bsky.Graph.Follow? {
+    public var asBlock: App.Bsky.Graph.Block? {
         asType6
     }
-    public var asList: App.Bsky.Graph.List? {
+    public var asFollow: App.Bsky.Graph.Follow? {
         asType7
     }
-    public var asListblock: App.Bsky.Graph.Listblock? {
+    public var asList: App.Bsky.Graph.List? {
         asType8
     }
-    public var asListitem: App.Bsky.Graph.Listitem? {
+    public var asListblock: App.Bsky.Graph.Listblock? {
         asType9
+    }
+    public var asListitem: App.Bsky.Graph.Listitem? {
+        asType10
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -160,6 +163,38 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
+    public struct FeedViewPref: UnionCodable, Hashable {
+        @Indirect
+        public var feed: String
+        @Indirect
+        public var hideQuotePosts: Optional < Bool > 
+        @Indirect
+        public var hideReplies: Optional < Bool > 
+        @Indirect
+        public var hideRepliesByLikeCount: Optional < Int > 
+        @Indirect
+        public var hideRepliesByUnfollowed: Optional < Bool > 
+        @Indirect
+        public var hideReposts: Optional < Bool > 
+        public init(
+            feed: String, 
+            hideQuotePosts: Optional < Bool > = nil, 
+            hideReplies: Optional < Bool > = nil, 
+            hideRepliesByLikeCount: Optional < Int > = nil, 
+            hideRepliesByUnfollowed: Optional < Bool > = nil, 
+            hideReposts: Optional < Bool > = nil
+        ) {
+            self._feed = .wrapped(feed)
+            self._hideQuotePosts = .wrapped(hideQuotePosts)
+            self._hideReplies = .wrapped(hideReplies)
+            self._hideRepliesByLikeCount = .wrapped(hideRepliesByLikeCount)
+            self._hideRepliesByUnfollowed = .wrapped(hideRepliesByUnfollowed)
+            self._hideReposts = .wrapped(hideReposts)
+        }
+        public static let typeValue = "app.bsky.actor.defs#feedViewPref"
+    }
+}
+public extension App.Bsky.Actor.Defs {
     public struct PersonalDetailsPref: UnionCodable, Hashable {
         @Indirect
         public var birthDate: Optional < Date > 
@@ -172,7 +207,7 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    typealias Preferences = [Union4 < App.Bsky.Actor.Defs.AdultContentPref, App.Bsky.Actor.Defs.ContentLabelPref, App.Bsky.Actor.Defs.SavedFeedsPref, App.Bsky.Actor.Defs.PersonalDetailsPref > ]
+    typealias Preferences = [Union6 < App.Bsky.Actor.Defs.AdultContentPref, App.Bsky.Actor.Defs.ContentLabelPref, App.Bsky.Actor.Defs.SavedFeedsPref, App.Bsky.Actor.Defs.PersonalDetailsPref, App.Bsky.Actor.Defs.FeedViewPref, App.Bsky.Actor.Defs.ThreadViewPref > ]
 }
 public extension App.Bsky.Actor.Defs {
     public struct ProfileView: UnionCodable, Hashable {
@@ -316,6 +351,22 @@ public extension App.Bsky.Actor.Defs {
             self._saved = .wrapped(saved)
         }
         public static let typeValue = "app.bsky.actor.defs#savedFeedsPref"
+    }
+}
+public extension App.Bsky.Actor.Defs {
+    public struct ThreadViewPref: UnionCodable, Hashable {
+        @Indirect
+        public var prioritizeFollowedUsers: Optional < Bool > 
+        @Indirect
+        public var sort: Optional < String > 
+        public init(
+            prioritizeFollowedUsers: Optional < Bool > = nil, 
+            sort: Optional < String > = nil
+        ) {
+            self._prioritizeFollowedUsers = .wrapped(prioritizeFollowedUsers)
+            self._sort = .wrapped(sort)
+        }
+        public static let typeValue = "app.bsky.actor.defs#threadViewPref"
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -1058,6 +1109,8 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var repostCount: Optional < Int > 
         @Indirect
+        public var threadgate: Optional < App.Bsky.Feed.Defs.ThreadgateView > 
+        @Indirect
         public var uri: ATURI
         @Indirect
         public var viewer: Optional < App.Bsky.Feed.Defs.ViewerState > 
@@ -1071,6 +1124,7 @@ public extension App.Bsky.Feed.Defs {
             record: LexiconUnknownUnion, 
             replyCount: Optional < Int > = nil, 
             repostCount: Optional < Int > = nil, 
+            threadgate: Optional < App.Bsky.Feed.Defs.ThreadgateView > = nil, 
             uri: ATURI, 
             viewer: Optional < App.Bsky.Feed.Defs.ViewerState > = nil
         ) {
@@ -1083,6 +1137,7 @@ public extension App.Bsky.Feed.Defs {
             self._record = .wrapped(record)
             self._replyCount = .wrapped(replyCount)
             self._repostCount = .wrapped(repostCount)
+            self._threadgate = .wrapped(threadgate)
             self._uri = .wrapped(uri)
             self._viewer = .wrapped(viewer)
         }
@@ -1157,16 +1212,44 @@ public extension App.Bsky.Feed.Defs {
         public var post: App.Bsky.Feed.Defs.PostView
         @Indirect
         public var replies: Optional < [Union3 < App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost > ] > 
+        @Indirect
+        public var viewer: Optional < App.Bsky.Feed.Defs.ViewerThreadState > 
         public init(
             parent: Optional < Union3 < App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost > > = nil, 
             post: App.Bsky.Feed.Defs.PostView, 
-            replies: Optional < [Union3 < App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost > ] > = nil
+            replies: Optional < [Union3 < App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost > ] > = nil, 
+            viewer: Optional < App.Bsky.Feed.Defs.ViewerThreadState > = nil
         ) {
             self._parent = .wrapped(parent)
             self._post = .wrapped(post)
             self._replies = .wrapped(replies)
+            self._viewer = .wrapped(viewer)
         }
         public static let typeValue = "app.bsky.feed.defs#threadViewPost"
+    }
+}
+public extension App.Bsky.Feed.Defs {
+    public struct ThreadgateView: UnionCodable, Hashable {
+        @Indirect
+        public var cid: Optional < String > 
+        @Indirect
+        public var lists: Optional < [App.Bsky.Graph.Defs.ListViewBasic] > 
+        @Indirect
+        public var record: Optional < LexiconUnknownUnion > 
+        @Indirect
+        public var uri: Optional < ATURI > 
+        public init(
+            cid: Optional < String > = nil, 
+            lists: Optional < [App.Bsky.Graph.Defs.ListViewBasic] > = nil, 
+            record: Optional < LexiconUnknownUnion > = nil, 
+            uri: Optional < ATURI > = nil
+        ) {
+            self._cid = .wrapped(cid)
+            self._lists = .wrapped(lists)
+            self._record = .wrapped(record)
+            self._uri = .wrapped(uri)
+        }
+        public static let typeValue = "app.bsky.feed.defs#threadgateView"
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1183,6 +1266,18 @@ public extension App.Bsky.Feed.Defs {
             self._repost = .wrapped(repost)
         }
         public static let typeValue = "app.bsky.feed.defs#viewerState"
+    }
+}
+public extension App.Bsky.Feed.Defs {
+    public struct ViewerThreadState: UnionCodable, Hashable {
+        @Indirect
+        public var canReply: Optional < Bool > 
+        public init(
+            canReply: Optional < Bool > = nil
+        ) {
+            self._canReply = .wrapped(canReply)
+        }
+        public static let typeValue = "app.bsky.feed.defs#viewerThreadState"
     }
 }
 public extension App.Bsky.Feed.DescribeFeedGenerator {
@@ -1692,6 +1787,56 @@ public extension App.Bsky.Feed {
     }
 }
 public extension App.Bsky.Feed {
+    struct GetListFeed: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var limit: Optional < Int > 
+            @Indirect
+            public var list: ATURI
+            public init(
+                cursor: Optional < String > = nil, 
+                limit: Optional < Int > = nil, 
+                list: ATURI
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._limit = .wrapped(limit)
+                self._list = .wrapped(list)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: list.toQueryItems(name: "list"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var feed: [App.Bsky.Feed.Defs.FeedViewPost]
+            public init(
+                cursor: Optional < String > = nil, 
+                feed: [App.Bsky.Feed.Defs.FeedViewPost]
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._feed = .wrapped(feed)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "app.bsky.feed.getListFeed"
+        public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Feed {
     struct GetPostThread: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
@@ -2055,6 +2200,58 @@ public extension App.Bsky.Feed {
         public static let typeValue = "app.bsky.feed.repost"
     }
 }
+public extension App.Bsky.Feed.Threadgate {
+    public struct FollowingRule: UnionCodable, Hashable {
+        public init(
+        
+        ) {
+        
+        }
+        public static let typeValue = "app.bsky.feed.threadgate#followingRule"
+    }
+}
+public extension App.Bsky.Feed.Threadgate {
+    public struct ListRule: UnionCodable, Hashable {
+        @Indirect
+        public var list: ATURI
+        public init(
+            list: ATURI
+        ) {
+            self._list = .wrapped(list)
+        }
+        public static let typeValue = "app.bsky.feed.threadgate#listRule"
+    }
+}
+public extension App.Bsky.Feed {
+    public struct Threadgate: UnionCodable, Hashable {
+        @Indirect
+        public var allow: Optional < [Union3 < App.Bsky.Feed.Threadgate.MentionRule, App.Bsky.Feed.Threadgate.FollowingRule, App.Bsky.Feed.Threadgate.ListRule > ] > 
+        @Indirect
+        public var createdAt: Date
+        @Indirect
+        public var post: ATURI
+        public init(
+            allow: Optional < [Union3 < App.Bsky.Feed.Threadgate.MentionRule, App.Bsky.Feed.Threadgate.FollowingRule, App.Bsky.Feed.Threadgate.ListRule > ] > = nil, 
+            createdAt: Date, 
+            post: ATURI
+        ) {
+            self._allow = .wrapped(allow)
+            self._createdAt = .wrapped(createdAt)
+            self._post = .wrapped(post)
+        }
+        public static let typeValue = "app.bsky.feed.threadgate"
+    }
+}
+public extension App.Bsky.Feed.Threadgate {
+    public struct MentionRule: UnionCodable, Hashable {
+        public init(
+        
+        ) {
+        
+        }
+        public static let typeValue = "app.bsky.feed.threadgate#mentionRule"
+    }
+}
 public extension App.Bsky.Graph {
     public struct Block: UnionCodable, Hashable {
         @Indirect
@@ -2070,6 +2267,8 @@ public extension App.Bsky.Graph {
         }
         public static let typeValue = "app.bsky.graph.block"
     }
+}
+public extension App.Bsky.Graph.Defs {
 }
 public extension App.Bsky.Graph.Defs {
     public struct ListItemView: UnionCodable, Hashable {
@@ -2593,6 +2792,42 @@ public extension App.Bsky.Graph {
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "app.bsky.graph.getMutes"
+        public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Graph {
+    struct GetSuggestedFollowsByActor: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var actor: String
+            public init(
+                actor: String
+            ) {
+                self._actor = .wrapped(actor)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var suggestions: [App.Bsky.Actor.Defs.ProfileView]
+            public init(
+                suggestions: [App.Bsky.Actor.Defs.ProfileView]
+            ) {
+                self._suggestions = .wrapped(suggestions)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "app.bsky.graph.getSuggestedFollowsByActor"
         public let parameters: Parameters
     }
 }
