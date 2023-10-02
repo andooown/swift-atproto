@@ -48,6 +48,10 @@ public extension App.Bsky {
     enum Unspecced {
     }
 }
+public extension App.Bsky.Unspecced {
+    enum Defs {
+    }
+}
 public enum Com {
 }
 public extension Com {
@@ -98,7 +102,7 @@ public extension Com.Atproto {
     enum Sync {
     }
 }
-public typealias LexiconUnknownUnion = Union10 < App.Bsky.Actor.Profile, App.Bsky.Feed.Generator, App.Bsky.Feed.Like, App.Bsky.Feed.Post, App.Bsky.Feed.Repost, App.Bsky.Graph.Block, App.Bsky.Graph.Follow, App.Bsky.Graph.List, App.Bsky.Graph.Listblock, App.Bsky.Graph.Listitem > 
+public typealias LexiconUnknownUnion = Union11 < App.Bsky.Actor.Profile, App.Bsky.Feed.Generator, App.Bsky.Feed.Like, App.Bsky.Feed.Post, App.Bsky.Feed.Repost, App.Bsky.Feed.Threadgate, App.Bsky.Graph.Block, App.Bsky.Graph.Follow, App.Bsky.Graph.List, App.Bsky.Graph.Listblock, App.Bsky.Graph.Listitem > 
 extension LexiconUnknownUnion {
     public var asProfile: App.Bsky.Actor.Profile? {
         asType0
@@ -115,20 +119,23 @@ extension LexiconUnknownUnion {
     public var asRepost: App.Bsky.Feed.Repost? {
         asType4
     }
-    public var asBlock: App.Bsky.Graph.Block? {
+    public var asThreadgate: App.Bsky.Feed.Threadgate? {
         asType5
     }
-    public var asFollow: App.Bsky.Graph.Follow? {
+    public var asBlock: App.Bsky.Graph.Block? {
         asType6
     }
-    public var asList: App.Bsky.Graph.List? {
+    public var asFollow: App.Bsky.Graph.Follow? {
         asType7
     }
-    public var asListblock: App.Bsky.Graph.Listblock? {
+    public var asList: App.Bsky.Graph.List? {
         asType8
     }
-    public var asListitem: App.Bsky.Graph.Listitem? {
+    public var asListblock: App.Bsky.Graph.Listblock? {
         asType9
+    }
+    public var asListitem: App.Bsky.Graph.Listitem? {
+        asType10
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -160,6 +167,38 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
+    public struct FeedViewPref: UnionCodable, Hashable {
+        @Indirect
+        public var feed: String
+        @Indirect
+        public var hideQuotePosts: Optional < Bool > 
+        @Indirect
+        public var hideReplies: Optional < Bool > 
+        @Indirect
+        public var hideRepliesByLikeCount: Optional < Int > 
+        @Indirect
+        public var hideRepliesByUnfollowed: Optional < Bool > 
+        @Indirect
+        public var hideReposts: Optional < Bool > 
+        public init(
+            feed: String, 
+            hideQuotePosts: Optional < Bool > = nil, 
+            hideReplies: Optional < Bool > = nil, 
+            hideRepliesByLikeCount: Optional < Int > = nil, 
+            hideRepliesByUnfollowed: Optional < Bool > = nil, 
+            hideReposts: Optional < Bool > = nil
+        ) {
+            self._feed = .wrapped(feed)
+            self._hideQuotePosts = .wrapped(hideQuotePosts)
+            self._hideReplies = .wrapped(hideReplies)
+            self._hideRepliesByLikeCount = .wrapped(hideRepliesByLikeCount)
+            self._hideRepliesByUnfollowed = .wrapped(hideRepliesByUnfollowed)
+            self._hideReposts = .wrapped(hideReposts)
+        }
+        public static let typeValue = "app.bsky.actor.defs#feedViewPref"
+    }
+}
+public extension App.Bsky.Actor.Defs {
     public struct PersonalDetailsPref: UnionCodable, Hashable {
         @Indirect
         public var birthDate: Optional < Date > 
@@ -172,7 +211,7 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    typealias Preferences = [Union4 < App.Bsky.Actor.Defs.AdultContentPref, App.Bsky.Actor.Defs.ContentLabelPref, App.Bsky.Actor.Defs.SavedFeedsPref, App.Bsky.Actor.Defs.PersonalDetailsPref > ]
+    typealias Preferences = [Union6 < App.Bsky.Actor.Defs.AdultContentPref, App.Bsky.Actor.Defs.ContentLabelPref, App.Bsky.Actor.Defs.SavedFeedsPref, App.Bsky.Actor.Defs.PersonalDetailsPref, App.Bsky.Actor.Defs.FeedViewPref, App.Bsky.Actor.Defs.ThreadViewPref > ]
 }
 public extension App.Bsky.Actor.Defs {
     public struct ProfileView: UnionCodable, Hashable {
@@ -316,6 +355,22 @@ public extension App.Bsky.Actor.Defs {
             self._saved = .wrapped(saved)
         }
         public static let typeValue = "app.bsky.actor.defs#savedFeedsPref"
+    }
+}
+public extension App.Bsky.Actor.Defs {
+    public struct ThreadViewPref: UnionCodable, Hashable {
+        @Indirect
+        public var prioritizeFollowedUsers: Optional < Bool > 
+        @Indirect
+        public var sort: Optional < String > 
+        public init(
+            prioritizeFollowedUsers: Optional < Bool > = nil, 
+            sort: Optional < String > = nil
+        ) {
+            self._prioritizeFollowedUsers = .wrapped(prioritizeFollowedUsers)
+            self._sort = .wrapped(sort)
+        }
+        public static let typeValue = "app.bsky.actor.defs#threadViewPref"
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -542,20 +597,25 @@ public extension App.Bsky.Actor {
             @Indirect
             public var limit: Optional < Int > 
             @Indirect
+            public var q: Optional < String > 
+            @Indirect
             public var term: Optional < String > 
             public init(
                 cursor: Optional < String > = nil, 
                 limit: Optional < Int > = nil, 
+                q: Optional < String > = nil, 
                 term: Optional < String > = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
+                self._q = .wrapped(q)
                 self._term = .wrapped(term)
             }
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem]()
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: q.toQueryItems(name: "q"))
                 parameters.append(contentsOf: term.toQueryItems(name: "term"))
 
                 return parameters
@@ -590,17 +650,22 @@ public extension App.Bsky.Actor {
             @Indirect
             public var limit: Optional < Int > 
             @Indirect
+            public var q: Optional < String > 
+            @Indirect
             public var term: Optional < String > 
             public init(
                 limit: Optional < Int > = nil, 
+                q: Optional < String > = nil, 
                 term: Optional < String > = nil
             ) {
                 self._limit = .wrapped(limit)
+                self._q = .wrapped(q)
                 self._term = .wrapped(term)
             }
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem]()
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: q.toQueryItems(name: "q"))
                 parameters.append(contentsOf: term.toQueryItems(name: "term"))
 
                 return parameters
@@ -1058,6 +1123,8 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var repostCount: Optional < Int > 
         @Indirect
+        public var threadgate: Optional < App.Bsky.Feed.Defs.ThreadgateView > 
+        @Indirect
         public var uri: ATURI
         @Indirect
         public var viewer: Optional < App.Bsky.Feed.Defs.ViewerState > 
@@ -1071,6 +1138,7 @@ public extension App.Bsky.Feed.Defs {
             record: LexiconUnknownUnion, 
             replyCount: Optional < Int > = nil, 
             repostCount: Optional < Int > = nil, 
+            threadgate: Optional < App.Bsky.Feed.Defs.ThreadgateView > = nil, 
             uri: ATURI, 
             viewer: Optional < App.Bsky.Feed.Defs.ViewerState > = nil
         ) {
@@ -1083,6 +1151,7 @@ public extension App.Bsky.Feed.Defs {
             self._record = .wrapped(record)
             self._replyCount = .wrapped(replyCount)
             self._repostCount = .wrapped(repostCount)
+            self._threadgate = .wrapped(threadgate)
             self._uri = .wrapped(uri)
             self._viewer = .wrapped(viewer)
         }
@@ -1157,16 +1226,44 @@ public extension App.Bsky.Feed.Defs {
         public var post: App.Bsky.Feed.Defs.PostView
         @Indirect
         public var replies: Optional < [Union3 < App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost > ] > 
+        @Indirect
+        public var viewer: Optional < App.Bsky.Feed.Defs.ViewerThreadState > 
         public init(
             parent: Optional < Union3 < App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost > > = nil, 
             post: App.Bsky.Feed.Defs.PostView, 
-            replies: Optional < [Union3 < App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost > ] > = nil
+            replies: Optional < [Union3 < App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost > ] > = nil, 
+            viewer: Optional < App.Bsky.Feed.Defs.ViewerThreadState > = nil
         ) {
             self._parent = .wrapped(parent)
             self._post = .wrapped(post)
             self._replies = .wrapped(replies)
+            self._viewer = .wrapped(viewer)
         }
         public static let typeValue = "app.bsky.feed.defs#threadViewPost"
+    }
+}
+public extension App.Bsky.Feed.Defs {
+    public struct ThreadgateView: UnionCodable, Hashable {
+        @Indirect
+        public var cid: Optional < String > 
+        @Indirect
+        public var lists: Optional < [App.Bsky.Graph.Defs.ListViewBasic] > 
+        @Indirect
+        public var record: Optional < LexiconUnknownUnion > 
+        @Indirect
+        public var uri: Optional < ATURI > 
+        public init(
+            cid: Optional < String > = nil, 
+            lists: Optional < [App.Bsky.Graph.Defs.ListViewBasic] > = nil, 
+            record: Optional < LexiconUnknownUnion > = nil, 
+            uri: Optional < ATURI > = nil
+        ) {
+            self._cid = .wrapped(cid)
+            self._lists = .wrapped(lists)
+            self._record = .wrapped(record)
+            self._uri = .wrapped(uri)
+        }
+        public static let typeValue = "app.bsky.feed.defs#threadgateView"
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1183,6 +1280,18 @@ public extension App.Bsky.Feed.Defs {
             self._repost = .wrapped(repost)
         }
         public static let typeValue = "app.bsky.feed.defs#viewerState"
+    }
+}
+public extension App.Bsky.Feed.Defs {
+    public struct ViewerThreadState: UnionCodable, Hashable {
+        @Indirect
+        public var canReply: Optional < Bool > 
+        public init(
+            canReply: Optional < Bool > = nil
+        ) {
+            self._canReply = .wrapped(canReply)
+        }
+        public static let typeValue = "app.bsky.feed.defs#viewerThreadState"
     }
 }
 public extension App.Bsky.Feed.DescribeFeedGenerator {
@@ -1692,6 +1801,56 @@ public extension App.Bsky.Feed {
     }
 }
 public extension App.Bsky.Feed {
+    struct GetListFeed: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var limit: Optional < Int > 
+            @Indirect
+            public var list: ATURI
+            public init(
+                cursor: Optional < String > = nil, 
+                limit: Optional < Int > = nil, 
+                list: ATURI
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._limit = .wrapped(limit)
+                self._list = .wrapped(list)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: list.toQueryItems(name: "list"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var feed: [App.Bsky.Feed.Defs.FeedViewPost]
+            public init(
+                cursor: Optional < String > = nil, 
+                feed: [App.Bsky.Feed.Defs.FeedViewPost]
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._feed = .wrapped(feed)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "app.bsky.feed.getListFeed"
+        public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Feed {
     struct GetPostThread: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
@@ -1984,6 +2143,8 @@ public extension App.Bsky.Feed {
         @Indirect
         public var reply: Optional < App.Bsky.Feed.Post.ReplyRef > 
         @Indirect
+        public var tags: Optional < [String] > 
+        @Indirect
         public var text: String
         public init(
             createdAt: Date, 
@@ -1993,6 +2154,7 @@ public extension App.Bsky.Feed {
             labels: Optional < Union1 < Com.Atproto.Label.Defs.SelfLabels > > = nil, 
             langs: Optional < [String] > = nil, 
             reply: Optional < App.Bsky.Feed.Post.ReplyRef > = nil, 
+            tags: Optional < [String] > = nil, 
             text: String
         ) {
             self._createdAt = .wrapped(createdAt)
@@ -2002,6 +2164,7 @@ public extension App.Bsky.Feed {
             self._labels = .wrapped(labels)
             self._langs = .wrapped(langs)
             self._reply = .wrapped(reply)
+            self._tags = .wrapped(tags)
             self._text = .wrapped(text)
         }
         public static let typeValue = "app.bsky.feed.post"
@@ -2055,6 +2218,112 @@ public extension App.Bsky.Feed {
         public static let typeValue = "app.bsky.feed.repost"
     }
 }
+public extension App.Bsky.Feed {
+    struct SearchPosts: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var limit: Optional < Int > 
+            @Indirect
+            public var q: String
+            public init(
+                cursor: Optional < String > = nil, 
+                limit: Optional < Int > = nil, 
+                q: String
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._limit = .wrapped(limit)
+                self._q = .wrapped(q)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: q.toQueryItems(name: "q"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var hitsTotal: Optional < Int > 
+            @Indirect
+            public var posts: [App.Bsky.Feed.Defs.PostView]
+            public init(
+                cursor: Optional < String > = nil, 
+                hitsTotal: Optional < Int > = nil, 
+                posts: [App.Bsky.Feed.Defs.PostView]
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._hitsTotal = .wrapped(hitsTotal)
+                self._posts = .wrapped(posts)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "app.bsky.feed.searchPosts"
+        public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Feed.Threadgate {
+    public struct FollowingRule: UnionCodable, Hashable {
+        public init(
+        
+        ) {
+        
+        }
+        public static let typeValue = "app.bsky.feed.threadgate#followingRule"
+    }
+}
+public extension App.Bsky.Feed.Threadgate {
+    public struct ListRule: UnionCodable, Hashable {
+        @Indirect
+        public var list: ATURI
+        public init(
+            list: ATURI
+        ) {
+            self._list = .wrapped(list)
+        }
+        public static let typeValue = "app.bsky.feed.threadgate#listRule"
+    }
+}
+public extension App.Bsky.Feed {
+    public struct Threadgate: UnionCodable, Hashable {
+        @Indirect
+        public var allow: Optional < [Union3 < App.Bsky.Feed.Threadgate.MentionRule, App.Bsky.Feed.Threadgate.FollowingRule, App.Bsky.Feed.Threadgate.ListRule > ] > 
+        @Indirect
+        public var createdAt: Date
+        @Indirect
+        public var post: ATURI
+        public init(
+            allow: Optional < [Union3 < App.Bsky.Feed.Threadgate.MentionRule, App.Bsky.Feed.Threadgate.FollowingRule, App.Bsky.Feed.Threadgate.ListRule > ] > = nil, 
+            createdAt: Date, 
+            post: ATURI
+        ) {
+            self._allow = .wrapped(allow)
+            self._createdAt = .wrapped(createdAt)
+            self._post = .wrapped(post)
+        }
+        public static let typeValue = "app.bsky.feed.threadgate"
+    }
+}
+public extension App.Bsky.Feed.Threadgate {
+    public struct MentionRule: UnionCodable, Hashable {
+        public init(
+        
+        ) {
+        
+        }
+        public static let typeValue = "app.bsky.feed.threadgate#mentionRule"
+    }
+}
 public extension App.Bsky.Graph {
     public struct Block: UnionCodable, Hashable {
         @Indirect
@@ -2070,6 +2339,8 @@ public extension App.Bsky.Graph {
         }
         public static let typeValue = "app.bsky.graph.block"
     }
+}
+public extension App.Bsky.Graph.Defs {
 }
 public extension App.Bsky.Graph.Defs {
     public struct ListItemView: UnionCodable, Hashable {
@@ -2597,6 +2868,42 @@ public extension App.Bsky.Graph {
     }
 }
 public extension App.Bsky.Graph {
+    struct GetSuggestedFollowsByActor: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var actor: String
+            public init(
+                actor: String
+            ) {
+                self._actor = .wrapped(actor)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var suggestions: [App.Bsky.Actor.Defs.ProfileView]
+            public init(
+                suggestions: [App.Bsky.Actor.Defs.ProfileView]
+            ) {
+                self._suggestions = .wrapped(suggestions)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "app.bsky.graph.getSuggestedFollowsByActor"
+        public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Graph {
     public struct List: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
@@ -2963,11 +3270,11 @@ public extension App.Bsky.Richtext.Facet {
 public extension App.Bsky.Richtext {
     public struct Facet: UnionCodable, Hashable {
         @Indirect
-        public var features: [Union2 < App.Bsky.Richtext.Facet.Mention, App.Bsky.Richtext.Facet.Link > ]
+        public var features: [Union3 < App.Bsky.Richtext.Facet.Mention, App.Bsky.Richtext.Facet.Link, App.Bsky.Richtext.Facet.Tag > ]
         @Indirect
         public var index: App.Bsky.Richtext.Facet.ByteSlice
         public init(
-            features: [Union2 < App.Bsky.Richtext.Facet.Mention, App.Bsky.Richtext.Facet.Link > ], 
+            features: [Union3 < App.Bsky.Richtext.Facet.Mention, App.Bsky.Richtext.Facet.Link, App.Bsky.Richtext.Facet.Tag > ], 
             index: App.Bsky.Richtext.Facet.ByteSlice
         ) {
             self._features = .wrapped(features)
@@ -2988,25 +3295,40 @@ public extension App.Bsky.Richtext.Facet {
         public static let typeValue = "app.bsky.richtext.facet#mention"
     }
 }
-public extension App.Bsky.Unspecced {
-    struct ApplyLabels: XRPCRequest {
-        public struct Input: Encodable {
-            @Indirect
-            public var labels: [Com.Atproto.Label.Defs.Label]
-            public init(
-                labels: [Com.Atproto.Label.Defs.Label]
-            ) {
-                self._labels = .wrapped(labels)
-            }
-        }
+public extension App.Bsky.Richtext.Facet {
+    public struct Tag: UnionCodable, Hashable {
+        @Indirect
+        public var tag: String
         public init(
-            input: Input
+            tag: String
         ) {
-            self.input = input
+            self._tag = .wrapped(tag)
         }
-        public let type = XRPCRequestType.procedure
-        public let requestIdentifier = "app.bsky.unspecced.applyLabels"
-        public let input: Input?
+        public static let typeValue = "app.bsky.richtext.facet#tag"
+    }
+}
+public extension App.Bsky.Unspecced.Defs {
+    public struct SkeletonSearchActor: UnionCodable, Hashable {
+        @Indirect
+        public var did: String
+        public init(
+            did: String
+        ) {
+            self._did = .wrapped(did)
+        }
+        public static let typeValue = "app.bsky.unspecced.defs#skeletonSearchActor"
+    }
+}
+public extension App.Bsky.Unspecced.Defs {
+    public struct SkeletonSearchPost: UnionCodable, Hashable {
+        @Indirect
+        public var uri: ATURI
+        public init(
+            uri: ATURI
+        ) {
+            self._uri = .wrapped(uri)
+        }
+        public static let typeValue = "app.bsky.unspecced.defs#skeletonSearchPost"
     }
 }
 public extension App.Bsky.Unspecced {
@@ -3151,6 +3473,119 @@ public extension App.Bsky.Unspecced {
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "app.bsky.unspecced.getTimelineSkeleton"
+        public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Unspecced {
+    struct SearchActorsSkeleton: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var limit: Optional < Int > 
+            @Indirect
+            public var q: String
+            @Indirect
+            public var typeahead: Optional < Bool > 
+            public init(
+                cursor: Optional < String > = nil, 
+                limit: Optional < Int > = nil, 
+                q: String, 
+                typeahead: Optional < Bool > = nil
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._limit = .wrapped(limit)
+                self._q = .wrapped(q)
+                self._typeahead = .wrapped(typeahead)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: q.toQueryItems(name: "q"))
+                parameters.append(contentsOf: typeahead.toQueryItems(name: "typeahead"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var actors: [App.Bsky.Unspecced.Defs.SkeletonSearchActor]
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var hitsTotal: Optional < Int > 
+            public init(
+                actors: [App.Bsky.Unspecced.Defs.SkeletonSearchActor], 
+                cursor: Optional < String > = nil, 
+                hitsTotal: Optional < Int > = nil
+            ) {
+                self._actors = .wrapped(actors)
+                self._cursor = .wrapped(cursor)
+                self._hitsTotal = .wrapped(hitsTotal)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "app.bsky.unspecced.searchActorsSkeleton"
+        public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Unspecced {
+    struct SearchPostsSkeleton: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var limit: Optional < Int > 
+            @Indirect
+            public var q: String
+            public init(
+                cursor: Optional < String > = nil, 
+                limit: Optional < Int > = nil, 
+                q: String
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._limit = .wrapped(limit)
+                self._q = .wrapped(q)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem]()
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: q.toQueryItems(name: "q"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var cursor: Optional < String > 
+            @Indirect
+            public var hitsTotal: Optional < Int > 
+            @Indirect
+            public var posts: [App.Bsky.Unspecced.Defs.SkeletonSearchPost]
+            public init(
+                cursor: Optional < String > = nil, 
+                hitsTotal: Optional < Int > = nil, 
+                posts: [App.Bsky.Unspecced.Defs.SkeletonSearchPost]
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._hitsTotal = .wrapped(hitsTotal)
+                self._posts = .wrapped(posts)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "app.bsky.unspecced.searchPostsSkeleton"
         public let parameters: Parameters
     }
 }
@@ -4143,16 +4578,20 @@ public extension Com.Atproto.Admin {
             @Indirect
             public var limit: Optional < Int > 
             @Indirect
+            public var q: Optional < String > 
+            @Indirect
             public var term: Optional < String > 
             public init(
                 cursor: Optional < String > = nil, 
                 invitedBy: Optional < String > = nil, 
                 limit: Optional < Int > = nil, 
+                q: Optional < String > = nil, 
                 term: Optional < String > = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._invitedBy = .wrapped(invitedBy)
                 self._limit = .wrapped(limit)
+                self._q = .wrapped(q)
                 self._term = .wrapped(term)
             }
             public var queryItems: [URLQueryItem] {
@@ -4160,6 +4599,7 @@ public extension Com.Atproto.Admin {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: invitedBy.toQueryItems(name: "invitedBy"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: q.toQueryItems(name: "q"))
                 parameters.append(contentsOf: term.toQueryItems(name: "term"))
 
                 return parameters
@@ -5077,6 +5517,31 @@ public extension Com.Atproto.Repo {
     }
 }
 public extension Com.Atproto.Server {
+    struct ConfirmEmail: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var email: String
+            @Indirect
+            public var token: String
+            public init(
+                email: String, 
+                token: String
+            ) {
+                self._email = .wrapped(email)
+                self._token = .wrapped(token)
+            }
+        }
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.server.confirmEmail"
+        public let input: Input?
+    }
+}
+public extension Com.Atproto.Server {
     struct CreateAccount: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
@@ -5291,6 +5756,8 @@ public extension Com.Atproto.Server {
             @Indirect
             public var email: Optional < String > 
             @Indirect
+            public var emailConfirmed: Optional < Bool > 
+            @Indirect
             public var handle: String
             @Indirect
             public var refreshJwt: String
@@ -5298,12 +5765,14 @@ public extension Com.Atproto.Server {
                 accessJwt: String, 
                 did: String, 
                 email: Optional < String > = nil, 
+                emailConfirmed: Optional < Bool > = nil, 
                 handle: String, 
                 refreshJwt: String
             ) {
                 self._accessJwt = .wrapped(accessJwt)
                 self._did = .wrapped(did)
                 self._email = .wrapped(email)
+                self._emailConfirmed = .wrapped(emailConfirmed)
                 self._handle = .wrapped(handle)
                 self._refreshJwt = .wrapped(refreshJwt)
             }
@@ -5503,14 +5972,18 @@ public extension Com.Atproto.Server {
             @Indirect
             public var email: Optional < String > 
             @Indirect
+            public var emailConfirmed: Optional < Bool > 
+            @Indirect
             public var handle: String
             public init(
                 did: String, 
                 email: Optional < String > = nil, 
+                emailConfirmed: Optional < Bool > = nil, 
                 handle: String
             ) {
                 self._did = .wrapped(did)
                 self._email = .wrapped(email)
+                self._emailConfirmed = .wrapped(emailConfirmed)
                 self._handle = .wrapped(handle)
             }
         }
@@ -5603,6 +6076,37 @@ public extension Com.Atproto.Server {
     }
 }
 public extension Com.Atproto.Server {
+    struct RequestEmailConfirmation: XRPCRequest {
+        public init(
+        
+        ) {
+        
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.server.requestEmailConfirmation"
+    }
+}
+public extension Com.Atproto.Server {
+    struct RequestEmailUpdate: XRPCRequest {
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var tokenRequired: Bool
+            public init(
+                tokenRequired: Bool
+            ) {
+                self._tokenRequired = .wrapped(tokenRequired)
+            }
+        }
+        public init(
+        
+        ) {
+        
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.server.requestEmailUpdate"
+    }
+}
+public extension Com.Atproto.Server {
     struct RequestPasswordReset: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
@@ -5666,6 +6170,31 @@ public extension Com.Atproto.Server {
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.server.revokeAppPassword"
+        public let input: Input?
+    }
+}
+public extension Com.Atproto.Server {
+    struct UpdateEmail: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var email: String
+            @Indirect
+            public var token: Optional < String > 
+            public init(
+                email: String, 
+                token: Optional < String > = nil
+            ) {
+                self._email = .wrapped(email)
+                self._token = .wrapped(token)
+            }
+        }
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.server.updateEmail"
         public let input: Input?
     }
 }
