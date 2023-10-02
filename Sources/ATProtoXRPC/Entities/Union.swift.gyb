@@ -1,6 +1,6 @@
 
 %{
-    maxUnionSize = 10
+    maxUnionSize = 20
 
     def typeParameter(i):
         return "T{}".format(i)
