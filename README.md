@@ -4,6 +4,9 @@ Swift package that provides a AT Protocol libraries.
 
 🚧 This package is under development. 🚧
 
+## Requirements
+- Swift 5.9 or later
+
 ## Overview
 swift-atproto includes the following libraries.
 
