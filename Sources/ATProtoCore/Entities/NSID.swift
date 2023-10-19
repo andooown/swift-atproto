@@ -97,3 +97,26 @@ extension NSID {
         }
     }
 }
+
+extension NSID: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.toString())
+    }
+}
+
+extension NSID: Decodable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let string = try container.decode(String.self)
+
+        do {
+            self = try NSID(string: string)
+        } catch {
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Invalid NSID string: \(string). Got error: \(error)"
+            )
+        }
+    }
+}

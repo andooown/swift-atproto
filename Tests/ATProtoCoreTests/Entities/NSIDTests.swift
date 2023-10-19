@@ -197,4 +197,24 @@ final class NSIDTests: XCTestCase {
             XCTAssertThrowsError(try NSID.ensureValid(string: string), string)
         }
     }
+
+    func testEncoding() throws {
+        let nsid = try NSID(string: "com.example.foo")
+
+        let encoder = JSONEncoder()
+        XCTAssertEqual(
+            String(data: try encoder.encode(nsid), encoding: .utf8),
+            #""com.example.foo""#
+        )
+    }
+
+    func testDecoding() throws {
+        let nsid = try NSID(string: "com.example.foo")
+
+        let decoder = JSONDecoder()
+        XCTAssertEqual(
+            try decoder.decode(NSID.self, from: #""com.example.foo""#.data(using: .utf8)!),
+            nsid
+        )
+    }
 }
