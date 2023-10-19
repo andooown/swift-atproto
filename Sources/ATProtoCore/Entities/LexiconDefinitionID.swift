@@ -46,3 +46,26 @@ private extension LexiconDefinitionID {
         case invalidPartsCount
     }
 }
+
+extension LexiconDefinitionID: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.toString(fullStyle: false))
+    }
+}
+
+extension LexiconDefinitionID: Decodable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let string = try container.decode(String.self)
+
+        do {
+            self = try LexiconDefinitionID(string: string)
+        } catch {
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Invalid ID string: \(string). Got error: \(error)"
+            )
+        }
+    }
+}
