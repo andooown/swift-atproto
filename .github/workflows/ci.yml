@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        swift-version: ["5.8"]
+        swift-version: ["5.9"]
     steps:
       - uses: swift-actions/setup-swift@v1
         with:
@@ -30,7 +30,7 @@ jobs:
         # masos-latest is disabled due to unknown error
         # i.e. https://github.com/andooown/swift-atproto/actions/runs/5891991845/job/15980295242
         os: [ubuntu-latest]
-        swift-version: ["5.8"]
+        swift-version: ["5.9"]
     steps:
       - uses: swift-actions/setup-swift@v1
         with:
