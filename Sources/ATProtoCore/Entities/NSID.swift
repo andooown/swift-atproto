@@ -32,42 +32,42 @@ public struct NSID: Hashable {
 extension NSID {
     public static func ensureValid(string: String) throws {
         guard (try? Self.validCharactersRegex.wholeMatch(in: string)) != nil else {
-            throw InvalidNsidError.invalidCharacters
+            throw InvalidNSIDError.invalidCharacters
         }
 
         guard string.count <= 253 + 1 + 63 else {
-            throw InvalidNsidError.tooLong
+            throw InvalidNSIDError.tooLong
         }
 
         let labels = string.split(separator: ".", omittingEmptySubsequences: false)
         guard labels.count >= 3 else {
-            throw InvalidNsidError.tooFewParts
+            throw InvalidNSIDError.tooFewParts
         }
 
         for (i, label) in labels.enumerated() {
             guard !label.isEmpty else {
-                throw InvalidNsidError.emptyPart
+                throw InvalidNSIDError.emptyPart
             }
 
             guard label.count <= 63 else {
-                throw InvalidNsidError.partTooLong
+                throw InvalidNSIDError.partTooLong
             }
 
             guard !label.hasPrefix("-") && !label.hasSuffix("-") else {
-                throw InvalidNsidError.startOrEndWithHyphen
+                throw InvalidNSIDError.startOrEndWithHyphen
             }
 
             guard label.first!.isNumber == false || i != 0 else {
-                throw InvalidNsidError.firstPartStartsWithDigit
+                throw InvalidNSIDError.firstPartStartsWithDigit
             }
 
             guard (try? Self.alphaCharactersRegex.wholeMatch(in: label)) != nil || i != labels.count - 1 else {
-                throw InvalidNsidError.namePartOnlyLetters
+                throw InvalidNSIDError.namePartOnlyLetters
             }
         }
     }
 
-    private enum InvalidNsidError: Error {
+    private enum InvalidNSIDError: Error {
         case invalidCharacters
         case tooLong
         case tooFewParts
