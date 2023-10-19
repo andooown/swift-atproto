@@ -28,6 +28,14 @@ public struct LexiconDefinitionID: Hashable {
         }
     }
 
+    public init(staticString: StaticString) {
+        do {
+            try self.init(string: "\(staticString)")
+        } catch {
+            fatalError("Invalid Lexicon definition ID string: \(staticString)")
+        }
+    }
+
     public var isMain: Bool {
         fragment == nil
     }
