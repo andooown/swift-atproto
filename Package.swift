@@ -46,6 +46,12 @@ let package = Package(
                 "ATProtoCore",
             ]
         ),
+        .testTarget(
+            name: "ATProtoAPITests",
+            dependencies: [
+                "ATProtoAPI"
+            ]
+        ),
         .target(
             name: "ATProtoXRPC",
             dependencies: [
