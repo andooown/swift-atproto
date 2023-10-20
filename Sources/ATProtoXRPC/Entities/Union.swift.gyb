@@ -1,6 +1,6 @@
 
 %{
-    maxUnionSize = 10
+    maxUnionSize = 20
 
     def typeParameter(i):
         return "T{}".format(i)
@@ -12,6 +12,7 @@
         return "asType{}".format(i)
 }%
 
+import ATProtoCore
 import Foundation
 
 private enum UnionTypeCodingKeys: String, CodingKey {
@@ -59,7 +60,8 @@ extension Union${unionSize}: Decodable where ${", ".join([typeParameter(i) + ": 
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
 %   for i in range(unionSize):
         case ${typeParameter(i)}.typeValue:
             self = .${caseName(i)}(try ${typeParameter(i)}(from: decoder))

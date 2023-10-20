@@ -44,7 +44,6 @@ extension Indirect: Encodable where T: Encodable {
                 try x.encode(to: encoder)
             }
         }
-
     }
 }
 
@@ -74,33 +73,6 @@ extension Indirect: Decodable where T: Decodable {
             self = .wrapped(try T(from: decoder))
         }
     }
-
-    private static func decodeURL(decoder: Decoder) throws -> URL {
-        let value = try String(from: decoder)
-        guard let url = URL(string: value) else {
-            throw DecodingError.dataCorrupted(
-                DecodingError.Context(
-                    codingPath: decoder.codingPath,
-                    debugDescription: "Invalid URL string."
-                )
-            )
-        }
-
-        return url
-    }
-
-    //    private static func decodeDate(decoder: Decoder) throws -> Date {
-    //        let value = try String(from: decoder)
-    //
-    //        let formatter = DateFormatter()
-    //        formatter.locale = Locale(identifier: "en_US_POSIX")
-    //        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-    //        guard let url = URL(string: value) else {
-    //            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Invalid URL string."))
-    //        }
-    //
-    //        return url
-    //    }
 }
 
 extension Indirect: Equatable where T: Equatable {}
