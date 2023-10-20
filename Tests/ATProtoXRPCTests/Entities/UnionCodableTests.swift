@@ -5,13 +5,13 @@ import XCTest
 
 final class UnionCodableTests: XCTestCase {
     struct TestStructA: UnionCodable, Equatable {
-        static let typeValue = LexiconDefinitionID(staticString: "com.example.testStructA")
+        static let typeValue = try! LexiconDefinitionID(string: "com.example.testStructA")
 
         let val: Int
     }
 
     struct TestStructB: UnionCodable, Equatable {
-        static let typeValue = LexiconDefinitionID(staticString: "com.example.testStructB#frag")
+        static let typeValue = try! LexiconDefinitionID(string: "com.example.testStructB#frag")
 
         let val: String
     }
