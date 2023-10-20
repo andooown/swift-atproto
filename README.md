@@ -22,6 +22,11 @@ swift-atproto includes the following libraries.
 ### ATProtoCore
 `ATProtoCore` is a library that provides fundamental types for AT Protocol.
 
+### ATProtoMacro
+`ATProtoMacro` is a library that provides some Swift Macros for AT Protocol.
+
+- [`#LexiconDefID(_:)`](https://github.com/andooown/swift-atproto/blob/main/Sources/ATProtoMacro/LexiconDefID.swift)
+
 ## Author
 - [andooown](https://github.com/andooown)
 
