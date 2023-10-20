@@ -26,6 +26,10 @@ let package = Package(
             name: "ATProtoCore",
             targets: ["ATProtoCore"]
         ),
+        .library(
+            name: "ATProtoMacro",
+            targets: ["ATProtoMacro"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-parsing.git", from: "0.13.0"),
