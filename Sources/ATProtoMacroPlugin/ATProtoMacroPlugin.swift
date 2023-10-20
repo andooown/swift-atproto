@@ -1,5 +1,3 @@
-#if canImport(SwiftCompilerPlugin)
-
 import SwiftCompilerPlugin
 import SwiftSyntaxMacros
 
@@ -9,5 +7,3 @@ struct ATProtoMacroPlugin: CompilerPlugin {
         LexiconDefIDMacro.self,
     ]
 }
-
-#endif
