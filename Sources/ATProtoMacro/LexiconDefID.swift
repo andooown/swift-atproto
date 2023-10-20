@@ -1,8 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Yoshikazu Ando on 2023/10/20.
-//
+import ATProtoCore
 
-import Foundation
+@freestanding(expression)
+public macro LexiconDefID(_ stringLiteral: String) -> LexiconDefinitionID = #externalMacro(
+    module: "ATProtoMacroPlugin",
+    type: "LexiconDefIDMacro"
+)
