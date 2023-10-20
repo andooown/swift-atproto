@@ -1,17 +1,18 @@
 import ATProtoCore
+import ATProtoMacro
 import XCTest
 
 @testable import ATProtoXRPC
 
 final class UnionCodableTests: XCTestCase {
     struct TestStructA: UnionCodable, Equatable {
-        static let typeValue = try! LexiconDefinitionID(string: "com.example.testStructA")
+        static let typeValue = #LexiconDefID("com.example.testStructA")
 
         let val: Int
     }
 
     struct TestStructB: UnionCodable, Equatable {
-        static let typeValue = try! LexiconDefinitionID(string: "com.example.testStructB#frag")
+        static let typeValue = #LexiconDefID("com.example.testStructB#frag")
 
         let val: String
     }

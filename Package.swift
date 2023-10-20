@@ -65,7 +65,8 @@ let package = Package(
         .testTarget(
             name: "ATProtoXRPCTests",
             dependencies: [
-                "ATProtoXRPC"
+                "ATProtoXRPC",
+                "ATProtoMacro",
             ]
         ),
         .target(
