@@ -50,6 +50,7 @@ let package = Package(
             dependencies: [
                 "ATProtoXRPC",
                 "ATProtoCore",
+                "ATProtoMacro",
             ]
         ),
         .target(
