@@ -1,4 +1,4 @@
-// swift-tools-version:5.8
+// swift-tools-version:5.9
 
 import PackageDescription
 
@@ -8,7 +8,7 @@ let package = Package(
         .macOS(.v13)
     ],
     dependencies: [
-        .package(url: "https://github.com/andooown/lexicon-gen.git", revision: "0.0.4"),
+        .package(url: "https://github.com/andooown/lexicon-gen.git", revision: "0.0.5"),
     ],
     targets: [
         .target(name: "Tools", path: "")
