@@ -83,13 +83,13 @@ let package = Package(
         .target(
             name: "ATProtoMacro",
             dependencies: [
-                "ATProtoCore",
                 "ATProtoMacroPlugin"
             ]
         ),
         .macro(
             name: "ATProtoMacroPlugin",
             dependencies: [
+                "ATProtoCore",
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
             ]
