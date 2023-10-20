@@ -1,6 +1,7 @@
-import Foundation
 import ATProtoCore
+import ATProtoMacro
 import ATProtoXRPC
+import Foundation
 public enum App {
 }
 public extension App {
@@ -146,7 +147,7 @@ public extension App.Bsky.Actor.Defs {
         ) {
             self._enabled = .wrapped(enabled)
         }
-        public static let typeValue = "app.bsky.actor.defs#adultContentPref"
+        public static let typeValue = #LexiconDefID("app.bsky.actor.defs#adultContentPref")
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -162,7 +163,7 @@ public extension App.Bsky.Actor.Defs {
             self._label = .wrapped(label)
             self._visibility = .wrapped(visibility)
         }
-        public static let typeValue = "app.bsky.actor.defs#contentLabelPref"
+        public static let typeValue = #LexiconDefID("app.bsky.actor.defs#contentLabelPref")
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -194,7 +195,7 @@ public extension App.Bsky.Actor.Defs {
             self._hideRepliesByUnfollowed = .wrapped(hideRepliesByUnfollowed)
             self._hideReposts = .wrapped(hideReposts)
         }
-        public static let typeValue = "app.bsky.actor.defs#feedViewPref"
+        public static let typeValue = #LexiconDefID("app.bsky.actor.defs#feedViewPref")
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -206,7 +207,7 @@ public extension App.Bsky.Actor.Defs {
         ) {
             self._birthDate = .wrapped(birthDate)
         }
-        public static let typeValue = "app.bsky.actor.defs#personalDetailsPref"
+        public static let typeValue = #LexiconDefID("app.bsky.actor.defs#personalDetailsPref")
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -249,7 +250,7 @@ public extension App.Bsky.Actor.Defs {
             self._labels = .wrapped(labels)
             self._viewer = .wrapped(viewer)
         }
-        public static let typeValue = "app.bsky.actor.defs#profileView"
+        public static let typeValue = #LexiconDefID("app.bsky.actor.defs#profileView")
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -281,7 +282,7 @@ public extension App.Bsky.Actor.Defs {
             self._labels = .wrapped(labels)
             self._viewer = .wrapped(viewer)
         }
-        public static let typeValue = "app.bsky.actor.defs#profileViewBasic"
+        public static let typeValue = #LexiconDefID("app.bsky.actor.defs#profileViewBasic")
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -337,7 +338,7 @@ public extension App.Bsky.Actor.Defs {
             self._postsCount = .wrapped(postsCount)
             self._viewer = .wrapped(viewer)
         }
-        public static let typeValue = "app.bsky.actor.defs#profileViewDetailed"
+        public static let typeValue = #LexiconDefID("app.bsky.actor.defs#profileViewDetailed")
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -353,7 +354,7 @@ public extension App.Bsky.Actor.Defs {
             self._pinned = .wrapped(pinned)
             self._saved = .wrapped(saved)
         }
-        public static let typeValue = "app.bsky.actor.defs#savedFeedsPref"
+        public static let typeValue = #LexiconDefID("app.bsky.actor.defs#savedFeedsPref")
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -369,7 +370,7 @@ public extension App.Bsky.Actor.Defs {
             self._prioritizeFollowedUsers = .wrapped(prioritizeFollowedUsers)
             self._sort = .wrapped(sort)
         }
-        public static let typeValue = "app.bsky.actor.defs#threadViewPref"
+        public static let typeValue = #LexiconDefID("app.bsky.actor.defs#threadViewPref")
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -401,7 +402,7 @@ public extension App.Bsky.Actor.Defs {
             self._muted = .wrapped(muted)
             self._mutedByList = .wrapped(mutedByList)
         }
-        public static let typeValue = "app.bsky.actor.defs#viewerState"
+        public static let typeValue = #LexiconDefID("app.bsky.actor.defs#viewerState")
     }
 }
 public extension App.Bsky.Actor {
@@ -564,7 +565,7 @@ public extension App.Bsky.Actor {
             self._displayName = .wrapped(displayName)
             self._labels = .wrapped(labels)
         }
-        public static let typeValue = "app.bsky.actor.profile"
+        public static let typeValue = #LexiconDefID("app.bsky.actor.profile")
     }
 }
 public extension App.Bsky.Actor {
@@ -706,7 +707,7 @@ public extension App.Bsky.Embed.External {
             self._title = .wrapped(title)
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "app.bsky.embed.external#external"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.external#external")
     }
 }
 public extension App.Bsky.Embed {
@@ -718,7 +719,7 @@ public extension App.Bsky.Embed {
         ) {
             self._external = .wrapped(external)
         }
-        public static let typeValue = "app.bsky.embed.external"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.external")
     }
 }
 public extension App.Bsky.Embed.External {
@@ -730,7 +731,7 @@ public extension App.Bsky.Embed.External {
         ) {
             self._external = .wrapped(external)
         }
-        public static let typeValue = "app.bsky.embed.external#view"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.external#view")
     }
 }
 public extension App.Bsky.Embed.External {
@@ -754,7 +755,7 @@ public extension App.Bsky.Embed.External {
             self._title = .wrapped(title)
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "app.bsky.embed.external#viewExternal"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.external#viewExternal")
     }
 }
 public extension App.Bsky.Embed.Images {
@@ -770,7 +771,7 @@ public extension App.Bsky.Embed.Images {
             self._height = .wrapped(height)
             self._width = .wrapped(width)
         }
-        public static let typeValue = "app.bsky.embed.images#aspectRatio"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.images#aspectRatio")
     }
 }
 public extension App.Bsky.Embed.Images {
@@ -786,7 +787,7 @@ public extension App.Bsky.Embed.Images {
             self._alt = .wrapped(alt)
             self._aspectRatio = .wrapped(aspectRatio)
         }
-        public static let typeValue = "app.bsky.embed.images#image"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.images#image")
     }
 }
 public extension App.Bsky.Embed {
@@ -798,7 +799,7 @@ public extension App.Bsky.Embed {
         ) {
             self._images = .wrapped(images)
         }
-        public static let typeValue = "app.bsky.embed.images"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.images")
     }
 }
 public extension App.Bsky.Embed.Images {
@@ -810,7 +811,7 @@ public extension App.Bsky.Embed.Images {
         ) {
             self._images = .wrapped(images)
         }
-        public static let typeValue = "app.bsky.embed.images#view"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.images#view")
     }
 }
 public extension App.Bsky.Embed.Images {
@@ -834,7 +835,7 @@ public extension App.Bsky.Embed.Images {
             self._fullsize = .wrapped(fullsize)
             self._thumb = .wrapped(thumb)
         }
-        public static let typeValue = "app.bsky.embed.images#viewImage"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.images#viewImage")
     }
 }
 public extension App.Bsky.Embed {
@@ -846,7 +847,7 @@ public extension App.Bsky.Embed {
         ) {
             self._record = .wrapped(record)
         }
-        public static let typeValue = "app.bsky.embed.record"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.record")
     }
 }
 public extension App.Bsky.Embed.Record {
@@ -858,7 +859,7 @@ public extension App.Bsky.Embed.Record {
         ) {
             self._record = .wrapped(record)
         }
-        public static let typeValue = "app.bsky.embed.record#view"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.record#view")
     }
 }
 public extension App.Bsky.Embed.Record {
@@ -878,7 +879,7 @@ public extension App.Bsky.Embed.Record {
             self._blocked = .wrapped(blocked)
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "app.bsky.embed.record#viewBlocked"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.record#viewBlocked")
     }
 }
 public extension App.Bsky.Embed.Record {
@@ -894,7 +895,7 @@ public extension App.Bsky.Embed.Record {
             self._notFound = .wrapped(notFound)
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "app.bsky.embed.record#viewNotFound"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.record#viewNotFound")
     }
 }
 public extension App.Bsky.Embed.Record {
@@ -930,7 +931,7 @@ public extension App.Bsky.Embed.Record {
             self._uri = .wrapped(uri)
             self._value = .wrapped(value)
         }
-        public static let typeValue = "app.bsky.embed.record#viewRecord"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.record#viewRecord")
     }
 }
 public extension App.Bsky.Embed {
@@ -946,7 +947,7 @@ public extension App.Bsky.Embed {
             self._media = .wrapped(media)
             self._record = .wrapped(record)
         }
-        public static let typeValue = "app.bsky.embed.recordWithMedia"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.recordWithMedia")
     }
 }
 public extension App.Bsky.Embed.RecordWithMedia {
@@ -962,7 +963,7 @@ public extension App.Bsky.Embed.RecordWithMedia {
             self._media = .wrapped(media)
             self._record = .wrapped(record)
         }
-        public static let typeValue = "app.bsky.embed.recordWithMedia#view"
+        public static let typeValue = #LexiconDefID("app.bsky.embed.recordWithMedia#view")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -978,7 +979,7 @@ public extension App.Bsky.Feed.Defs {
             self._did = .wrapped(did)
             self._viewer = .wrapped(viewer)
         }
-        public static let typeValue = "app.bsky.feed.defs#blockedAuthor"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#blockedAuthor")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -998,7 +999,7 @@ public extension App.Bsky.Feed.Defs {
             self._blocked = .wrapped(blocked)
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "app.bsky.feed.defs#blockedPost"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#blockedPost")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1018,7 +1019,7 @@ public extension App.Bsky.Feed.Defs {
             self._reason = .wrapped(reason)
             self._reply = .wrapped(reply)
         }
-        public static let typeValue = "app.bsky.feed.defs#feedViewPost"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#feedViewPost")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1070,7 +1071,7 @@ public extension App.Bsky.Feed.Defs {
             self._uri = .wrapped(uri)
             self._viewer = .wrapped(viewer)
         }
-        public static let typeValue = "app.bsky.feed.defs#generatorView"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#generatorView")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1082,7 +1083,7 @@ public extension App.Bsky.Feed.Defs {
         ) {
             self._like = .wrapped(like)
         }
-        public static let typeValue = "app.bsky.feed.defs#generatorViewerState"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#generatorViewerState")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1098,7 +1099,7 @@ public extension App.Bsky.Feed.Defs {
             self._notFound = .wrapped(notFound)
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "app.bsky.feed.defs#notFoundPost"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#notFoundPost")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1154,7 +1155,7 @@ public extension App.Bsky.Feed.Defs {
             self._uri = .wrapped(uri)
             self._viewer = .wrapped(viewer)
         }
-        public static let typeValue = "app.bsky.feed.defs#postView"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#postView")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1170,7 +1171,7 @@ public extension App.Bsky.Feed.Defs {
             self._by = .wrapped(by)
             self._indexedAt = .wrapped(indexedAt)
         }
-        public static let typeValue = "app.bsky.feed.defs#reasonRepost"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#reasonRepost")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1186,7 +1187,7 @@ public extension App.Bsky.Feed.Defs {
             self._parent = .wrapped(parent)
             self._root = .wrapped(root)
         }
-        public static let typeValue = "app.bsky.feed.defs#replyRef"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#replyRef")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1202,7 +1203,7 @@ public extension App.Bsky.Feed.Defs {
             self._post = .wrapped(post)
             self._reason = .wrapped(reason)
         }
-        public static let typeValue = "app.bsky.feed.defs#skeletonFeedPost"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#skeletonFeedPost")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1214,7 +1215,7 @@ public extension App.Bsky.Feed.Defs {
         ) {
             self._repost = .wrapped(repost)
         }
-        public static let typeValue = "app.bsky.feed.defs#skeletonReasonRepost"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#skeletonReasonRepost")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1238,7 +1239,7 @@ public extension App.Bsky.Feed.Defs {
             self._replies = .wrapped(replies)
             self._viewer = .wrapped(viewer)
         }
-        public static let typeValue = "app.bsky.feed.defs#threadViewPost"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#threadViewPost")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1262,7 +1263,7 @@ public extension App.Bsky.Feed.Defs {
             self._record = .wrapped(record)
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "app.bsky.feed.defs#threadgateView"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#threadgateView")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1278,7 +1279,7 @@ public extension App.Bsky.Feed.Defs {
             self._like = .wrapped(like)
             self._repost = .wrapped(repost)
         }
-        public static let typeValue = "app.bsky.feed.defs#viewerState"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#viewerState")
     }
 }
 public extension App.Bsky.Feed.Defs {
@@ -1290,7 +1291,7 @@ public extension App.Bsky.Feed.Defs {
         ) {
             self._canReply = .wrapped(canReply)
         }
-        public static let typeValue = "app.bsky.feed.defs#viewerThreadState"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#viewerThreadState")
     }
 }
 public extension App.Bsky.Feed.DescribeFeedGenerator {
@@ -1302,7 +1303,7 @@ public extension App.Bsky.Feed.DescribeFeedGenerator {
         ) {
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "app.bsky.feed.describeFeedGenerator#feed"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.describeFeedGenerator#feed")
     }
 }
 public extension App.Bsky.Feed.DescribeFeedGenerator {
@@ -1318,7 +1319,7 @@ public extension App.Bsky.Feed.DescribeFeedGenerator {
             self._privacyPolicy = .wrapped(privacyPolicy)
             self._termsOfService = .wrapped(termsOfService)
         }
-        public static let typeValue = "app.bsky.feed.describeFeedGenerator#links"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.describeFeedGenerator#links")
     }
 }
 public extension App.Bsky.Feed {
@@ -1378,7 +1379,7 @@ public extension App.Bsky.Feed {
             self._displayName = .wrapped(displayName)
             self._labels = .wrapped(labels)
         }
-        public static let typeValue = "app.bsky.feed.generator"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.generator")
     }
 }
 public extension App.Bsky.Feed {
@@ -1733,7 +1734,7 @@ public extension App.Bsky.Feed.GetLikes {
             self._createdAt = .wrapped(createdAt)
             self._indexedAt = .wrapped(indexedAt)
         }
-        public static let typeValue = "app.bsky.feed.getLikes#like"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.getLikes#like")
     }
 }
 public extension App.Bsky.Feed {
@@ -2102,7 +2103,7 @@ public extension App.Bsky.Feed {
             self._createdAt = .wrapped(createdAt)
             self._subject = .wrapped(subject)
         }
-        public static let typeValue = "app.bsky.feed.like"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.like")
     }
 }
 public extension App.Bsky.Feed.Post {
@@ -2122,7 +2123,7 @@ public extension App.Bsky.Feed.Post {
             self._type = .wrapped(type)
             self._value = .wrapped(value)
         }
-        public static let typeValue = "app.bsky.feed.post#entity"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.post#entity")
     }
 }
 public extension App.Bsky.Feed {
@@ -2166,7 +2167,7 @@ public extension App.Bsky.Feed {
             self._tags = .wrapped(tags)
             self._text = .wrapped(text)
         }
-        public static let typeValue = "app.bsky.feed.post"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.post")
     }
 }
 public extension App.Bsky.Feed.Post {
@@ -2182,7 +2183,7 @@ public extension App.Bsky.Feed.Post {
             self._parent = .wrapped(parent)
             self._root = .wrapped(root)
         }
-        public static let typeValue = "app.bsky.feed.post#replyRef"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.post#replyRef")
     }
 }
 public extension App.Bsky.Feed.Post {
@@ -2198,7 +2199,7 @@ public extension App.Bsky.Feed.Post {
             self._end = .wrapped(end)
             self._start = .wrapped(start)
         }
-        public static let typeValue = "app.bsky.feed.post#textSlice"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.post#textSlice")
     }
 }
 public extension App.Bsky.Feed {
@@ -2214,7 +2215,7 @@ public extension App.Bsky.Feed {
             self._createdAt = .wrapped(createdAt)
             self._subject = .wrapped(subject)
         }
-        public static let typeValue = "app.bsky.feed.repost"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.repost")
     }
 }
 public extension App.Bsky.Feed {
@@ -2278,7 +2279,7 @@ public extension App.Bsky.Feed.Threadgate {
         ) {
 
         }
-        public static let typeValue = "app.bsky.feed.threadgate#followingRule"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.threadgate#followingRule")
     }
 }
 public extension App.Bsky.Feed.Threadgate {
@@ -2290,7 +2291,7 @@ public extension App.Bsky.Feed.Threadgate {
         ) {
             self._list = .wrapped(list)
         }
-        public static let typeValue = "app.bsky.feed.threadgate#listRule"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.threadgate#listRule")
     }
 }
 public extension App.Bsky.Feed {
@@ -2310,7 +2311,7 @@ public extension App.Bsky.Feed {
             self._createdAt = .wrapped(createdAt)
             self._post = .wrapped(post)
         }
-        public static let typeValue = "app.bsky.feed.threadgate"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.threadgate")
     }
 }
 public extension App.Bsky.Feed.Threadgate {
@@ -2320,7 +2321,7 @@ public extension App.Bsky.Feed.Threadgate {
         ) {
 
         }
-        public static let typeValue = "app.bsky.feed.threadgate#mentionRule"
+        public static let typeValue = #LexiconDefID("app.bsky.feed.threadgate#mentionRule")
     }
 }
 public extension App.Bsky.Graph {
@@ -2336,7 +2337,7 @@ public extension App.Bsky.Graph {
             self._createdAt = .wrapped(createdAt)
             self._subject = .wrapped(subject)
         }
-        public static let typeValue = "app.bsky.graph.block"
+        public static let typeValue = #LexiconDefID("app.bsky.graph.block")
     }
 }
 public extension App.Bsky.Graph.Defs {
@@ -2350,7 +2351,7 @@ public extension App.Bsky.Graph.Defs {
         ) {
             self._subject = .wrapped(subject)
         }
-        public static let typeValue = "app.bsky.graph.defs#listItemView"
+        public static let typeValue = #LexiconDefID("app.bsky.graph.defs#listItemView")
     }
 }
 public extension App.Bsky.Graph.Defs {
@@ -2401,7 +2402,7 @@ public extension App.Bsky.Graph.Defs {
             self._uri = .wrapped(uri)
             self._viewer = .wrapped(viewer)
         }
-        public static let typeValue = "app.bsky.graph.defs#listView"
+        public static let typeValue = #LexiconDefID("app.bsky.graph.defs#listView")
     }
 }
 public extension App.Bsky.Graph.Defs {
@@ -2437,7 +2438,7 @@ public extension App.Bsky.Graph.Defs {
             self._uri = .wrapped(uri)
             self._viewer = .wrapped(viewer)
         }
-        public static let typeValue = "app.bsky.graph.defs#listViewBasic"
+        public static let typeValue = #LexiconDefID("app.bsky.graph.defs#listViewBasic")
     }
 }
 public extension App.Bsky.Graph.Defs {
@@ -2453,7 +2454,7 @@ public extension App.Bsky.Graph.Defs {
             self._blocked = .wrapped(blocked)
             self._muted = .wrapped(muted)
         }
-        public static let typeValue = "app.bsky.graph.defs#listViewerState"
+        public static let typeValue = #LexiconDefID("app.bsky.graph.defs#listViewerState")
     }
 }
 public extension App.Bsky.Graph.Defs {
@@ -2471,7 +2472,7 @@ public extension App.Bsky.Graph {
             self._createdAt = .wrapped(createdAt)
             self._subject = .wrapped(subject)
         }
-        public static let typeValue = "app.bsky.graph.follow"
+        public static let typeValue = #LexiconDefID("app.bsky.graph.follow")
     }
 }
 public extension App.Bsky.Graph {
@@ -2931,7 +2932,7 @@ public extension App.Bsky.Graph {
             self._name = .wrapped(name)
             self._purpose = .wrapped(purpose)
         }
-        public static let typeValue = "app.bsky.graph.list"
+        public static let typeValue = #LexiconDefID("app.bsky.graph.list")
     }
 }
 public extension App.Bsky.Graph {
@@ -2947,7 +2948,7 @@ public extension App.Bsky.Graph {
             self._createdAt = .wrapped(createdAt)
             self._subject = .wrapped(subject)
         }
-        public static let typeValue = "app.bsky.graph.listblock"
+        public static let typeValue = #LexiconDefID("app.bsky.graph.listblock")
     }
 }
 public extension App.Bsky.Graph {
@@ -2967,7 +2968,7 @@ public extension App.Bsky.Graph {
             self._list = .wrapped(list)
             self._subject = .wrapped(subject)
         }
-        public static let typeValue = "app.bsky.graph.listitem"
+        public static let typeValue = #LexiconDefID("app.bsky.graph.listitem")
     }
 }
 public extension App.Bsky.Graph {
@@ -3181,7 +3182,7 @@ public extension App.Bsky.Notification.ListNotifications {
             self._record = .wrapped(record)
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "app.bsky.notification.listNotifications#notification"
+        public static let typeValue = #LexiconDefID("app.bsky.notification.listNotifications#notification")
     }
 }
 public extension App.Bsky.Notification {
@@ -3251,7 +3252,7 @@ public extension App.Bsky.Richtext.Facet {
             self._byteEnd = .wrapped(byteEnd)
             self._byteStart = .wrapped(byteStart)
         }
-        public static let typeValue = "app.bsky.richtext.facet#byteSlice"
+        public static let typeValue = #LexiconDefID("app.bsky.richtext.facet#byteSlice")
     }
 }
 public extension App.Bsky.Richtext.Facet {
@@ -3263,7 +3264,7 @@ public extension App.Bsky.Richtext.Facet {
         ) {
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "app.bsky.richtext.facet#link"
+        public static let typeValue = #LexiconDefID("app.bsky.richtext.facet#link")
     }
 }
 public extension App.Bsky.Richtext {
@@ -3279,7 +3280,7 @@ public extension App.Bsky.Richtext {
             self._features = .wrapped(features)
             self._index = .wrapped(index)
         }
-        public static let typeValue = "app.bsky.richtext.facet"
+        public static let typeValue = #LexiconDefID("app.bsky.richtext.facet")
     }
 }
 public extension App.Bsky.Richtext.Facet {
@@ -3291,7 +3292,7 @@ public extension App.Bsky.Richtext.Facet {
         ) {
             self._did = .wrapped(did)
         }
-        public static let typeValue = "app.bsky.richtext.facet#mention"
+        public static let typeValue = #LexiconDefID("app.bsky.richtext.facet#mention")
     }
 }
 public extension App.Bsky.Richtext.Facet {
@@ -3303,7 +3304,7 @@ public extension App.Bsky.Richtext.Facet {
         ) {
             self._tag = .wrapped(tag)
         }
-        public static let typeValue = "app.bsky.richtext.facet#tag"
+        public static let typeValue = #LexiconDefID("app.bsky.richtext.facet#tag")
     }
 }
 public extension App.Bsky.Unspecced.Defs {
@@ -3315,7 +3316,7 @@ public extension App.Bsky.Unspecced.Defs {
         ) {
             self._did = .wrapped(did)
         }
-        public static let typeValue = "app.bsky.unspecced.defs#skeletonSearchActor"
+        public static let typeValue = #LexiconDefID("app.bsky.unspecced.defs#skeletonSearchActor")
     }
 }
 public extension App.Bsky.Unspecced.Defs {
@@ -3327,7 +3328,7 @@ public extension App.Bsky.Unspecced.Defs {
         ) {
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "app.bsky.unspecced.defs#skeletonSearchPost"
+        public static let typeValue = #LexiconDefID("app.bsky.unspecced.defs#skeletonSearchPost")
     }
 }
 public extension App.Bsky.Unspecced {
@@ -3607,7 +3608,7 @@ public extension Com.Atproto.Admin.Defs {
             self._createdBy = .wrapped(createdBy)
             self._reason = .wrapped(reason)
         }
-        public static let typeValue = "com.atproto.admin.defs#actionReversal"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#actionReversal")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3666,7 +3667,7 @@ public extension Com.Atproto.Admin.Defs {
             self._subject = .wrapped(subject)
             self._subjectBlobCids = .wrapped(subjectBlobCids)
         }
-        public static let typeValue = "com.atproto.admin.defs#actionView"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#actionView")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3686,7 +3687,7 @@ public extension Com.Atproto.Admin.Defs {
             self._durationInHours = .wrapped(durationInHours)
             self._id = .wrapped(id)
         }
-        public static let typeValue = "com.atproto.admin.defs#actionViewCurrent"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#actionViewCurrent")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3742,7 +3743,7 @@ public extension Com.Atproto.Admin.Defs {
             self._subject = .wrapped(subject)
             self._subjectBlobs = .wrapped(subjectBlobs)
         }
-        public static let typeValue = "com.atproto.admin.defs#actionViewDetail"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#actionViewDetail")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3774,7 +3775,7 @@ public extension Com.Atproto.Admin.Defs {
             self._moderation = .wrapped(moderation)
             self._size = .wrapped(size)
         }
-        public static let typeValue = "com.atproto.admin.defs#blobView"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#blobView")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3794,7 +3795,7 @@ public extension Com.Atproto.Admin.Defs {
             self._height = .wrapped(height)
             self._width = .wrapped(width)
         }
-        public static let typeValue = "com.atproto.admin.defs#imageDetails"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#imageDetails")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3806,7 +3807,7 @@ public extension Com.Atproto.Admin.Defs {
         ) {
             self._currentAction = .wrapped(currentAction)
         }
-        public static let typeValue = "com.atproto.admin.defs#moderation"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#moderation")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3826,7 +3827,7 @@ public extension Com.Atproto.Admin.Defs {
             self._currentAction = .wrapped(currentAction)
             self._reports = .wrapped(reports)
         }
-        public static let typeValue = "com.atproto.admin.defs#moderationDetail"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#moderationDetail")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3862,7 +3863,7 @@ public extension Com.Atproto.Admin.Defs {
             self._uri = .wrapped(uri)
             self._value = .wrapped(value)
         }
-        public static let typeValue = "com.atproto.admin.defs#recordView"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#recordView")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3902,7 +3903,7 @@ public extension Com.Atproto.Admin.Defs {
             self._uri = .wrapped(uri)
             self._value = .wrapped(value)
         }
-        public static let typeValue = "com.atproto.admin.defs#recordViewDetail"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#recordViewDetail")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3914,7 +3915,7 @@ public extension Com.Atproto.Admin.Defs {
         ) {
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "com.atproto.admin.defs#recordViewNotFound"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#recordViewNotFound")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3926,7 +3927,7 @@ public extension Com.Atproto.Admin.Defs {
         ) {
             self._did = .wrapped(did)
         }
-        public static let typeValue = "com.atproto.admin.defs#repoRef"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#repoRef")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3970,7 +3971,7 @@ public extension Com.Atproto.Admin.Defs {
             self._moderation = .wrapped(moderation)
             self._relatedRecords = .wrapped(relatedRecords)
         }
-        public static let typeValue = "com.atproto.admin.defs#repoView"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#repoView")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -4022,7 +4023,7 @@ public extension Com.Atproto.Admin.Defs {
             self._moderation = .wrapped(moderation)
             self._relatedRecords = .wrapped(relatedRecords)
         }
-        public static let typeValue = "com.atproto.admin.defs#repoViewDetail"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#repoViewDetail")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -4034,7 +4035,7 @@ public extension Com.Atproto.Admin.Defs {
         ) {
             self._did = .wrapped(did)
         }
-        public static let typeValue = "com.atproto.admin.defs#repoViewNotFound"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#repoViewNotFound")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -4074,7 +4075,7 @@ public extension Com.Atproto.Admin.Defs {
             self._subject = .wrapped(subject)
             self._subjectRepoHandle = .wrapped(subjectRepoHandle)
         }
-        public static let typeValue = "com.atproto.admin.defs#reportView"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#reportView")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -4110,7 +4111,7 @@ public extension Com.Atproto.Admin.Defs {
             self._resolvedByActions = .wrapped(resolvedByActions)
             self._subject = .wrapped(subject)
         }
-        public static let typeValue = "com.atproto.admin.defs#reportViewDetail"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#reportViewDetail")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -4132,7 +4133,7 @@ public extension Com.Atproto.Admin.Defs {
             self._length = .wrapped(length)
             self._width = .wrapped(width)
         }
-        public static let typeValue = "com.atproto.admin.defs#videoDetails"
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#videoDetails")
     }
 }
 public extension Com.Atproto.Admin {
@@ -4851,7 +4852,7 @@ public extension Com.Atproto.Label.Defs {
             self._uri = .wrapped(uri)
             self._val = .wrapped(val)
         }
-        public static let typeValue = "com.atproto.label.defs#label"
+        public static let typeValue = #LexiconDefID("com.atproto.label.defs#label")
     }
 }
 public extension Com.Atproto.Label.Defs {
@@ -4863,7 +4864,7 @@ public extension Com.Atproto.Label.Defs {
         ) {
             self._val = .wrapped(val)
         }
-        public static let typeValue = "com.atproto.label.defs#selfLabel"
+        public static let typeValue = #LexiconDefID("com.atproto.label.defs#selfLabel")
     }
 }
 public extension Com.Atproto.Label.Defs {
@@ -4875,7 +4876,7 @@ public extension Com.Atproto.Label.Defs {
         ) {
             self._values = .wrapped(values)
         }
-        public static let typeValue = "com.atproto.label.defs#selfLabels"
+        public static let typeValue = #LexiconDefID("com.atproto.label.defs#selfLabels")
     }
 }
 public extension Com.Atproto.Label {
@@ -4946,7 +4947,7 @@ public extension Com.Atproto.Label.SubscribeLabels {
             self._message = .wrapped(message)
             self._name = .wrapped(name)
         }
-        public static let typeValue = "com.atproto.label.subscribeLabels#info"
+        public static let typeValue = #LexiconDefID("com.atproto.label.subscribeLabels#info")
     }
 }
 public extension Com.Atproto.Label.SubscribeLabels {
@@ -4962,7 +4963,7 @@ public extension Com.Atproto.Label.SubscribeLabels {
             self._labels = .wrapped(labels)
             self._seq = .wrapped(seq)
         }
-        public static let typeValue = "com.atproto.label.subscribeLabels#labels"
+        public static let typeValue = #LexiconDefID("com.atproto.label.subscribeLabels#labels")
     }
 }
 public extension Com.Atproto.Label {
@@ -5059,7 +5060,7 @@ public extension Com.Atproto.Repo.ApplyWrites {
             self._rkey = .wrapped(rkey)
             self._value = .wrapped(value)
         }
-        public static let typeValue = "com.atproto.repo.applyWrites#create"
+        public static let typeValue = #LexiconDefID("com.atproto.repo.applyWrites#create")
     }
 }
 public extension Com.Atproto.Repo.ApplyWrites {
@@ -5075,7 +5076,7 @@ public extension Com.Atproto.Repo.ApplyWrites {
             self._collection = .wrapped(collection)
             self._rkey = .wrapped(rkey)
         }
-        public static let typeValue = "com.atproto.repo.applyWrites#delete"
+        public static let typeValue = #LexiconDefID("com.atproto.repo.applyWrites#delete")
     }
 }
 public extension Com.Atproto.Repo {
@@ -5128,7 +5129,7 @@ public extension Com.Atproto.Repo.ApplyWrites {
             self._rkey = .wrapped(rkey)
             self._value = .wrapped(value)
         }
-        public static let typeValue = "com.atproto.repo.applyWrites#update"
+        public static let typeValue = #LexiconDefID("com.atproto.repo.applyWrites#update")
     }
 }
 public extension Com.Atproto.Repo {
@@ -5420,7 +5421,7 @@ public extension Com.Atproto.Repo.ListRecords {
             self._uri = .wrapped(uri)
             self._value = .wrapped(value)
         }
-        public static let typeValue = "com.atproto.repo.listRecords#record"
+        public static let typeValue = #LexiconDefID("com.atproto.repo.listRecords#record")
     }
 }
 public extension Com.Atproto.Repo {
@@ -5494,7 +5495,7 @@ public extension Com.Atproto.Repo {
             self._cid = .wrapped(cid)
             self._uri = .wrapped(uri)
         }
-        public static let typeValue = "com.atproto.repo.strongRef"
+        public static let typeValue = #LexiconDefID("com.atproto.repo.strongRef")
     }
 }
 public extension Com.Atproto.Repo {
@@ -5619,7 +5620,7 @@ public extension Com.Atproto.Server.CreateAppPassword {
             self._name = .wrapped(name)
             self._password = .wrapped(password)
         }
-        public static let typeValue = "com.atproto.server.createAppPassword#appPassword"
+        public static let typeValue = #LexiconDefID("com.atproto.server.createAppPassword#appPassword")
     }
 }
 public extension Com.Atproto.Server {
@@ -5691,7 +5692,7 @@ public extension Com.Atproto.Server.CreateInviteCodes {
             self._account = .wrapped(account)
             self._codes = .wrapped(codes)
         }
-        public static let typeValue = "com.atproto.server.createInviteCodes#accountCodes"
+        public static let typeValue = #LexiconDefID("com.atproto.server.createInviteCodes#accountCodes")
     }
 }
 public extension Com.Atproto.Server {
@@ -5819,7 +5820,7 @@ public extension Com.Atproto.Server.Defs {
             self._forAccount = .wrapped(forAccount)
             self._uses = .wrapped(uses)
         }
-        public static let typeValue = "com.atproto.server.defs#inviteCode"
+        public static let typeValue = #LexiconDefID("com.atproto.server.defs#inviteCode")
     }
 }
 public extension Com.Atproto.Server.Defs {
@@ -5835,7 +5836,7 @@ public extension Com.Atproto.Server.Defs {
             self._usedAt = .wrapped(usedAt)
             self._usedBy = .wrapped(usedBy)
         }
-        public static let typeValue = "com.atproto.server.defs#inviteCodeUse"
+        public static let typeValue = #LexiconDefID("com.atproto.server.defs#inviteCodeUse")
     }
 }
 public extension Com.Atproto.Server {
@@ -5891,7 +5892,7 @@ public extension Com.Atproto.Server.DescribeServer {
             self._privacyPolicy = .wrapped(privacyPolicy)
             self._termsOfService = .wrapped(termsOfService)
         }
-        public static let typeValue = "com.atproto.server.describeServer#links"
+        public static let typeValue = #LexiconDefID("com.atproto.server.describeServer#links")
     }
 }
 public extension Com.Atproto.Server {
@@ -6008,7 +6009,7 @@ public extension Com.Atproto.Server.ListAppPasswords {
             self._createdAt = .wrapped(createdAt)
             self._name = .wrapped(name)
         }
-        public static let typeValue = "com.atproto.server.listAppPasswords#appPassword"
+        public static let typeValue = #LexiconDefID("com.atproto.server.listAppPasswords#appPassword")
     }
 }
 public extension Com.Atproto.Server {
@@ -6551,7 +6552,7 @@ public extension Com.Atproto.Sync.ListRepos {
             self._did = .wrapped(did)
             self._head = .wrapped(head)
         }
-        public static let typeValue = "com.atproto.sync.listRepos#repo"
+        public static let typeValue = #LexiconDefID("com.atproto.sync.listRepos#repo")
     }
 }
 public extension Com.Atproto.Sync {
@@ -6633,7 +6634,7 @@ public extension Com.Atproto.Sync.SubscribeRepos {
             self._time = .wrapped(time)
             self._tooBig = .wrapped(tooBig)
         }
-        public static let typeValue = "com.atproto.sync.subscribeRepos#commit"
+        public static let typeValue = #LexiconDefID("com.atproto.sync.subscribeRepos#commit")
     }
 }
 public extension Com.Atproto.Sync.SubscribeRepos {
@@ -6657,7 +6658,7 @@ public extension Com.Atproto.Sync.SubscribeRepos {
             self._seq = .wrapped(seq)
             self._time = .wrapped(time)
         }
-        public static let typeValue = "com.atproto.sync.subscribeRepos#handle"
+        public static let typeValue = #LexiconDefID("com.atproto.sync.subscribeRepos#handle")
     }
 }
 public extension Com.Atproto.Sync.SubscribeRepos {
@@ -6673,7 +6674,7 @@ public extension Com.Atproto.Sync.SubscribeRepos {
             self._message = .wrapped(message)
             self._name = .wrapped(name)
         }
-        public static let typeValue = "com.atproto.sync.subscribeRepos#info"
+        public static let typeValue = #LexiconDefID("com.atproto.sync.subscribeRepos#info")
     }
 }
 public extension Com.Atproto.Sync {
@@ -6701,7 +6702,7 @@ public extension Com.Atproto.Sync.SubscribeRepos {
             self._seq = .wrapped(seq)
             self._time = .wrapped(time)
         }
-        public static let typeValue = "com.atproto.sync.subscribeRepos#migrate"
+        public static let typeValue = #LexiconDefID("com.atproto.sync.subscribeRepos#migrate")
     }
 }
 public extension Com.Atproto.Sync.SubscribeRepos {
@@ -6717,7 +6718,7 @@ public extension Com.Atproto.Sync.SubscribeRepos {
             self._action = .wrapped(action)
             self._path = .wrapped(path)
         }
-        public static let typeValue = "com.atproto.sync.subscribeRepos#repoOp"
+        public static let typeValue = #LexiconDefID("com.atproto.sync.subscribeRepos#repoOp")
     }
 }
 public extension Com.Atproto.Sync.SubscribeRepos {
@@ -6737,6 +6738,6 @@ public extension Com.Atproto.Sync.SubscribeRepos {
             self._seq = .wrapped(seq)
             self._time = .wrapped(time)
         }
-        public static let typeValue = "com.atproto.sync.subscribeRepos#tombstone"
+        public static let typeValue = #LexiconDefID("com.atproto.sync.subscribeRepos#tombstone")
     }
 }

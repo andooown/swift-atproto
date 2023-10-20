@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/andooown/lexicon-gen.git",
       "state" : {
-        "branch" : "0.0.5",
-        "revision" : "1b73dea18b6a1996a02486c91a1179bbe2dd9092"
+        "branch" : "0.0.6",
+        "revision" : "86cfb1ac575ca169cf4f8d012622f08ffa284c1c"
       }
     },
     {

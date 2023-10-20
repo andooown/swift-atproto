@@ -1,5 +1,6 @@
 
 
+import ATProtoCore
 import Foundation
 
 private enum UnionTypeCodingKeys: String, CodingKey {
@@ -39,7 +40,8 @@ extension Union1: Decodable where T0: UnionDecodable {
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         default:
@@ -96,7 +98,8 @@ extension Union2: Decodable where T0: UnionDecodable, T1: UnionDecodable {
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -165,7 +168,8 @@ extension Union3: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: Un
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -246,7 +250,8 @@ extension Union4: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: Un
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -339,7 +344,8 @@ extension Union5: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: Un
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -444,7 +450,8 @@ extension Union6: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: Un
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -561,7 +568,8 @@ extension Union7: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: Un
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -690,7 +698,8 @@ extension Union8: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: Un
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -831,7 +840,8 @@ extension Union9: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: Un
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -984,7 +994,8 @@ extension Union10: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: U
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -1149,7 +1160,8 @@ extension Union11: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: U
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -1326,7 +1338,8 @@ extension Union12: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: U
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -1515,7 +1528,8 @@ extension Union13: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: U
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -1716,7 +1730,8 @@ extension Union14: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: U
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -1929,7 +1944,8 @@ extension Union15: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: U
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -2154,7 +2170,8 @@ extension Union16: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: U
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -2391,7 +2408,8 @@ extension Union17: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: U
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -2640,7 +2658,8 @@ extension Union18: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: U
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -2901,7 +2920,8 @@ extension Union19: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: U
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
@@ -3174,7 +3194,8 @@ extension Union20: Decodable where T0: UnionDecodable, T1: UnionDecodable, T2: U
         let container = try decoder.container(keyedBy: UnionTypeCodingKeys.self)
 
         let typeValue = try container.decode(String.self, forKey: .type)
-        switch typeValue {
+        let defID = try LexiconDefinitionID(string: typeValue)
+        switch defID {
         case T0.typeValue:
             self = .type0(try T0(from: decoder))
         case T1.typeValue:
