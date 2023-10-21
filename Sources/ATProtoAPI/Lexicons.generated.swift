@@ -139,7 +139,7 @@ public extension LexiconUnknownUnion {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    public struct AdultContentPref: UnionCodable, Hashable {
+    struct AdultContentPref: UnionCodable, Hashable {
         @Indirect
         public var enabled: Bool
         public init(
@@ -151,7 +151,7 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    public struct ContentLabelPref: UnionCodable, Hashable {
+    struct ContentLabelPref: UnionCodable, Hashable {
         @Indirect
         public var label: String
         @Indirect
@@ -167,7 +167,7 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    public struct FeedViewPref: UnionCodable, Hashable {
+    struct FeedViewPref: UnionCodable, Hashable {
         @Indirect
         public var feed: String
         @Indirect
@@ -199,7 +199,7 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    public struct PersonalDetailsPref: UnionCodable, Hashable {
+    struct PersonalDetailsPref: UnionCodable, Hashable {
         @Indirect
         public var birthDate: Date?
         public init(
@@ -214,7 +214,7 @@ public extension App.Bsky.Actor.Defs {
     typealias Preferences = [Union6<App.Bsky.Actor.Defs.AdultContentPref, App.Bsky.Actor.Defs.ContentLabelPref, App.Bsky.Actor.Defs.SavedFeedsPref, App.Bsky.Actor.Defs.PersonalDetailsPref, App.Bsky.Actor.Defs.FeedViewPref, App.Bsky.Actor.Defs.ThreadViewPref>]
 }
 public extension App.Bsky.Actor.Defs {
-    public struct ProfileView: UnionCodable, Hashable {
+    struct ProfileView: UnionCodable, Hashable {
         @Indirect
         public var avatar: String?
         @Indirect
@@ -254,7 +254,7 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    public struct ProfileViewBasic: UnionCodable, Hashable {
+    struct ProfileViewBasic: UnionCodable, Hashable {
         @Indirect
         public var avatar: String?
         @Indirect
@@ -286,7 +286,7 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    public struct ProfileViewDetailed: UnionCodable, Hashable {
+    struct ProfileViewDetailed: UnionCodable, Hashable {
         @Indirect
         public var avatar: String?
         @Indirect
@@ -342,7 +342,7 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    public struct SavedFeedsPref: UnionCodable, Hashable {
+    struct SavedFeedsPref: UnionCodable, Hashable {
         @Indirect
         public var pinned: [ATURI]
         @Indirect
@@ -358,7 +358,7 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    public struct ThreadViewPref: UnionCodable, Hashable {
+    struct ThreadViewPref: UnionCodable, Hashable {
         @Indirect
         public var prioritizeFollowedUsers: Bool?
         @Indirect
@@ -374,7 +374,7 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    public struct ViewerState: UnionCodable, Hashable {
+    struct ViewerState: UnionCodable, Hashable {
         @Indirect
         public var blockedBy: Bool?
         @Indirect
@@ -549,7 +549,7 @@ public extension App.Bsky.Actor {
     }
 }
 public extension App.Bsky.Actor {
-    public struct Profile: UnionCodable, Hashable {
+    struct Profile: UnionCodable, Hashable {
         @Indirect
         public var description: String?
         @Indirect
@@ -691,7 +691,7 @@ public extension App.Bsky.Actor {
     }
 }
 public extension App.Bsky.Embed.External {
-    public struct External: UnionCodable, Hashable {
+    struct External: UnionCodable, Hashable {
         @Indirect
         public var description: String
         @Indirect
@@ -711,7 +711,7 @@ public extension App.Bsky.Embed.External {
     }
 }
 public extension App.Bsky.Embed {
-    public struct External: UnionCodable, Hashable {
+    struct External: UnionCodable, Hashable {
         @Indirect
         public var external: App.Bsky.Embed.External.External
         public init(
@@ -723,7 +723,7 @@ public extension App.Bsky.Embed {
     }
 }
 public extension App.Bsky.Embed.External {
-    public struct View: UnionCodable, Hashable {
+    struct View: UnionCodable, Hashable {
         @Indirect
         public var external: App.Bsky.Embed.External.ViewExternal
         public init(
@@ -735,7 +735,7 @@ public extension App.Bsky.Embed.External {
     }
 }
 public extension App.Bsky.Embed.External {
-    public struct ViewExternal: UnionCodable, Hashable {
+    struct ViewExternal: UnionCodable, Hashable {
         @Indirect
         public var description: String
         @Indirect
@@ -759,7 +759,7 @@ public extension App.Bsky.Embed.External {
     }
 }
 public extension App.Bsky.Embed.Images {
-    public struct AspectRatio: UnionCodable, Hashable {
+    struct AspectRatio: UnionCodable, Hashable {
         @Indirect
         public var height: Int
         @Indirect
@@ -775,7 +775,7 @@ public extension App.Bsky.Embed.Images {
     }
 }
 public extension App.Bsky.Embed.Images {
-    public struct Image: UnionCodable, Hashable {
+    struct Image: UnionCodable, Hashable {
         @Indirect
         public var alt: String
         @Indirect
@@ -791,7 +791,7 @@ public extension App.Bsky.Embed.Images {
     }
 }
 public extension App.Bsky.Embed {
-    public struct Images: UnionCodable, Hashable {
+    struct Images: UnionCodable, Hashable {
         @Indirect
         public var images: [App.Bsky.Embed.Images.Image]
         public init(
@@ -803,7 +803,7 @@ public extension App.Bsky.Embed {
     }
 }
 public extension App.Bsky.Embed.Images {
-    public struct View: UnionCodable, Hashable {
+    struct View: UnionCodable, Hashable {
         @Indirect
         public var images: [App.Bsky.Embed.Images.ViewImage]
         public init(
@@ -815,7 +815,7 @@ public extension App.Bsky.Embed.Images {
     }
 }
 public extension App.Bsky.Embed.Images {
-    public struct ViewImage: UnionCodable, Hashable {
+    struct ViewImage: UnionCodable, Hashable {
         @Indirect
         public var alt: String
         @Indirect
@@ -839,7 +839,7 @@ public extension App.Bsky.Embed.Images {
     }
 }
 public extension App.Bsky.Embed {
-    public struct Record: UnionCodable, Hashable {
+    struct Record: UnionCodable, Hashable {
         @Indirect
         public var record: Com.Atproto.Repo.StrongRef
         public init(
@@ -851,7 +851,7 @@ public extension App.Bsky.Embed {
     }
 }
 public extension App.Bsky.Embed.Record {
-    public struct View: UnionCodable, Hashable {
+    struct View: UnionCodable, Hashable {
         @Indirect
         public var record: Union5<App.Bsky.Embed.Record.ViewRecord, App.Bsky.Embed.Record.ViewNotFound, App.Bsky.Embed.Record.ViewBlocked, App.Bsky.Feed.Defs.GeneratorView, App.Bsky.Graph.Defs.ListView>
         public init(
@@ -863,7 +863,7 @@ public extension App.Bsky.Embed.Record {
     }
 }
 public extension App.Bsky.Embed.Record {
-    public struct ViewBlocked: UnionCodable, Hashable {
+    struct ViewBlocked: UnionCodable, Hashable {
         @Indirect
         public var author: App.Bsky.Feed.Defs.BlockedAuthor
         @Indirect
@@ -883,7 +883,7 @@ public extension App.Bsky.Embed.Record {
     }
 }
 public extension App.Bsky.Embed.Record {
-    public struct ViewNotFound: UnionCodable, Hashable {
+    struct ViewNotFound: UnionCodable, Hashable {
         @Indirect
         public var notFound: Bool
         @Indirect
@@ -899,7 +899,7 @@ public extension App.Bsky.Embed.Record {
     }
 }
 public extension App.Bsky.Embed.Record {
-    public struct ViewRecord: UnionCodable, Hashable {
+    struct ViewRecord: UnionCodable, Hashable {
         @Indirect
         public var author: App.Bsky.Actor.Defs.ProfileViewBasic
         @Indirect
@@ -935,7 +935,7 @@ public extension App.Bsky.Embed.Record {
     }
 }
 public extension App.Bsky.Embed {
-    public struct RecordWithMedia: UnionCodable, Hashable {
+    struct RecordWithMedia: UnionCodable, Hashable {
         @Indirect
         public var media: Union2<App.Bsky.Embed.Images, App.Bsky.Embed.External>
         @Indirect
@@ -951,7 +951,7 @@ public extension App.Bsky.Embed {
     }
 }
 public extension App.Bsky.Embed.RecordWithMedia {
-    public struct View: UnionCodable, Hashable {
+    struct View: UnionCodable, Hashable {
         @Indirect
         public var media: Union2<App.Bsky.Embed.Images.View, App.Bsky.Embed.External.View>
         @Indirect
@@ -967,7 +967,7 @@ public extension App.Bsky.Embed.RecordWithMedia {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct BlockedAuthor: UnionCodable, Hashable {
+    struct BlockedAuthor: UnionCodable, Hashable {
         @Indirect
         public var did: String
         @Indirect
@@ -983,7 +983,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct BlockedPost: UnionCodable, Hashable {
+    struct BlockedPost: UnionCodable, Hashable {
         @Indirect
         public var author: App.Bsky.Feed.Defs.BlockedAuthor
         @Indirect
@@ -1003,7 +1003,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct FeedViewPost: UnionCodable, Hashable {
+    struct FeedViewPost: UnionCodable, Hashable {
         @Indirect
         public var post: App.Bsky.Feed.Defs.PostView
         @Indirect
@@ -1023,7 +1023,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct GeneratorView: UnionCodable, Hashable {
+    struct GeneratorView: UnionCodable, Hashable {
         @Indirect
         public var avatar: String?
         @Indirect
@@ -1075,7 +1075,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct GeneratorViewerState: UnionCodable, Hashable {
+    struct GeneratorViewerState: UnionCodable, Hashable {
         @Indirect
         public var like: ATURI?
         public init(
@@ -1087,7 +1087,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct NotFoundPost: UnionCodable, Hashable {
+    struct NotFoundPost: UnionCodable, Hashable {
         @Indirect
         public var notFound: Bool
         @Indirect
@@ -1103,7 +1103,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct PostView: UnionCodable, Hashable {
+    struct PostView: UnionCodable, Hashable {
         @Indirect
         public var author: App.Bsky.Actor.Defs.ProfileViewBasic
         @Indirect
@@ -1159,7 +1159,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct ReasonRepost: UnionCodable, Hashable {
+    struct ReasonRepost: UnionCodable, Hashable {
         @Indirect
         public var by: App.Bsky.Actor.Defs.ProfileViewBasic
         @Indirect
@@ -1175,7 +1175,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct ReplyRef: UnionCodable, Hashable {
+    struct ReplyRef: UnionCodable, Hashable {
         @Indirect
         public var parent: Union3<App.Bsky.Feed.Defs.PostView, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>
         @Indirect
@@ -1191,7 +1191,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct SkeletonFeedPost: UnionCodable, Hashable {
+    struct SkeletonFeedPost: UnionCodable, Hashable {
         @Indirect
         public var post: ATURI
         @Indirect
@@ -1207,7 +1207,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct SkeletonReasonRepost: UnionCodable, Hashable {
+    struct SkeletonReasonRepost: UnionCodable, Hashable {
         @Indirect
         public var repost: ATURI
         public init(
@@ -1219,7 +1219,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct ThreadViewPost: UnionCodable, Hashable {
+    struct ThreadViewPost: UnionCodable, Hashable {
         @Indirect
         public var parent: Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>?
         @Indirect
@@ -1243,7 +1243,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct ThreadgateView: UnionCodable, Hashable {
+    struct ThreadgateView: UnionCodable, Hashable {
         @Indirect
         public var cid: String?
         @Indirect
@@ -1267,7 +1267,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct ViewerState: UnionCodable, Hashable {
+    struct ViewerState: UnionCodable, Hashable {
         @Indirect
         public var like: ATURI?
         @Indirect
@@ -1283,7 +1283,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.Defs {
-    public struct ViewerThreadState: UnionCodable, Hashable {
+    struct ViewerThreadState: UnionCodable, Hashable {
         @Indirect
         public var canReply: Bool?
         public init(
@@ -1295,7 +1295,7 @@ public extension App.Bsky.Feed.Defs {
     }
 }
 public extension App.Bsky.Feed.DescribeFeedGenerator {
-    public struct Feed: UnionCodable, Hashable {
+    struct Feed: UnionCodable, Hashable {
         @Indirect
         public var uri: ATURI
         public init(
@@ -1307,7 +1307,7 @@ public extension App.Bsky.Feed.DescribeFeedGenerator {
     }
 }
 public extension App.Bsky.Feed.DescribeFeedGenerator {
-    public struct Links: UnionCodable, Hashable {
+    struct Links: UnionCodable, Hashable {
         @Indirect
         public var privacyPolicy: String?
         @Indirect
@@ -1351,7 +1351,7 @@ public extension App.Bsky.Feed {
     }
 }
 public extension App.Bsky.Feed {
-    public struct Generator: UnionCodable, Hashable {
+    struct Generator: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -1718,7 +1718,7 @@ public extension App.Bsky.Feed {
     }
 }
 public extension App.Bsky.Feed.GetLikes {
-    public struct Like: UnionCodable, Hashable {
+    struct Like: UnionCodable, Hashable {
         @Indirect
         public var actor: App.Bsky.Actor.Defs.ProfileView
         @Indirect
@@ -2091,7 +2091,7 @@ public extension App.Bsky.Feed {
     }
 }
 public extension App.Bsky.Feed {
-    public struct Like: UnionCodable, Hashable {
+    struct Like: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -2107,7 +2107,7 @@ public extension App.Bsky.Feed {
     }
 }
 public extension App.Bsky.Feed.Post {
-    public struct Entity: UnionCodable, Hashable {
+    struct Entity: UnionCodable, Hashable {
         @Indirect
         public var index: App.Bsky.Feed.Post.TextSlice
         @Indirect
@@ -2127,7 +2127,7 @@ public extension App.Bsky.Feed.Post {
     }
 }
 public extension App.Bsky.Feed {
-    public struct Post: UnionCodable, Hashable {
+    struct Post: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -2171,7 +2171,7 @@ public extension App.Bsky.Feed {
     }
 }
 public extension App.Bsky.Feed.Post {
-    public struct ReplyRef: UnionCodable, Hashable {
+    struct ReplyRef: UnionCodable, Hashable {
         @Indirect
         public var parent: Com.Atproto.Repo.StrongRef
         @Indirect
@@ -2187,7 +2187,7 @@ public extension App.Bsky.Feed.Post {
     }
 }
 public extension App.Bsky.Feed.Post {
-    public struct TextSlice: UnionCodable, Hashable {
+    struct TextSlice: UnionCodable, Hashable {
         @Indirect
         public var end: Int
         @Indirect
@@ -2203,7 +2203,7 @@ public extension App.Bsky.Feed.Post {
     }
 }
 public extension App.Bsky.Feed {
-    public struct Repost: UnionCodable, Hashable {
+    struct Repost: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -2273,7 +2273,7 @@ public extension App.Bsky.Feed {
     }
 }
 public extension App.Bsky.Feed.Threadgate {
-    public struct FollowingRule: UnionCodable, Hashable {
+    struct FollowingRule: UnionCodable, Hashable {
         public init(
 
         ) {
@@ -2283,7 +2283,7 @@ public extension App.Bsky.Feed.Threadgate {
     }
 }
 public extension App.Bsky.Feed.Threadgate {
-    public struct ListRule: UnionCodable, Hashable {
+    struct ListRule: UnionCodable, Hashable {
         @Indirect
         public var list: ATURI
         public init(
@@ -2295,7 +2295,7 @@ public extension App.Bsky.Feed.Threadgate {
     }
 }
 public extension App.Bsky.Feed {
-    public struct Threadgate: UnionCodable, Hashable {
+    struct Threadgate: UnionCodable, Hashable {
         @Indirect
         public var allow: [Union3<App.Bsky.Feed.Threadgate.MentionRule, App.Bsky.Feed.Threadgate.FollowingRule, App.Bsky.Feed.Threadgate.ListRule>]?
         @Indirect
@@ -2315,7 +2315,7 @@ public extension App.Bsky.Feed {
     }
 }
 public extension App.Bsky.Feed.Threadgate {
-    public struct MentionRule: UnionCodable, Hashable {
+    struct MentionRule: UnionCodable, Hashable {
         public init(
 
         ) {
@@ -2325,7 +2325,7 @@ public extension App.Bsky.Feed.Threadgate {
     }
 }
 public extension App.Bsky.Graph {
-    public struct Block: UnionCodable, Hashable {
+    struct Block: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -2343,7 +2343,7 @@ public extension App.Bsky.Graph {
 public extension App.Bsky.Graph.Defs {
 }
 public extension App.Bsky.Graph.Defs {
-    public struct ListItemView: UnionCodable, Hashable {
+    struct ListItemView: UnionCodable, Hashable {
         @Indirect
         public var subject: App.Bsky.Actor.Defs.ProfileView
         public init(
@@ -2358,7 +2358,7 @@ public extension App.Bsky.Graph.Defs {
     typealias ListPurpose = String
 }
 public extension App.Bsky.Graph.Defs {
-    public struct ListView: UnionCodable, Hashable {
+    struct ListView: UnionCodable, Hashable {
         @Indirect
         public var avatar: String?
         @Indirect
@@ -2406,7 +2406,7 @@ public extension App.Bsky.Graph.Defs {
     }
 }
 public extension App.Bsky.Graph.Defs {
-    public struct ListViewBasic: UnionCodable, Hashable {
+    struct ListViewBasic: UnionCodable, Hashable {
         @Indirect
         public var avatar: String?
         @Indirect
@@ -2442,7 +2442,7 @@ public extension App.Bsky.Graph.Defs {
     }
 }
 public extension App.Bsky.Graph.Defs {
-    public struct ListViewerState: UnionCodable, Hashable {
+    struct ListViewerState: UnionCodable, Hashable {
         @Indirect
         public var blocked: ATURI?
         @Indirect
@@ -2460,7 +2460,7 @@ public extension App.Bsky.Graph.Defs {
 public extension App.Bsky.Graph.Defs {
 }
 public extension App.Bsky.Graph {
-    public struct Follow: UnionCodable, Hashable {
+    struct Follow: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -2904,7 +2904,7 @@ public extension App.Bsky.Graph {
     }
 }
 public extension App.Bsky.Graph {
-    public struct List: UnionCodable, Hashable {
+    struct List: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -2936,7 +2936,7 @@ public extension App.Bsky.Graph {
     }
 }
 public extension App.Bsky.Graph {
-    public struct Listblock: UnionCodable, Hashable {
+    struct Listblock: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -2952,7 +2952,7 @@ public extension App.Bsky.Graph {
     }
 }
 public extension App.Bsky.Graph {
-    public struct Listitem: UnionCodable, Hashable {
+    struct Listitem: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -3142,7 +3142,7 @@ public extension App.Bsky.Notification {
     }
 }
 public extension App.Bsky.Notification.ListNotifications {
-    public struct Notification: UnionCodable, Hashable {
+    struct Notification: UnionCodable, Hashable {
         @Indirect
         public var author: App.Bsky.Actor.Defs.ProfileView
         @Indirect
@@ -3240,7 +3240,7 @@ public extension App.Bsky.Notification {
     }
 }
 public extension App.Bsky.Richtext.Facet {
-    public struct ByteSlice: UnionCodable, Hashable {
+    struct ByteSlice: UnionCodable, Hashable {
         @Indirect
         public var byteEnd: Int
         @Indirect
@@ -3256,7 +3256,7 @@ public extension App.Bsky.Richtext.Facet {
     }
 }
 public extension App.Bsky.Richtext.Facet {
-    public struct Link: UnionCodable, Hashable {
+    struct Link: UnionCodable, Hashable {
         @Indirect
         public var uri: SafeURL
         public init(
@@ -3268,7 +3268,7 @@ public extension App.Bsky.Richtext.Facet {
     }
 }
 public extension App.Bsky.Richtext {
-    public struct Facet: UnionCodable, Hashable {
+    struct Facet: UnionCodable, Hashable {
         @Indirect
         public var features: [Union3<App.Bsky.Richtext.Facet.Mention, App.Bsky.Richtext.Facet.Link, App.Bsky.Richtext.Facet.Tag>]
         @Indirect
@@ -3284,7 +3284,7 @@ public extension App.Bsky.Richtext {
     }
 }
 public extension App.Bsky.Richtext.Facet {
-    public struct Mention: UnionCodable, Hashable {
+    struct Mention: UnionCodable, Hashable {
         @Indirect
         public var did: String
         public init(
@@ -3296,7 +3296,7 @@ public extension App.Bsky.Richtext.Facet {
     }
 }
 public extension App.Bsky.Richtext.Facet {
-    public struct Tag: UnionCodable, Hashable {
+    struct Tag: UnionCodable, Hashable {
         @Indirect
         public var tag: String
         public init(
@@ -3308,7 +3308,7 @@ public extension App.Bsky.Richtext.Facet {
     }
 }
 public extension App.Bsky.Unspecced.Defs {
-    public struct SkeletonSearchActor: UnionCodable, Hashable {
+    struct SkeletonSearchActor: UnionCodable, Hashable {
         @Indirect
         public var did: String
         public init(
@@ -3320,7 +3320,7 @@ public extension App.Bsky.Unspecced.Defs {
     }
 }
 public extension App.Bsky.Unspecced.Defs {
-    public struct SkeletonSearchPost: UnionCodable, Hashable {
+    struct SkeletonSearchPost: UnionCodable, Hashable {
         @Indirect
         public var uri: ATURI
         public init(
@@ -3592,7 +3592,7 @@ public extension App.Bsky.Unspecced {
 public extension Com.Atproto.Admin.Defs {
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct ActionReversal: UnionCodable, Hashable {
+    struct ActionReversal: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -3615,7 +3615,7 @@ public extension Com.Atproto.Admin.Defs {
     typealias ActionType = String
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct ActionView: UnionCodable, Hashable {
+    struct ActionView: UnionCodable, Hashable {
         @Indirect
         public var action: Com.Atproto.Admin.Defs.ActionType
         @Indirect
@@ -3671,7 +3671,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct ActionViewCurrent: UnionCodable, Hashable {
+    struct ActionViewCurrent: UnionCodable, Hashable {
         @Indirect
         public var action: Com.Atproto.Admin.Defs.ActionType
         @Indirect
@@ -3691,7 +3691,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct ActionViewDetail: UnionCodable, Hashable {
+    struct ActionViewDetail: UnionCodable, Hashable {
         @Indirect
         public var action: Com.Atproto.Admin.Defs.ActionType
         @Indirect
@@ -3747,7 +3747,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct BlobView: UnionCodable, Hashable {
+    struct BlobView: UnionCodable, Hashable {
         @Indirect
         public var cid: String
         @Indirect
@@ -3783,7 +3783,7 @@ public extension Com.Atproto.Admin.Defs {
 public extension Com.Atproto.Admin.Defs {
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct ImageDetails: UnionCodable, Hashable {
+    struct ImageDetails: UnionCodable, Hashable {
         @Indirect
         public var height: Int
         @Indirect
@@ -3799,7 +3799,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct Moderation: UnionCodable, Hashable {
+    struct Moderation: UnionCodable, Hashable {
         @Indirect
         public var currentAction: Com.Atproto.Admin.Defs.ActionViewCurrent?
         public init(
@@ -3811,7 +3811,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct ModerationDetail: UnionCodable, Hashable {
+    struct ModerationDetail: UnionCodable, Hashable {
         @Indirect
         public var actions: [Com.Atproto.Admin.Defs.ActionView]
         @Indirect
@@ -3831,7 +3831,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct RecordView: UnionCodable, Hashable {
+    struct RecordView: UnionCodable, Hashable {
         @Indirect
         public var blobCids: [String]
         @Indirect
@@ -3867,7 +3867,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct RecordViewDetail: UnionCodable, Hashable {
+    struct RecordViewDetail: UnionCodable, Hashable {
         @Indirect
         public var blobs: [Com.Atproto.Admin.Defs.BlobView]
         @Indirect
@@ -3907,7 +3907,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct RecordViewNotFound: UnionCodable, Hashable {
+    struct RecordViewNotFound: UnionCodable, Hashable {
         @Indirect
         public var uri: ATURI
         public init(
@@ -3919,7 +3919,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct RepoRef: UnionCodable, Hashable {
+    struct RepoRef: UnionCodable, Hashable {
         @Indirect
         public var did: String
         public init(
@@ -3931,7 +3931,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct RepoView: UnionCodable, Hashable {
+    struct RepoView: UnionCodable, Hashable {
         @Indirect
         public var did: String
         @Indirect
@@ -3975,7 +3975,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct RepoViewDetail: UnionCodable, Hashable {
+    struct RepoViewDetail: UnionCodable, Hashable {
         @Indirect
         public var did: String
         @Indirect
@@ -4027,7 +4027,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct RepoViewNotFound: UnionCodable, Hashable {
+    struct RepoViewNotFound: UnionCodable, Hashable {
         @Indirect
         public var did: String
         public init(
@@ -4039,7 +4039,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct ReportView: UnionCodable, Hashable {
+    struct ReportView: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -4079,7 +4079,7 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct ReportViewDetail: UnionCodable, Hashable {
+    struct ReportViewDetail: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -4117,7 +4117,7 @@ public extension Com.Atproto.Admin.Defs {
 public extension Com.Atproto.Admin.Defs {
 }
 public extension Com.Atproto.Admin.Defs {
-    public struct VideoDetails: UnionCodable, Hashable {
+    struct VideoDetails: UnionCodable, Hashable {
         @Indirect
         public var height: Int
         @Indirect
@@ -4824,7 +4824,7 @@ public extension Com.Atproto.Identity {
     }
 }
 public extension Com.Atproto.Label.Defs {
-    public struct Label: UnionCodable, Hashable {
+    struct Label: UnionCodable, Hashable {
         @Indirect
         public var cid: String?
         @Indirect
@@ -4856,7 +4856,7 @@ public extension Com.Atproto.Label.Defs {
     }
 }
 public extension Com.Atproto.Label.Defs {
-    public struct SelfLabel: UnionCodable, Hashable {
+    struct SelfLabel: UnionCodable, Hashable {
         @Indirect
         public var val: String
         public init(
@@ -4868,7 +4868,7 @@ public extension Com.Atproto.Label.Defs {
     }
 }
 public extension Com.Atproto.Label.Defs {
-    public struct SelfLabels: UnionCodable, Hashable {
+    struct SelfLabels: UnionCodable, Hashable {
         @Indirect
         public var values: [Com.Atproto.Label.Defs.SelfLabel]
         public init(
@@ -4935,7 +4935,7 @@ public extension Com.Atproto.Label {
     }
 }
 public extension Com.Atproto.Label.SubscribeLabels {
-    public struct Info: UnionCodable, Hashable {
+    struct Info: UnionCodable, Hashable {
         @Indirect
         public var message: String?
         @Indirect
@@ -4951,7 +4951,7 @@ public extension Com.Atproto.Label.SubscribeLabels {
     }
 }
 public extension Com.Atproto.Label.SubscribeLabels {
-    public struct Labels: UnionCodable, Hashable {
+    struct Labels: UnionCodable, Hashable {
         @Indirect
         public var labels: [Com.Atproto.Label.Defs.Label]
         @Indirect
@@ -5044,7 +5044,7 @@ public extension Com.Atproto.Moderation.Defs {
 public extension Com.Atproto.Moderation.Defs {
 }
 public extension Com.Atproto.Repo.ApplyWrites {
-    public struct Create: UnionCodable, Hashable {
+    struct Create: UnionCodable, Hashable {
         @Indirect
         public var collection: String
         @Indirect
@@ -5064,7 +5064,7 @@ public extension Com.Atproto.Repo.ApplyWrites {
     }
 }
 public extension Com.Atproto.Repo.ApplyWrites {
-    public struct Delete: UnionCodable, Hashable {
+    struct Delete: UnionCodable, Hashable {
         @Indirect
         public var collection: String
         @Indirect
@@ -5113,7 +5113,7 @@ public extension Com.Atproto.Repo {
     }
 }
 public extension Com.Atproto.Repo.ApplyWrites {
-    public struct Update: UnionCodable, Hashable {
+    struct Update: UnionCodable, Hashable {
         @Indirect
         public var collection: String
         @Indirect
@@ -5405,7 +5405,7 @@ public extension Com.Atproto.Repo {
     }
 }
 public extension Com.Atproto.Repo.ListRecords {
-    public struct Record: UnionCodable, Hashable {
+    struct Record: UnionCodable, Hashable {
         @Indirect
         public var cid: String
         @Indirect
@@ -5483,7 +5483,7 @@ public extension Com.Atproto.Repo {
     }
 }
 public extension Com.Atproto.Repo {
-    public struct StrongRef: UnionCodable, Hashable {
+    struct StrongRef: UnionCodable, Hashable {
         @Indirect
         public var cid: String
         @Indirect
@@ -5604,7 +5604,7 @@ public extension Com.Atproto.Server {
     }
 }
 public extension Com.Atproto.Server.CreateAppPassword {
-    public struct AppPassword: UnionCodable, Hashable {
+    struct AppPassword: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -5680,7 +5680,7 @@ public extension Com.Atproto.Server {
     }
 }
 public extension Com.Atproto.Server.CreateInviteCodes {
-    public struct AccountCodes: UnionCodable, Hashable {
+    struct AccountCodes: UnionCodable, Hashable {
         @Indirect
         public var account: String
         @Indirect
@@ -5788,7 +5788,7 @@ public extension Com.Atproto.Server {
     }
 }
 public extension Com.Atproto.Server.Defs {
-    public struct InviteCode: UnionCodable, Hashable {
+    struct InviteCode: UnionCodable, Hashable {
         @Indirect
         public var available: Int
         @Indirect
@@ -5824,7 +5824,7 @@ public extension Com.Atproto.Server.Defs {
     }
 }
 public extension Com.Atproto.Server.Defs {
-    public struct InviteCodeUse: UnionCodable, Hashable {
+    struct InviteCodeUse: UnionCodable, Hashable {
         @Indirect
         public var usedAt: Date
         @Indirect
@@ -5880,7 +5880,7 @@ public extension Com.Atproto.Server {
     }
 }
 public extension Com.Atproto.Server.DescribeServer {
-    public struct Links: UnionCodable, Hashable {
+    struct Links: UnionCodable, Hashable {
         @Indirect
         public var privacyPolicy: String?
         @Indirect
@@ -5997,7 +5997,7 @@ public extension Com.Atproto.Server {
     }
 }
 public extension Com.Atproto.Server.ListAppPasswords {
-    public struct AppPassword: UnionCodable, Hashable {
+    struct AppPassword: UnionCodable, Hashable {
         @Indirect
         public var createdAt: Date
         @Indirect
@@ -6540,7 +6540,7 @@ public extension Com.Atproto.Sync {
     }
 }
 public extension Com.Atproto.Sync.ListRepos {
-    public struct Repo: UnionCodable, Hashable {
+    struct Repo: UnionCodable, Hashable {
         @Indirect
         public var did: String
         @Indirect
@@ -6598,7 +6598,7 @@ public extension Com.Atproto.Sync {
     }
 }
 public extension Com.Atproto.Sync.SubscribeRepos {
-    public struct Commit: UnionCodable, Hashable {
+    struct Commit: UnionCodable, Hashable {
         @Indirect
         public var ops: [Com.Atproto.Sync.SubscribeRepos.RepoOp]
         @Indirect
@@ -6638,7 +6638,7 @@ public extension Com.Atproto.Sync.SubscribeRepos {
     }
 }
 public extension Com.Atproto.Sync.SubscribeRepos {
-    public struct Handle: UnionCodable, Hashable {
+    struct Handle: UnionCodable, Hashable {
         @Indirect
         public var did: String
         @Indirect
@@ -6662,7 +6662,7 @@ public extension Com.Atproto.Sync.SubscribeRepos {
     }
 }
 public extension Com.Atproto.Sync.SubscribeRepos {
-    public struct Info: UnionCodable, Hashable {
+    struct Info: UnionCodable, Hashable {
         @Indirect
         public var message: String?
         @Indirect
@@ -6682,7 +6682,7 @@ public extension Com.Atproto.Sync {
     }
 }
 public extension Com.Atproto.Sync.SubscribeRepos {
-    public struct Migrate: UnionCodable, Hashable {
+    struct Migrate: UnionCodable, Hashable {
         @Indirect
         public var did: String
         @Indirect
@@ -6706,7 +6706,7 @@ public extension Com.Atproto.Sync.SubscribeRepos {
     }
 }
 public extension Com.Atproto.Sync.SubscribeRepos {
-    public struct RepoOp: UnionCodable, Hashable {
+    struct RepoOp: UnionCodable, Hashable {
         @Indirect
         public var action: String
         @Indirect
@@ -6722,7 +6722,7 @@ public extension Com.Atproto.Sync.SubscribeRepos {
     }
 }
 public extension Com.Atproto.Sync.SubscribeRepos {
-    public struct Tombstone: UnionCodable, Hashable {
+    struct Tombstone: UnionCodable, Hashable {
         @Indirect
         public var did: String
         @Indirect
