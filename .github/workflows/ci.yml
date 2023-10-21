@@ -27,9 +27,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # masos-latest is disabled due to unknown error
-        # i.e. https://github.com/andooown/swift-atproto/actions/runs/5891991845/job/15980295242
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-13]
         swift-version: ["5.9"]
     steps:
       - uses: swift-actions/setup-swift@v1
