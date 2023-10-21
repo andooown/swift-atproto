@@ -103,38 +103,38 @@ public extension Com.Atproto {
     }
 }
 public typealias LexiconUnknownUnion = Union11<App.Bsky.Actor.Profile, App.Bsky.Feed.Generator, App.Bsky.Feed.Like, App.Bsky.Feed.Post, App.Bsky.Feed.Repost, App.Bsky.Feed.Threadgate, App.Bsky.Graph.Block, App.Bsky.Graph.Follow, App.Bsky.Graph.List, App.Bsky.Graph.Listblock, App.Bsky.Graph.Listitem>
-extension LexiconUnknownUnion {
-    public var asProfile: App.Bsky.Actor.Profile? {
+public extension LexiconUnknownUnion {
+    var asProfile: App.Bsky.Actor.Profile? {
         asType0
     }
-    public var asGenerator: App.Bsky.Feed.Generator? {
+    var asGenerator: App.Bsky.Feed.Generator? {
         asType1
     }
-    public var asLike: App.Bsky.Feed.Like? {
+    var asLike: App.Bsky.Feed.Like? {
         asType2
     }
-    public var asPost: App.Bsky.Feed.Post? {
+    var asPost: App.Bsky.Feed.Post? {
         asType3
     }
-    public var asRepost: App.Bsky.Feed.Repost? {
+    var asRepost: App.Bsky.Feed.Repost? {
         asType4
     }
-    public var asThreadgate: App.Bsky.Feed.Threadgate? {
+    var asThreadgate: App.Bsky.Feed.Threadgate? {
         asType5
     }
-    public var asBlock: App.Bsky.Graph.Block? {
+    var asBlock: App.Bsky.Graph.Block? {
         asType6
     }
-    public var asFollow: App.Bsky.Graph.Follow? {
+    var asFollow: App.Bsky.Graph.Follow? {
         asType7
     }
-    public var asList: App.Bsky.Graph.List? {
+    var asList: App.Bsky.Graph.List? {
         asType8
     }
-    public var asListblock: App.Bsky.Graph.Listblock? {
+    var asListblock: App.Bsky.Graph.Listblock? {
         asType9
     }
-    public var asListitem: App.Bsky.Graph.Listitem? {
+    var asListitem: App.Bsky.Graph.Listitem? {
         asType10
     }
 }
@@ -171,22 +171,22 @@ public extension App.Bsky.Actor.Defs {
         @Indirect
         public var feed: String
         @Indirect
-        public var hideQuotePosts: Optional<Bool>
+        public var hideQuotePosts: Bool?
         @Indirect
-        public var hideReplies: Optional<Bool>
+        public var hideReplies: Bool?
         @Indirect
-        public var hideRepliesByLikeCount: Optional<Int>
+        public var hideRepliesByLikeCount: Int?
         @Indirect
-        public var hideRepliesByUnfollowed: Optional<Bool>
+        public var hideRepliesByUnfollowed: Bool?
         @Indirect
-        public var hideReposts: Optional<Bool>
+        public var hideReposts: Bool?
         public init(
             feed: String,
-            hideQuotePosts: Optional<Bool> = nil,
-            hideReplies: Optional<Bool> = nil,
-            hideRepliesByLikeCount: Optional<Int> = nil,
-            hideRepliesByUnfollowed: Optional<Bool> = nil,
-            hideReposts: Optional<Bool> = nil
+            hideQuotePosts: Bool? = nil,
+            hideReplies: Bool? = nil,
+            hideRepliesByLikeCount: Int? = nil,
+            hideRepliesByUnfollowed: Bool? = nil,
+            hideReposts: Bool? = nil
         ) {
             self._feed = .wrapped(feed)
             self._hideQuotePosts = .wrapped(hideQuotePosts)
@@ -201,9 +201,9 @@ public extension App.Bsky.Actor.Defs {
 public extension App.Bsky.Actor.Defs {
     public struct PersonalDetailsPref: UnionCodable, Hashable {
         @Indirect
-        public var birthDate: Optional<Date>
+        public var birthDate: Date?
         public init(
-            birthDate: Optional<Date> = nil
+            birthDate: Date? = nil
         ) {
             self._birthDate = .wrapped(birthDate)
         }
@@ -216,30 +216,30 @@ public extension App.Bsky.Actor.Defs {
 public extension App.Bsky.Actor.Defs {
     public struct ProfileView: UnionCodable, Hashable {
         @Indirect
-        public var avatar: Optional<String>
+        public var avatar: String?
         @Indirect
-        public var description: Optional<String>
+        public var description: String?
         @Indirect
         public var did: String
         @Indirect
-        public var displayName: Optional<String>
+        public var displayName: String?
         @Indirect
         public var handle: String
         @Indirect
-        public var indexedAt: Optional<Date>
+        public var indexedAt: Date?
         @Indirect
-        public var labels: Optional<[Com.Atproto.Label.Defs.Label]>
+        public var labels: [Com.Atproto.Label.Defs.Label]?
         @Indirect
-        public var viewer: Optional<App.Bsky.Actor.Defs.ViewerState>
+        public var viewer: App.Bsky.Actor.Defs.ViewerState?
         public init(
-            avatar: Optional<String> = nil,
-            description: Optional<String> = nil,
+            avatar: String? = nil,
+            description: String? = nil,
             did: String,
-            displayName: Optional<String> = nil,
+            displayName: String? = nil,
             handle: String,
-            indexedAt: Optional<Date> = nil,
-            labels: Optional<[Com.Atproto.Label.Defs.Label]> = nil,
-            viewer: Optional<App.Bsky.Actor.Defs.ViewerState> = nil
+            indexedAt: Date? = nil,
+            labels: [Com.Atproto.Label.Defs.Label]? = nil,
+            viewer: App.Bsky.Actor.Defs.ViewerState? = nil
         ) {
             self._avatar = .wrapped(avatar)
             self._description = .wrapped(description)
@@ -256,24 +256,24 @@ public extension App.Bsky.Actor.Defs {
 public extension App.Bsky.Actor.Defs {
     public struct ProfileViewBasic: UnionCodable, Hashable {
         @Indirect
-        public var avatar: Optional<String>
+        public var avatar: String?
         @Indirect
         public var did: String
         @Indirect
-        public var displayName: Optional<String>
+        public var displayName: String?
         @Indirect
         public var handle: String
         @Indirect
-        public var labels: Optional<[Com.Atproto.Label.Defs.Label]>
+        public var labels: [Com.Atproto.Label.Defs.Label]?
         @Indirect
-        public var viewer: Optional<App.Bsky.Actor.Defs.ViewerState>
+        public var viewer: App.Bsky.Actor.Defs.ViewerState?
         public init(
-            avatar: Optional<String> = nil,
+            avatar: String? = nil,
             did: String,
-            displayName: Optional<String> = nil,
+            displayName: String? = nil,
             handle: String,
-            labels: Optional<[Com.Atproto.Label.Defs.Label]> = nil,
-            viewer: Optional<App.Bsky.Actor.Defs.ViewerState> = nil
+            labels: [Com.Atproto.Label.Defs.Label]? = nil,
+            viewer: App.Bsky.Actor.Defs.ViewerState? = nil
         ) {
             self._avatar = .wrapped(avatar)
             self._did = .wrapped(did)
@@ -288,42 +288,42 @@ public extension App.Bsky.Actor.Defs {
 public extension App.Bsky.Actor.Defs {
     public struct ProfileViewDetailed: UnionCodable, Hashable {
         @Indirect
-        public var avatar: Optional<String>
+        public var avatar: String?
         @Indirect
-        public var banner: Optional<String>
+        public var banner: String?
         @Indirect
-        public var description: Optional<String>
+        public var description: String?
         @Indirect
         public var did: String
         @Indirect
-        public var displayName: Optional<String>
+        public var displayName: String?
         @Indirect
-        public var followersCount: Optional<Int>
+        public var followersCount: Int?
         @Indirect
-        public var followsCount: Optional<Int>
+        public var followsCount: Int?
         @Indirect
         public var handle: String
         @Indirect
-        public var indexedAt: Optional<Date>
+        public var indexedAt: Date?
         @Indirect
-        public var labels: Optional<[Com.Atproto.Label.Defs.Label]>
+        public var labels: [Com.Atproto.Label.Defs.Label]?
         @Indirect
-        public var postsCount: Optional<Int>
+        public var postsCount: Int?
         @Indirect
-        public var viewer: Optional<App.Bsky.Actor.Defs.ViewerState>
+        public var viewer: App.Bsky.Actor.Defs.ViewerState?
         public init(
-            avatar: Optional<String> = nil,
-            banner: Optional<String> = nil,
-            description: Optional<String> = nil,
+            avatar: String? = nil,
+            banner: String? = nil,
+            description: String? = nil,
             did: String,
-            displayName: Optional<String> = nil,
-            followersCount: Optional<Int> = nil,
-            followsCount: Optional<Int> = nil,
+            displayName: String? = nil,
+            followersCount: Int? = nil,
+            followsCount: Int? = nil,
             handle: String,
-            indexedAt: Optional<Date> = nil,
-            labels: Optional<[Com.Atproto.Label.Defs.Label]> = nil,
-            postsCount: Optional<Int> = nil,
-            viewer: Optional<App.Bsky.Actor.Defs.ViewerState> = nil
+            indexedAt: Date? = nil,
+            labels: [Com.Atproto.Label.Defs.Label]? = nil,
+            postsCount: Int? = nil,
+            viewer: App.Bsky.Actor.Defs.ViewerState? = nil
         ) {
             self._avatar = .wrapped(avatar)
             self._banner = .wrapped(banner)
@@ -360,12 +360,12 @@ public extension App.Bsky.Actor.Defs {
 public extension App.Bsky.Actor.Defs {
     public struct ThreadViewPref: UnionCodable, Hashable {
         @Indirect
-        public var prioritizeFollowedUsers: Optional<Bool>
+        public var prioritizeFollowedUsers: Bool?
         @Indirect
-        public var sort: Optional<String>
+        public var sort: String?
         public init(
-            prioritizeFollowedUsers: Optional<Bool> = nil,
-            sort: Optional<String> = nil
+            prioritizeFollowedUsers: Bool? = nil,
+            sort: String? = nil
         ) {
             self._prioritizeFollowedUsers = .wrapped(prioritizeFollowedUsers)
             self._sort = .wrapped(sort)
@@ -376,24 +376,24 @@ public extension App.Bsky.Actor.Defs {
 public extension App.Bsky.Actor.Defs {
     public struct ViewerState: UnionCodable, Hashable {
         @Indirect
-        public var blockedBy: Optional<Bool>
+        public var blockedBy: Bool?
         @Indirect
-        public var blocking: Optional<ATURI>
+        public var blocking: ATURI?
         @Indirect
-        public var followedBy: Optional<ATURI>
+        public var followedBy: ATURI?
         @Indirect
-        public var following: Optional<ATURI>
+        public var following: ATURI?
         @Indirect
-        public var muted: Optional<Bool>
+        public var muted: Bool?
         @Indirect
-        public var mutedByList: Optional<App.Bsky.Graph.Defs.ListViewBasic>
+        public var mutedByList: App.Bsky.Graph.Defs.ListViewBasic?
         public init(
-            blockedBy: Optional<Bool> = nil,
-            blocking: Optional<ATURI> = nil,
-            followedBy: Optional<ATURI> = nil,
-            following: Optional<ATURI> = nil,
-            muted: Optional<Bool> = nil,
-            mutedByList: Optional<App.Bsky.Graph.Defs.ListViewBasic> = nil
+            blockedBy: Bool? = nil,
+            blocking: ATURI? = nil,
+            followedBy: ATURI? = nil,
+            following: ATURI? = nil,
+            muted: Bool? = nil,
+            mutedByList: App.Bsky.Graph.Defs.ListViewBasic? = nil
         ) {
             self._blockedBy = .wrapped(blockedBy)
             self._blocking = .wrapped(blocking)
@@ -507,12 +507,12 @@ public extension App.Bsky.Actor {
     struct GetSuggestions: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -529,10 +529,10 @@ public extension App.Bsky.Actor {
             @Indirect
             public var actors: [App.Bsky.Actor.Defs.ProfileView]
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             public init(
                 actors: [App.Bsky.Actor.Defs.ProfileView],
-                cursor: Optional<String> = nil
+                cursor: String? = nil
             ) {
                 self._actors = .wrapped(actors)
                 self._cursor = .wrapped(cursor)
@@ -551,15 +551,15 @@ public extension App.Bsky.Actor {
 public extension App.Bsky.Actor {
     public struct Profile: UnionCodable, Hashable {
         @Indirect
-        public var description: Optional<String>
+        public var description: String?
         @Indirect
-        public var displayName: Optional<String>
+        public var displayName: String?
         @Indirect
-        public var labels: Optional<Union1<Com.Atproto.Label.Defs.SelfLabels>>
+        public var labels: Union1<Com.Atproto.Label.Defs.SelfLabels>?
         public init(
-            description: Optional<String> = nil,
-            displayName: Optional<String> = nil,
-            labels: Optional<Union1<Com.Atproto.Label.Defs.SelfLabels>> = nil
+            description: String? = nil,
+            displayName: String? = nil,
+            labels: Union1<Com.Atproto.Label.Defs.SelfLabels>? = nil
         ) {
             self._description = .wrapped(description)
             self._displayName = .wrapped(displayName)
@@ -593,18 +593,18 @@ public extension App.Bsky.Actor {
     struct SearchActors: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
-            public var q: Optional<String>
+            public var q: String?
             @Indirect
-            public var term: Optional<String>
+            public var term: String?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
-                q: Optional<String> = nil,
-                term: Optional<String> = nil
+                cursor: String? = nil,
+                limit: Int? = nil,
+                q: String? = nil,
+                term: String? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -625,10 +625,10 @@ public extension App.Bsky.Actor {
             @Indirect
             public var actors: [App.Bsky.Actor.Defs.ProfileView]
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             public init(
                 actors: [App.Bsky.Actor.Defs.ProfileView],
-                cursor: Optional<String> = nil
+                cursor: String? = nil
             ) {
                 self._actors = .wrapped(actors)
                 self._cursor = .wrapped(cursor)
@@ -648,15 +648,15 @@ public extension App.Bsky.Actor {
     struct SearchActorsTypeahead: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
-            public var q: Optional<String>
+            public var q: String?
             @Indirect
-            public var term: Optional<String>
+            public var term: String?
             public init(
-                limit: Optional<Int> = nil,
-                q: Optional<String> = nil,
-                term: Optional<String> = nil
+                limit: Int? = nil,
+                q: String? = nil,
+                term: String? = nil
             ) {
                 self._limit = .wrapped(limit)
                 self._q = .wrapped(q)
@@ -739,14 +739,14 @@ public extension App.Bsky.Embed.External {
         @Indirect
         public var description: String
         @Indirect
-        public var thumb: Optional<String>
+        public var thumb: String?
         @Indirect
         public var title: String
         @Indirect
         public var uri: SafeURL
         public init(
             description: String,
-            thumb: Optional<String> = nil,
+            thumb: String? = nil,
             title: String,
             uri: SafeURL
         ) {
@@ -779,10 +779,10 @@ public extension App.Bsky.Embed.Images {
         @Indirect
         public var alt: String
         @Indirect
-        public var aspectRatio: Optional<App.Bsky.Embed.Images.AspectRatio>
+        public var aspectRatio: App.Bsky.Embed.Images.AspectRatio?
         public init(
             alt: String,
-            aspectRatio: Optional<App.Bsky.Embed.Images.AspectRatio> = nil
+            aspectRatio: App.Bsky.Embed.Images.AspectRatio? = nil
         ) {
             self._alt = .wrapped(alt)
             self._aspectRatio = .wrapped(aspectRatio)
@@ -819,14 +819,14 @@ public extension App.Bsky.Embed.Images {
         @Indirect
         public var alt: String
         @Indirect
-        public var aspectRatio: Optional<App.Bsky.Embed.Images.AspectRatio>
+        public var aspectRatio: App.Bsky.Embed.Images.AspectRatio?
         @Indirect
         public var fullsize: String
         @Indirect
         public var thumb: String
         public init(
             alt: String,
-            aspectRatio: Optional<App.Bsky.Embed.Images.AspectRatio> = nil,
+            aspectRatio: App.Bsky.Embed.Images.AspectRatio? = nil,
             fullsize: String,
             thumb: String
         ) {
@@ -905,11 +905,11 @@ public extension App.Bsky.Embed.Record {
         @Indirect
         public var cid: String
         @Indirect
-        public var embeds: Optional<[Union4<App.Bsky.Embed.Images.View, App.Bsky.Embed.External.View, App.Bsky.Embed.Record.View, App.Bsky.Embed.RecordWithMedia.View>]>
+        public var embeds: [Union4<App.Bsky.Embed.Images.View, App.Bsky.Embed.External.View, App.Bsky.Embed.Record.View, App.Bsky.Embed.RecordWithMedia.View>]?
         @Indirect
         public var indexedAt: Date
         @Indirect
-        public var labels: Optional<[Com.Atproto.Label.Defs.Label]>
+        public var labels: [Com.Atproto.Label.Defs.Label]?
         @Indirect
         public var uri: ATURI
         @Indirect
@@ -917,9 +917,9 @@ public extension App.Bsky.Embed.Record {
         public init(
             author: App.Bsky.Actor.Defs.ProfileViewBasic,
             cid: String,
-            embeds: Optional<[Union4<App.Bsky.Embed.Images.View, App.Bsky.Embed.External.View, App.Bsky.Embed.Record.View, App.Bsky.Embed.RecordWithMedia.View>]> = nil,
+            embeds: [Union4<App.Bsky.Embed.Images.View, App.Bsky.Embed.External.View, App.Bsky.Embed.Record.View, App.Bsky.Embed.RecordWithMedia.View>]? = nil,
             indexedAt: Date,
-            labels: Optional<[Com.Atproto.Label.Defs.Label]> = nil,
+            labels: [Com.Atproto.Label.Defs.Label]? = nil,
             uri: ATURI,
             value: LexiconUnknownUnion
         ) {
@@ -971,10 +971,10 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var did: String
         @Indirect
-        public var viewer: Optional<App.Bsky.Actor.Defs.ViewerState>
+        public var viewer: App.Bsky.Actor.Defs.ViewerState?
         public init(
             did: String,
-            viewer: Optional<App.Bsky.Actor.Defs.ViewerState> = nil
+            viewer: App.Bsky.Actor.Defs.ViewerState? = nil
         ) {
             self._did = .wrapped(did)
             self._viewer = .wrapped(viewer)
@@ -1007,13 +1007,13 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var post: App.Bsky.Feed.Defs.PostView
         @Indirect
-        public var reason: Optional<Union1<App.Bsky.Feed.Defs.ReasonRepost>>
+        public var reason: Union1<App.Bsky.Feed.Defs.ReasonRepost>?
         @Indirect
-        public var reply: Optional<App.Bsky.Feed.Defs.ReplyRef>
+        public var reply: App.Bsky.Feed.Defs.ReplyRef?
         public init(
             post: App.Bsky.Feed.Defs.PostView,
-            reason: Optional<Union1<App.Bsky.Feed.Defs.ReasonRepost>> = nil,
-            reply: Optional<App.Bsky.Feed.Defs.ReplyRef> = nil
+            reason: Union1<App.Bsky.Feed.Defs.ReasonRepost>? = nil,
+            reply: App.Bsky.Feed.Defs.ReplyRef? = nil
         ) {
             self._post = .wrapped(post)
             self._reason = .wrapped(reason)
@@ -1025,15 +1025,15 @@ public extension App.Bsky.Feed.Defs {
 public extension App.Bsky.Feed.Defs {
     public struct GeneratorView: UnionCodable, Hashable {
         @Indirect
-        public var avatar: Optional<String>
+        public var avatar: String?
         @Indirect
         public var cid: String
         @Indirect
         public var creator: App.Bsky.Actor.Defs.ProfileView
         @Indirect
-        public var description: Optional<String>
+        public var description: String?
         @Indirect
-        public var descriptionFacets: Optional<[App.Bsky.Richtext.Facet]>
+        public var descriptionFacets: [App.Bsky.Richtext.Facet]?
         @Indirect
         public var did: String
         @Indirect
@@ -1041,23 +1041,23 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var indexedAt: Date
         @Indirect
-        public var likeCount: Optional<Int>
+        public var likeCount: Int?
         @Indirect
         public var uri: ATURI
         @Indirect
-        public var viewer: Optional<App.Bsky.Feed.Defs.GeneratorViewerState>
+        public var viewer: App.Bsky.Feed.Defs.GeneratorViewerState?
         public init(
-            avatar: Optional<String> = nil,
+            avatar: String? = nil,
             cid: String,
             creator: App.Bsky.Actor.Defs.ProfileView,
-            description: Optional<String> = nil,
-            descriptionFacets: Optional<[App.Bsky.Richtext.Facet]> = nil,
+            description: String? = nil,
+            descriptionFacets: [App.Bsky.Richtext.Facet]? = nil,
             did: String,
             displayName: String,
             indexedAt: Date,
-            likeCount: Optional<Int> = nil,
+            likeCount: Int? = nil,
             uri: ATURI,
-            viewer: Optional<App.Bsky.Feed.Defs.GeneratorViewerState> = nil
+            viewer: App.Bsky.Feed.Defs.GeneratorViewerState? = nil
         ) {
             self._avatar = .wrapped(avatar)
             self._cid = .wrapped(cid)
@@ -1077,9 +1077,9 @@ public extension App.Bsky.Feed.Defs {
 public extension App.Bsky.Feed.Defs {
     public struct GeneratorViewerState: UnionCodable, Hashable {
         @Indirect
-        public var like: Optional<ATURI>
+        public var like: ATURI?
         public init(
-            like: Optional<ATURI> = nil
+            like: ATURI? = nil
         ) {
             self._like = .wrapped(like)
         }
@@ -1109,38 +1109,38 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var cid: String
         @Indirect
-        public var embed: Optional<Union4<App.Bsky.Embed.Images.View, App.Bsky.Embed.External.View, App.Bsky.Embed.Record.View, App.Bsky.Embed.RecordWithMedia.View>>
+        public var embed: Union4<App.Bsky.Embed.Images.View, App.Bsky.Embed.External.View, App.Bsky.Embed.Record.View, App.Bsky.Embed.RecordWithMedia.View>?
         @Indirect
         public var indexedAt: Date
         @Indirect
-        public var labels: Optional<[Com.Atproto.Label.Defs.Label]>
+        public var labels: [Com.Atproto.Label.Defs.Label]?
         @Indirect
-        public var likeCount: Optional<Int>
+        public var likeCount: Int?
         @Indirect
         public var record: LexiconUnknownUnion
         @Indirect
-        public var replyCount: Optional<Int>
+        public var replyCount: Int?
         @Indirect
-        public var repostCount: Optional<Int>
+        public var repostCount: Int?
         @Indirect
-        public var threadgate: Optional<App.Bsky.Feed.Defs.ThreadgateView>
+        public var threadgate: App.Bsky.Feed.Defs.ThreadgateView?
         @Indirect
         public var uri: ATURI
         @Indirect
-        public var viewer: Optional<App.Bsky.Feed.Defs.ViewerState>
+        public var viewer: App.Bsky.Feed.Defs.ViewerState?
         public init(
             author: App.Bsky.Actor.Defs.ProfileViewBasic,
             cid: String,
-            embed: Optional<Union4<App.Bsky.Embed.Images.View, App.Bsky.Embed.External.View, App.Bsky.Embed.Record.View, App.Bsky.Embed.RecordWithMedia.View>> = nil,
+            embed: Union4<App.Bsky.Embed.Images.View, App.Bsky.Embed.External.View, App.Bsky.Embed.Record.View, App.Bsky.Embed.RecordWithMedia.View>? = nil,
             indexedAt: Date,
-            labels: Optional<[Com.Atproto.Label.Defs.Label]> = nil,
-            likeCount: Optional<Int> = nil,
+            labels: [Com.Atproto.Label.Defs.Label]? = nil,
+            likeCount: Int? = nil,
             record: LexiconUnknownUnion,
-            replyCount: Optional<Int> = nil,
-            repostCount: Optional<Int> = nil,
-            threadgate: Optional<App.Bsky.Feed.Defs.ThreadgateView> = nil,
+            replyCount: Int? = nil,
+            repostCount: Int? = nil,
+            threadgate: App.Bsky.Feed.Defs.ThreadgateView? = nil,
             uri: ATURI,
-            viewer: Optional<App.Bsky.Feed.Defs.ViewerState> = nil
+            viewer: App.Bsky.Feed.Defs.ViewerState? = nil
         ) {
             self._author = .wrapped(author)
             self._cid = .wrapped(cid)
@@ -1195,10 +1195,10 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var post: ATURI
         @Indirect
-        public var reason: Optional<Union1<App.Bsky.Feed.Defs.SkeletonReasonRepost>>
+        public var reason: Union1<App.Bsky.Feed.Defs.SkeletonReasonRepost>?
         public init(
             post: ATURI,
-            reason: Optional<Union1<App.Bsky.Feed.Defs.SkeletonReasonRepost>> = nil
+            reason: Union1<App.Bsky.Feed.Defs.SkeletonReasonRepost>? = nil
         ) {
             self._post = .wrapped(post)
             self._reason = .wrapped(reason)
@@ -1221,18 +1221,18 @@ public extension App.Bsky.Feed.Defs {
 public extension App.Bsky.Feed.Defs {
     public struct ThreadViewPost: UnionCodable, Hashable {
         @Indirect
-        public var parent: Optional<Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>>
+        public var parent: Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>?
         @Indirect
         public var post: App.Bsky.Feed.Defs.PostView
         @Indirect
-        public var replies: Optional<[Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>]>
+        public var replies: [Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>]?
         @Indirect
-        public var viewer: Optional<App.Bsky.Feed.Defs.ViewerThreadState>
+        public var viewer: App.Bsky.Feed.Defs.ViewerThreadState?
         public init(
-            parent: Optional<Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>> = nil,
+            parent: Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>? = nil,
             post: App.Bsky.Feed.Defs.PostView,
-            replies: Optional<[Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>]> = nil,
-            viewer: Optional<App.Bsky.Feed.Defs.ViewerThreadState> = nil
+            replies: [Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>]? = nil,
+            viewer: App.Bsky.Feed.Defs.ViewerThreadState? = nil
         ) {
             self._parent = .wrapped(parent)
             self._post = .wrapped(post)
@@ -1245,18 +1245,18 @@ public extension App.Bsky.Feed.Defs {
 public extension App.Bsky.Feed.Defs {
     public struct ThreadgateView: UnionCodable, Hashable {
         @Indirect
-        public var cid: Optional<String>
+        public var cid: String?
         @Indirect
-        public var lists: Optional<[App.Bsky.Graph.Defs.ListViewBasic]>
+        public var lists: [App.Bsky.Graph.Defs.ListViewBasic]?
         @Indirect
-        public var record: Optional<LexiconUnknownUnion>
+        public var record: LexiconUnknownUnion?
         @Indirect
-        public var uri: Optional<ATURI>
+        public var uri: ATURI?
         public init(
-            cid: Optional<String> = nil,
-            lists: Optional<[App.Bsky.Graph.Defs.ListViewBasic]> = nil,
-            record: Optional<LexiconUnknownUnion> = nil,
-            uri: Optional<ATURI> = nil
+            cid: String? = nil,
+            lists: [App.Bsky.Graph.Defs.ListViewBasic]? = nil,
+            record: LexiconUnknownUnion? = nil,
+            uri: ATURI? = nil
         ) {
             self._cid = .wrapped(cid)
             self._lists = .wrapped(lists)
@@ -1269,12 +1269,12 @@ public extension App.Bsky.Feed.Defs {
 public extension App.Bsky.Feed.Defs {
     public struct ViewerState: UnionCodable, Hashable {
         @Indirect
-        public var like: Optional<ATURI>
+        public var like: ATURI?
         @Indirect
-        public var repost: Optional<ATURI>
+        public var repost: ATURI?
         public init(
-            like: Optional<ATURI> = nil,
-            repost: Optional<ATURI> = nil
+            like: ATURI? = nil,
+            repost: ATURI? = nil
         ) {
             self._like = .wrapped(like)
             self._repost = .wrapped(repost)
@@ -1285,9 +1285,9 @@ public extension App.Bsky.Feed.Defs {
 public extension App.Bsky.Feed.Defs {
     public struct ViewerThreadState: UnionCodable, Hashable {
         @Indirect
-        public var canReply: Optional<Bool>
+        public var canReply: Bool?
         public init(
-            canReply: Optional<Bool> = nil
+            canReply: Bool? = nil
         ) {
             self._canReply = .wrapped(canReply)
         }
@@ -1309,12 +1309,12 @@ public extension App.Bsky.Feed.DescribeFeedGenerator {
 public extension App.Bsky.Feed.DescribeFeedGenerator {
     public struct Links: UnionCodable, Hashable {
         @Indirect
-        public var privacyPolicy: Optional<String>
+        public var privacyPolicy: String?
         @Indirect
-        public var termsOfService: Optional<String>
+        public var termsOfService: String?
         public init(
-            privacyPolicy: Optional<String> = nil,
-            termsOfService: Optional<String> = nil
+            privacyPolicy: String? = nil,
+            termsOfService: String? = nil
         ) {
             self._privacyPolicy = .wrapped(privacyPolicy)
             self._termsOfService = .wrapped(termsOfService)
@@ -1330,11 +1330,11 @@ public extension App.Bsky.Feed {
             @Indirect
             public var feeds: [App.Bsky.Feed.DescribeFeedGenerator.Feed]
             @Indirect
-            public var links: Optional<App.Bsky.Feed.DescribeFeedGenerator.Links>
+            public var links: App.Bsky.Feed.DescribeFeedGenerator.Links?
             public init(
                 did: String,
                 feeds: [App.Bsky.Feed.DescribeFeedGenerator.Feed],
-                links: Optional<App.Bsky.Feed.DescribeFeedGenerator.Links> = nil
+                links: App.Bsky.Feed.DescribeFeedGenerator.Links? = nil
             ) {
                 self._did = .wrapped(did)
                 self._feeds = .wrapped(feeds)
@@ -1355,22 +1355,22 @@ public extension App.Bsky.Feed {
         @Indirect
         public var createdAt: Date
         @Indirect
-        public var description: Optional<String>
+        public var description: String?
         @Indirect
-        public var descriptionFacets: Optional<[App.Bsky.Richtext.Facet]>
+        public var descriptionFacets: [App.Bsky.Richtext.Facet]?
         @Indirect
         public var did: String
         @Indirect
         public var displayName: String
         @Indirect
-        public var labels: Optional<Union1<Com.Atproto.Label.Defs.SelfLabels>>
+        public var labels: Union1<Com.Atproto.Label.Defs.SelfLabels>?
         public init(
             createdAt: Date,
-            description: Optional<String> = nil,
-            descriptionFacets: Optional<[App.Bsky.Richtext.Facet]> = nil,
+            description: String? = nil,
+            descriptionFacets: [App.Bsky.Richtext.Facet]? = nil,
             did: String,
             displayName: String,
-            labels: Optional<Union1<Com.Atproto.Label.Defs.SelfLabels>> = nil
+            labels: Union1<Com.Atproto.Label.Defs.SelfLabels>? = nil
         ) {
             self._createdAt = .wrapped(createdAt)
             self._description = .wrapped(description)
@@ -1388,13 +1388,13 @@ public extension App.Bsky.Feed {
             @Indirect
             public var actor: String
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
                 actor: String,
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._actor = .wrapped(actor)
                 self._cursor = .wrapped(cursor)
@@ -1411,11 +1411,11 @@ public extension App.Bsky.Feed {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feeds: [App.Bsky.Feed.Defs.GeneratorView]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feeds: [App.Bsky.Feed.Defs.GeneratorView]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -1438,13 +1438,13 @@ public extension App.Bsky.Feed {
             @Indirect
             public var actor: String
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
                 actor: String,
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._actor = .wrapped(actor)
                 self._cursor = .wrapped(cursor)
@@ -1461,11 +1461,11 @@ public extension App.Bsky.Feed {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feed: [App.Bsky.Feed.Defs.FeedViewPost]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feed: [App.Bsky.Feed.Defs.FeedViewPost]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -1488,16 +1488,16 @@ public extension App.Bsky.Feed {
             @Indirect
             public var actor: String
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var filter: Optional<String>
+            public var filter: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
                 actor: String,
-                cursor: Optional<String> = nil,
-                filter: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                filter: String? = nil,
+                limit: Int? = nil
             ) {
                 self._actor = .wrapped(actor)
                 self._cursor = .wrapped(cursor)
@@ -1516,11 +1516,11 @@ public extension App.Bsky.Feed {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feed: [App.Bsky.Feed.Defs.FeedViewPost]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feed: [App.Bsky.Feed.Defs.FeedViewPost]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -1541,15 +1541,15 @@ public extension App.Bsky.Feed {
     struct GetFeed: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feed: ATURI
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feed: ATURI,
-                limit: Optional<Int> = nil
+                limit: Int? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._feed = .wrapped(feed)
@@ -1566,11 +1566,11 @@ public extension App.Bsky.Feed {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feed: [App.Bsky.Feed.Defs.FeedViewPost]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feed: [App.Bsky.Feed.Defs.FeedViewPost]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -1671,15 +1671,15 @@ public extension App.Bsky.Feed {
     struct GetFeedSkeleton: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feed: ATURI
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feed: ATURI,
-                limit: Optional<Int> = nil
+                limit: Int? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._feed = .wrapped(feed)
@@ -1696,11 +1696,11 @@ public extension App.Bsky.Feed {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feed: [App.Bsky.Feed.Defs.SkeletonFeedPost]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feed: [App.Bsky.Feed.Defs.SkeletonFeedPost]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -1741,17 +1741,17 @@ public extension App.Bsky.Feed {
     struct GetLikes: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cid: Optional<String>
+            public var cid: String?
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
             public var uri: ATURI
             public init(
-                cid: Optional<String> = nil,
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
+                cid: String? = nil,
+                cursor: String? = nil,
+                limit: Int? = nil,
                 uri: ATURI
             ) {
                 self._cid = .wrapped(cid)
@@ -1771,16 +1771,16 @@ public extension App.Bsky.Feed {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cid: Optional<String>
+            public var cid: String?
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var likes: [App.Bsky.Feed.GetLikes.Like]
             @Indirect
             public var uri: ATURI
             public init(
-                cid: Optional<String> = nil,
-                cursor: Optional<String> = nil,
+                cid: String? = nil,
+                cursor: String? = nil,
                 likes: [App.Bsky.Feed.GetLikes.Like],
                 uri: ATURI
             ) {
@@ -1804,14 +1804,14 @@ public extension App.Bsky.Feed {
     struct GetListFeed: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
             public var list: ATURI
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
+                cursor: String? = nil,
+                limit: Int? = nil,
                 list: ATURI
             ) {
                 self._cursor = .wrapped(cursor)
@@ -1829,11 +1829,11 @@ public extension App.Bsky.Feed {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feed: [App.Bsky.Feed.Defs.FeedViewPost]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feed: [App.Bsky.Feed.Defs.FeedViewPost]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -1854,14 +1854,14 @@ public extension App.Bsky.Feed {
     struct GetPostThread: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var depth: Optional<Int>
+            public var depth: Int?
             @Indirect
-            public var parentHeight: Optional<Int>
+            public var parentHeight: Int?
             @Indirect
             public var uri: ATURI
             public init(
-                depth: Optional<Int> = nil,
-                parentHeight: Optional<Int> = nil,
+                depth: Int? = nil,
+                parentHeight: Int? = nil,
                 uri: ATURI
             ) {
                 self._depth = .wrapped(depth)
@@ -1936,17 +1936,17 @@ public extension App.Bsky.Feed {
     struct GetRepostedBy: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cid: Optional<String>
+            public var cid: String?
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
             public var uri: ATURI
             public init(
-                cid: Optional<String> = nil,
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
+                cid: String? = nil,
+                cursor: String? = nil,
+                limit: Int? = nil,
                 uri: ATURI
             ) {
                 self._cid = .wrapped(cid)
@@ -1966,16 +1966,16 @@ public extension App.Bsky.Feed {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cid: Optional<String>
+            public var cid: String?
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var repostedBy: [App.Bsky.Actor.Defs.ProfileView]
             @Indirect
             public var uri: ATURI
             public init(
-                cid: Optional<String> = nil,
-                cursor: Optional<String> = nil,
+                cid: String? = nil,
+                cursor: String? = nil,
                 repostedBy: [App.Bsky.Actor.Defs.ProfileView],
                 uri: ATURI
             ) {
@@ -1999,12 +1999,12 @@ public extension App.Bsky.Feed {
     struct GetSuggestedFeeds: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -2019,11 +2019,11 @@ public extension App.Bsky.Feed {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feeds: [App.Bsky.Feed.Defs.GeneratorView]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feeds: [App.Bsky.Feed.Defs.GeneratorView]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -2044,15 +2044,15 @@ public extension App.Bsky.Feed {
     struct GetTimeline: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var algorithm: Optional<String>
+            public var algorithm: String?
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                algorithm: Optional<String> = nil,
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                algorithm: String? = nil,
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._algorithm = .wrapped(algorithm)
                 self._cursor = .wrapped(cursor)
@@ -2069,11 +2069,11 @@ public extension App.Bsky.Feed {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feed: [App.Bsky.Feed.Defs.FeedViewPost]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feed: [App.Bsky.Feed.Defs.FeedViewPost]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -2131,30 +2131,30 @@ public extension App.Bsky.Feed {
         @Indirect
         public var createdAt: Date
         @Indirect
-        public var embed: Optional<Union4<App.Bsky.Embed.Images, App.Bsky.Embed.External, App.Bsky.Embed.Record, App.Bsky.Embed.RecordWithMedia>>
+        public var embed: Union4<App.Bsky.Embed.Images, App.Bsky.Embed.External, App.Bsky.Embed.Record, App.Bsky.Embed.RecordWithMedia>?
         @Indirect
-        public var entities: Optional<[App.Bsky.Feed.Post.Entity]>
+        public var entities: [App.Bsky.Feed.Post.Entity]?
         @Indirect
-        public var facets: Optional<[App.Bsky.Richtext.Facet]>
+        public var facets: [App.Bsky.Richtext.Facet]?
         @Indirect
-        public var labels: Optional<Union1<Com.Atproto.Label.Defs.SelfLabels>>
+        public var labels: Union1<Com.Atproto.Label.Defs.SelfLabels>?
         @Indirect
-        public var langs: Optional<[String]>
+        public var langs: [String]?
         @Indirect
-        public var reply: Optional<App.Bsky.Feed.Post.ReplyRef>
+        public var reply: App.Bsky.Feed.Post.ReplyRef?
         @Indirect
-        public var tags: Optional<[String]>
+        public var tags: [String]?
         @Indirect
         public var text: String
         public init(
             createdAt: Date,
-            embed: Optional<Union4<App.Bsky.Embed.Images, App.Bsky.Embed.External, App.Bsky.Embed.Record, App.Bsky.Embed.RecordWithMedia>> = nil,
-            entities: Optional<[App.Bsky.Feed.Post.Entity]> = nil,
-            facets: Optional<[App.Bsky.Richtext.Facet]> = nil,
-            labels: Optional<Union1<Com.Atproto.Label.Defs.SelfLabels>> = nil,
-            langs: Optional<[String]> = nil,
-            reply: Optional<App.Bsky.Feed.Post.ReplyRef> = nil,
-            tags: Optional<[String]> = nil,
+            embed: Union4<App.Bsky.Embed.Images, App.Bsky.Embed.External, App.Bsky.Embed.Record, App.Bsky.Embed.RecordWithMedia>? = nil,
+            entities: [App.Bsky.Feed.Post.Entity]? = nil,
+            facets: [App.Bsky.Richtext.Facet]? = nil,
+            labels: Union1<Com.Atproto.Label.Defs.SelfLabels>? = nil,
+            langs: [String]? = nil,
+            reply: App.Bsky.Feed.Post.ReplyRef? = nil,
+            tags: [String]? = nil,
             text: String
         ) {
             self._createdAt = .wrapped(createdAt)
@@ -2222,14 +2222,14 @@ public extension App.Bsky.Feed {
     struct SearchPosts: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
             public var q: String
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
+                cursor: String? = nil,
+                limit: Int? = nil,
                 q: String
             ) {
                 self._cursor = .wrapped(cursor)
@@ -2247,14 +2247,14 @@ public extension App.Bsky.Feed {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var hitsTotal: Optional<Int>
+            public var hitsTotal: Int?
             @Indirect
             public var posts: [App.Bsky.Feed.Defs.PostView]
             public init(
-                cursor: Optional<String> = nil,
-                hitsTotal: Optional<Int> = nil,
+                cursor: String? = nil,
+                hitsTotal: Int? = nil,
                 posts: [App.Bsky.Feed.Defs.PostView]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -2297,13 +2297,13 @@ public extension App.Bsky.Feed.Threadgate {
 public extension App.Bsky.Feed {
     public struct Threadgate: UnionCodable, Hashable {
         @Indirect
-        public var allow: Optional<[Union3<App.Bsky.Feed.Threadgate.MentionRule, App.Bsky.Feed.Threadgate.FollowingRule, App.Bsky.Feed.Threadgate.ListRule>]>
+        public var allow: [Union3<App.Bsky.Feed.Threadgate.MentionRule, App.Bsky.Feed.Threadgate.FollowingRule, App.Bsky.Feed.Threadgate.ListRule>]?
         @Indirect
         public var createdAt: Date
         @Indirect
         public var post: ATURI
         public init(
-            allow: Optional<[Union3<App.Bsky.Feed.Threadgate.MentionRule, App.Bsky.Feed.Threadgate.FollowingRule, App.Bsky.Feed.Threadgate.ListRule>]> = nil,
+            allow: [Union3<App.Bsky.Feed.Threadgate.MentionRule, App.Bsky.Feed.Threadgate.FollowingRule, App.Bsky.Feed.Threadgate.ListRule>]? = nil,
             createdAt: Date,
             post: ATURI
         ) {
@@ -2360,15 +2360,15 @@ public extension App.Bsky.Graph.Defs {
 public extension App.Bsky.Graph.Defs {
     public struct ListView: UnionCodable, Hashable {
         @Indirect
-        public var avatar: Optional<String>
+        public var avatar: String?
         @Indirect
         public var cid: String
         @Indirect
         public var creator: App.Bsky.Actor.Defs.ProfileView
         @Indirect
-        public var description: Optional<String>
+        public var description: String?
         @Indirect
-        public var descriptionFacets: Optional<[App.Bsky.Richtext.Facet]>
+        public var descriptionFacets: [App.Bsky.Richtext.Facet]?
         @Indirect
         public var indexedAt: Date
         @Indirect
@@ -2378,18 +2378,18 @@ public extension App.Bsky.Graph.Defs {
         @Indirect
         public var uri: ATURI
         @Indirect
-        public var viewer: Optional<App.Bsky.Graph.Defs.ListViewerState>
+        public var viewer: App.Bsky.Graph.Defs.ListViewerState?
         public init(
-            avatar: Optional<String> = nil,
+            avatar: String? = nil,
             cid: String,
             creator: App.Bsky.Actor.Defs.ProfileView,
-            description: Optional<String> = nil,
-            descriptionFacets: Optional<[App.Bsky.Richtext.Facet]> = nil,
+            description: String? = nil,
+            descriptionFacets: [App.Bsky.Richtext.Facet]? = nil,
             indexedAt: Date,
             name: String,
             purpose: App.Bsky.Graph.Defs.ListPurpose,
             uri: ATURI,
-            viewer: Optional<App.Bsky.Graph.Defs.ListViewerState> = nil
+            viewer: App.Bsky.Graph.Defs.ListViewerState? = nil
         ) {
             self._avatar = .wrapped(avatar)
             self._cid = .wrapped(cid)
@@ -2408,11 +2408,11 @@ public extension App.Bsky.Graph.Defs {
 public extension App.Bsky.Graph.Defs {
     public struct ListViewBasic: UnionCodable, Hashable {
         @Indirect
-        public var avatar: Optional<String>
+        public var avatar: String?
         @Indirect
         public var cid: String
         @Indirect
-        public var indexedAt: Optional<Date>
+        public var indexedAt: Date?
         @Indirect
         public var name: String
         @Indirect
@@ -2420,15 +2420,15 @@ public extension App.Bsky.Graph.Defs {
         @Indirect
         public var uri: ATURI
         @Indirect
-        public var viewer: Optional<App.Bsky.Graph.Defs.ListViewerState>
+        public var viewer: App.Bsky.Graph.Defs.ListViewerState?
         public init(
-            avatar: Optional<String> = nil,
+            avatar: String? = nil,
             cid: String,
-            indexedAt: Optional<Date> = nil,
+            indexedAt: Date? = nil,
             name: String,
             purpose: App.Bsky.Graph.Defs.ListPurpose,
             uri: ATURI,
-            viewer: Optional<App.Bsky.Graph.Defs.ListViewerState> = nil
+            viewer: App.Bsky.Graph.Defs.ListViewerState? = nil
         ) {
             self._avatar = .wrapped(avatar)
             self._cid = .wrapped(cid)
@@ -2444,12 +2444,12 @@ public extension App.Bsky.Graph.Defs {
 public extension App.Bsky.Graph.Defs {
     public struct ListViewerState: UnionCodable, Hashable {
         @Indirect
-        public var blocked: Optional<ATURI>
+        public var blocked: ATURI?
         @Indirect
-        public var muted: Optional<Bool>
+        public var muted: Bool?
         public init(
-            blocked: Optional<ATURI> = nil,
-            muted: Optional<Bool> = nil
+            blocked: ATURI? = nil,
+            muted: Bool? = nil
         ) {
             self._blocked = .wrapped(blocked)
             self._muted = .wrapped(muted)
@@ -2479,12 +2479,12 @@ public extension App.Bsky.Graph {
     struct GetBlocks: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -2501,10 +2501,10 @@ public extension App.Bsky.Graph {
             @Indirect
             public var blocks: [App.Bsky.Actor.Defs.ProfileView]
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             public init(
                 blocks: [App.Bsky.Actor.Defs.ProfileView],
-                cursor: Optional<String> = nil
+                cursor: String? = nil
             ) {
                 self._blocks = .wrapped(blocks)
                 self._cursor = .wrapped(cursor)
@@ -2526,13 +2526,13 @@ public extension App.Bsky.Graph {
             @Indirect
             public var actor: String
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
                 actor: String,
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._actor = .wrapped(actor)
                 self._cursor = .wrapped(cursor)
@@ -2549,13 +2549,13 @@ public extension App.Bsky.Graph {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var followers: [App.Bsky.Actor.Defs.ProfileView]
             @Indirect
             public var subject: App.Bsky.Actor.Defs.ProfileView
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 followers: [App.Bsky.Actor.Defs.ProfileView],
                 subject: App.Bsky.Actor.Defs.ProfileView
             ) {
@@ -2580,13 +2580,13 @@ public extension App.Bsky.Graph {
             @Indirect
             public var actor: String
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
                 actor: String,
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._actor = .wrapped(actor)
                 self._cursor = .wrapped(cursor)
@@ -2603,13 +2603,13 @@ public extension App.Bsky.Graph {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var follows: [App.Bsky.Actor.Defs.ProfileView]
             @Indirect
             public var subject: App.Bsky.Actor.Defs.ProfileView
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 follows: [App.Bsky.Actor.Defs.ProfileView],
                 subject: App.Bsky.Actor.Defs.ProfileView
             ) {
@@ -2632,14 +2632,14 @@ public extension App.Bsky.Graph {
     struct GetList: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
             public var list: ATURI
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
+                cursor: String? = nil,
+                limit: Int? = nil,
                 list: ATURI
             ) {
                 self._cursor = .wrapped(cursor)
@@ -2657,13 +2657,13 @@ public extension App.Bsky.Graph {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var items: [App.Bsky.Graph.Defs.ListItemView]
             @Indirect
             public var list: App.Bsky.Graph.Defs.ListView
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 items: [App.Bsky.Graph.Defs.ListItemView],
                 list: App.Bsky.Graph.Defs.ListView
             ) {
@@ -2686,12 +2686,12 @@ public extension App.Bsky.Graph {
     struct GetListBlocks: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -2706,11 +2706,11 @@ public extension App.Bsky.Graph {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var lists: [App.Bsky.Graph.Defs.ListView]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 lists: [App.Bsky.Graph.Defs.ListView]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -2731,12 +2731,12 @@ public extension App.Bsky.Graph {
     struct GetListMutes: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -2751,11 +2751,11 @@ public extension App.Bsky.Graph {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var lists: [App.Bsky.Graph.Defs.ListView]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 lists: [App.Bsky.Graph.Defs.ListView]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -2778,13 +2778,13 @@ public extension App.Bsky.Graph {
             @Indirect
             public var actor: String
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
                 actor: String,
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._actor = .wrapped(actor)
                 self._cursor = .wrapped(cursor)
@@ -2801,11 +2801,11 @@ public extension App.Bsky.Graph {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var lists: [App.Bsky.Graph.Defs.ListView]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 lists: [App.Bsky.Graph.Defs.ListView]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -2826,12 +2826,12 @@ public extension App.Bsky.Graph {
     struct GetMutes: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -2846,11 +2846,11 @@ public extension App.Bsky.Graph {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var mutes: [App.Bsky.Actor.Defs.ProfileView]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 mutes: [App.Bsky.Actor.Defs.ProfileView]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -2908,20 +2908,20 @@ public extension App.Bsky.Graph {
         @Indirect
         public var createdAt: Date
         @Indirect
-        public var description: Optional<String>
+        public var description: String?
         @Indirect
-        public var descriptionFacets: Optional<[App.Bsky.Richtext.Facet]>
+        public var descriptionFacets: [App.Bsky.Richtext.Facet]?
         @Indirect
-        public var labels: Optional<Union1<Com.Atproto.Label.Defs.SelfLabels>>
+        public var labels: Union1<Com.Atproto.Label.Defs.SelfLabels>?
         @Indirect
         public var name: String
         @Indirect
         public var purpose: App.Bsky.Graph.Defs.ListPurpose
         public init(
             createdAt: Date,
-            description: Optional<String> = nil,
-            descriptionFacets: Optional<[App.Bsky.Richtext.Facet]> = nil,
-            labels: Optional<Union1<Com.Atproto.Label.Defs.SelfLabels>> = nil,
+            description: String? = nil,
+            descriptionFacets: [App.Bsky.Richtext.Facet]? = nil,
+            labels: Union1<Com.Atproto.Label.Defs.SelfLabels>? = nil,
             name: String,
             purpose: App.Bsky.Graph.Defs.ListPurpose
         ) {
@@ -3059,9 +3059,9 @@ public extension App.Bsky.Notification {
     struct GetUnreadCount: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var seenAt: Optional<Date>
+            public var seenAt: Date?
             public init(
-                seenAt: Optional<Date> = nil
+                seenAt: Date? = nil
             ) {
                 self._seenAt = .wrapped(seenAt)
             }
@@ -3095,15 +3095,15 @@ public extension App.Bsky.Notification {
     struct ListNotifications: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
-            public var seenAt: Optional<Date>
+            public var seenAt: Date?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
-                seenAt: Optional<Date> = nil
+                cursor: String? = nil,
+                limit: Int? = nil,
+                seenAt: Date? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -3120,11 +3120,11 @@ public extension App.Bsky.Notification {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var notifications: [App.Bsky.Notification.ListNotifications.Notification]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 notifications: [App.Bsky.Notification.ListNotifications.Notification]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -3152,11 +3152,11 @@ public extension App.Bsky.Notification.ListNotifications {
         @Indirect
         public var isRead: Bool
         @Indirect
-        public var labels: Optional<[Com.Atproto.Label.Defs.Label]>
+        public var labels: [Com.Atproto.Label.Defs.Label]?
         @Indirect
         public var reason: String
         @Indirect
-        public var reasonSubject: Optional<ATURI>
+        public var reasonSubject: ATURI?
         @Indirect
         public var record: LexiconUnknownUnion
         @Indirect
@@ -3166,9 +3166,9 @@ public extension App.Bsky.Notification.ListNotifications {
             cid: String,
             indexedAt: Date,
             isRead: Bool,
-            labels: Optional<[Com.Atproto.Label.Defs.Label]> = nil,
+            labels: [Com.Atproto.Label.Defs.Label]? = nil,
             reason: String,
-            reasonSubject: Optional<ATURI> = nil,
+            reasonSubject: ATURI? = nil,
             record: LexiconUnknownUnion,
             uri: ATURI
         ) {
@@ -3335,15 +3335,15 @@ public extension App.Bsky.Unspecced {
     struct GetPopular: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var includeNsfw: Optional<Bool>
+            public var includeNsfw: Bool?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                cursor: Optional<String> = nil,
-                includeNsfw: Optional<Bool> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                includeNsfw: Bool? = nil,
+                limit: Int? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._includeNsfw = .wrapped(includeNsfw)
@@ -3360,11 +3360,11 @@ public extension App.Bsky.Unspecced {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feed: [App.Bsky.Feed.Defs.FeedViewPost]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feed: [App.Bsky.Feed.Defs.FeedViewPost]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -3385,15 +3385,15 @@ public extension App.Bsky.Unspecced {
     struct GetPopularFeedGenerators: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
-            public var query: Optional<String>
+            public var query: String?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
-                query: Optional<String> = nil
+                cursor: String? = nil,
+                limit: Int? = nil,
+                query: String? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -3410,11 +3410,11 @@ public extension App.Bsky.Unspecced {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feeds: [App.Bsky.Feed.Defs.GeneratorView]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feeds: [App.Bsky.Feed.Defs.GeneratorView]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -3435,12 +3435,12 @@ public extension App.Bsky.Unspecced {
     struct GetTimelineSkeleton: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -3455,11 +3455,11 @@ public extension App.Bsky.Unspecced {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var feed: [App.Bsky.Feed.Defs.SkeletonFeedPost]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 feed: [App.Bsky.Feed.Defs.SkeletonFeedPost]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -3480,18 +3480,18 @@ public extension App.Bsky.Unspecced {
     struct SearchActorsSkeleton: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
             public var q: String
             @Indirect
-            public var typeahead: Optional<Bool>
+            public var typeahead: Bool?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
+                cursor: String? = nil,
+                limit: Int? = nil,
                 q: String,
-                typeahead: Optional<Bool> = nil
+                typeahead: Bool? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -3512,13 +3512,13 @@ public extension App.Bsky.Unspecced {
             @Indirect
             public var actors: [App.Bsky.Unspecced.Defs.SkeletonSearchActor]
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var hitsTotal: Optional<Int>
+            public var hitsTotal: Int?
             public init(
                 actors: [App.Bsky.Unspecced.Defs.SkeletonSearchActor],
-                cursor: Optional<String> = nil,
-                hitsTotal: Optional<Int> = nil
+                cursor: String? = nil,
+                hitsTotal: Int? = nil
             ) {
                 self._actors = .wrapped(actors)
                 self._cursor = .wrapped(cursor)
@@ -3539,14 +3539,14 @@ public extension App.Bsky.Unspecced {
     struct SearchPostsSkeleton: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
             public var q: String
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
+                cursor: String? = nil,
+                limit: Int? = nil,
                 q: String
             ) {
                 self._cursor = .wrapped(cursor)
@@ -3564,14 +3564,14 @@ public extension App.Bsky.Unspecced {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var hitsTotal: Optional<Int>
+            public var hitsTotal: Int?
             @Indirect
             public var posts: [App.Bsky.Unspecced.Defs.SkeletonSearchPost]
             public init(
-                cursor: Optional<String> = nil,
-                hitsTotal: Optional<Int> = nil,
+                cursor: String? = nil,
+                hitsTotal: Int? = nil,
                 posts: [App.Bsky.Unspecced.Defs.SkeletonSearchPost]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -3619,38 +3619,38 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var action: Com.Atproto.Admin.Defs.ActionType
         @Indirect
-        public var createLabelVals: Optional<[String]>
+        public var createLabelVals: [String]?
         @Indirect
         public var createdAt: Date
         @Indirect
         public var createdBy: String
         @Indirect
-        public var durationInHours: Optional<Int>
+        public var durationInHours: Int?
         @Indirect
         public var id: Int
         @Indirect
-        public var negateLabelVals: Optional<[String]>
+        public var negateLabelVals: [String]?
         @Indirect
         public var reason: String
         @Indirect
         public var resolvedReportIds: [Int]
         @Indirect
-        public var reversal: Optional<Com.Atproto.Admin.Defs.ActionReversal>
+        public var reversal: Com.Atproto.Admin.Defs.ActionReversal?
         @Indirect
         public var subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>
         @Indirect
         public var subjectBlobCids: [String]
         public init(
             action: Com.Atproto.Admin.Defs.ActionType,
-            createLabelVals: Optional<[String]> = nil,
+            createLabelVals: [String]? = nil,
             createdAt: Date,
             createdBy: String,
-            durationInHours: Optional<Int> = nil,
+            durationInHours: Int? = nil,
             id: Int,
-            negateLabelVals: Optional<[String]> = nil,
+            negateLabelVals: [String]? = nil,
             reason: String,
             resolvedReportIds: [Int],
-            reversal: Optional<Com.Atproto.Admin.Defs.ActionReversal> = nil,
+            reversal: Com.Atproto.Admin.Defs.ActionReversal? = nil,
             subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>,
             subjectBlobCids: [String]
         ) {
@@ -3675,12 +3675,12 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var action: Com.Atproto.Admin.Defs.ActionType
         @Indirect
-        public var durationInHours: Optional<Int>
+        public var durationInHours: Int?
         @Indirect
         public var id: Int
         public init(
             action: Com.Atproto.Admin.Defs.ActionType,
-            durationInHours: Optional<Int> = nil,
+            durationInHours: Int? = nil,
             id: Int
         ) {
             self._action = .wrapped(action)
@@ -3695,38 +3695,38 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var action: Com.Atproto.Admin.Defs.ActionType
         @Indirect
-        public var createLabelVals: Optional<[String]>
+        public var createLabelVals: [String]?
         @Indirect
         public var createdAt: Date
         @Indirect
         public var createdBy: String
         @Indirect
-        public var durationInHours: Optional<Int>
+        public var durationInHours: Int?
         @Indirect
         public var id: Int
         @Indirect
-        public var negateLabelVals: Optional<[String]>
+        public var negateLabelVals: [String]?
         @Indirect
         public var reason: String
         @Indirect
         public var resolvedReports: [Com.Atproto.Admin.Defs.ReportView]
         @Indirect
-        public var reversal: Optional<Com.Atproto.Admin.Defs.ActionReversal>
+        public var reversal: Com.Atproto.Admin.Defs.ActionReversal?
         @Indirect
         public var subject: Union4<Com.Atproto.Admin.Defs.RepoView, Com.Atproto.Admin.Defs.RepoViewNotFound, Com.Atproto.Admin.Defs.RecordView, Com.Atproto.Admin.Defs.RecordViewNotFound>
         @Indirect
         public var subjectBlobs: [Com.Atproto.Admin.Defs.BlobView]
         public init(
             action: Com.Atproto.Admin.Defs.ActionType,
-            createLabelVals: Optional<[String]> = nil,
+            createLabelVals: [String]? = nil,
             createdAt: Date,
             createdBy: String,
-            durationInHours: Optional<Int> = nil,
+            durationInHours: Int? = nil,
             id: Int,
-            negateLabelVals: Optional<[String]> = nil,
+            negateLabelVals: [String]? = nil,
             reason: String,
             resolvedReports: [Com.Atproto.Admin.Defs.ReportView],
-            reversal: Optional<Com.Atproto.Admin.Defs.ActionReversal> = nil,
+            reversal: Com.Atproto.Admin.Defs.ActionReversal? = nil,
             subject: Union4<Com.Atproto.Admin.Defs.RepoView, Com.Atproto.Admin.Defs.RepoViewNotFound, Com.Atproto.Admin.Defs.RecordView, Com.Atproto.Admin.Defs.RecordViewNotFound>,
             subjectBlobs: [Com.Atproto.Admin.Defs.BlobView]
         ) {
@@ -3753,19 +3753,19 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var createdAt: Date
         @Indirect
-        public var details: Optional<Union2<Com.Atproto.Admin.Defs.ImageDetails, Com.Atproto.Admin.Defs.VideoDetails>>
+        public var details: Union2<Com.Atproto.Admin.Defs.ImageDetails, Com.Atproto.Admin.Defs.VideoDetails>?
         @Indirect
         public var mimeType: String
         @Indirect
-        public var moderation: Optional<Com.Atproto.Admin.Defs.Moderation>
+        public var moderation: Com.Atproto.Admin.Defs.Moderation?
         @Indirect
         public var size: Int
         public init(
             cid: String,
             createdAt: Date,
-            details: Optional<Union2<Com.Atproto.Admin.Defs.ImageDetails, Com.Atproto.Admin.Defs.VideoDetails>> = nil,
+            details: Union2<Com.Atproto.Admin.Defs.ImageDetails, Com.Atproto.Admin.Defs.VideoDetails>? = nil,
             mimeType: String,
-            moderation: Optional<Com.Atproto.Admin.Defs.Moderation> = nil,
+            moderation: Com.Atproto.Admin.Defs.Moderation? = nil,
             size: Int
         ) {
             self._cid = .wrapped(cid)
@@ -3801,9 +3801,9 @@ public extension Com.Atproto.Admin.Defs {
 public extension Com.Atproto.Admin.Defs {
     public struct Moderation: UnionCodable, Hashable {
         @Indirect
-        public var currentAction: Optional<Com.Atproto.Admin.Defs.ActionViewCurrent>
+        public var currentAction: Com.Atproto.Admin.Defs.ActionViewCurrent?
         public init(
-            currentAction: Optional<Com.Atproto.Admin.Defs.ActionViewCurrent> = nil
+            currentAction: Com.Atproto.Admin.Defs.ActionViewCurrent? = nil
         ) {
             self._currentAction = .wrapped(currentAction)
         }
@@ -3815,12 +3815,12 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var actions: [Com.Atproto.Admin.Defs.ActionView]
         @Indirect
-        public var currentAction: Optional<Com.Atproto.Admin.Defs.ActionViewCurrent>
+        public var currentAction: Com.Atproto.Admin.Defs.ActionViewCurrent?
         @Indirect
         public var reports: [Com.Atproto.Admin.Defs.ReportView]
         public init(
             actions: [Com.Atproto.Admin.Defs.ActionView],
-            currentAction: Optional<Com.Atproto.Admin.Defs.ActionViewCurrent> = nil,
+            currentAction: Com.Atproto.Admin.Defs.ActionViewCurrent? = nil,
             reports: [Com.Atproto.Admin.Defs.ReportView]
         ) {
             self._actions = .wrapped(actions)
@@ -3875,7 +3875,7 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var indexedAt: Date
         @Indirect
-        public var labels: Optional<[Com.Atproto.Label.Defs.Label]>
+        public var labels: [Com.Atproto.Label.Defs.Label]?
         @Indirect
         public var moderation: Com.Atproto.Admin.Defs.ModerationDetail
         @Indirect
@@ -3888,7 +3888,7 @@ public extension Com.Atproto.Admin.Defs {
             blobs: [Com.Atproto.Admin.Defs.BlobView],
             cid: String,
             indexedAt: Date,
-            labels: Optional<[Com.Atproto.Label.Defs.Label]> = nil,
+            labels: [Com.Atproto.Label.Defs.Label]? = nil,
             moderation: Com.Atproto.Admin.Defs.ModerationDetail,
             repo: Com.Atproto.Admin.Defs.RepoView,
             uri: ATURI,
@@ -3935,29 +3935,29 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var did: String
         @Indirect
-        public var email: Optional<String>
+        public var email: String?
         @Indirect
         public var handle: String
         @Indirect
         public var indexedAt: Date
         @Indirect
-        public var inviteNote: Optional<String>
+        public var inviteNote: String?
         @Indirect
-        public var invitedBy: Optional<Com.Atproto.Server.Defs.InviteCode>
+        public var invitedBy: Com.Atproto.Server.Defs.InviteCode?
         @Indirect
-        public var invitesDisabled: Optional<Bool>
+        public var invitesDisabled: Bool?
         @Indirect
         public var moderation: Com.Atproto.Admin.Defs.Moderation
         @Indirect
         public var relatedRecords: [LexiconUnknownUnion]
         public init(
             did: String,
-            email: Optional<String> = nil,
+            email: String? = nil,
             handle: String,
             indexedAt: Date,
-            inviteNote: Optional<String> = nil,
-            invitedBy: Optional<Com.Atproto.Server.Defs.InviteCode> = nil,
-            invitesDisabled: Optional<Bool> = nil,
+            inviteNote: String? = nil,
+            invitedBy: Com.Atproto.Server.Defs.InviteCode? = nil,
+            invitesDisabled: Bool? = nil,
             moderation: Com.Atproto.Admin.Defs.Moderation,
             relatedRecords: [LexiconUnknownUnion]
         ) {
@@ -3979,35 +3979,35 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var did: String
         @Indirect
-        public var email: Optional<String>
+        public var email: String?
         @Indirect
         public var handle: String
         @Indirect
         public var indexedAt: Date
         @Indirect
-        public var inviteNote: Optional<String>
+        public var inviteNote: String?
         @Indirect
-        public var invitedBy: Optional<Com.Atproto.Server.Defs.InviteCode>
+        public var invitedBy: Com.Atproto.Server.Defs.InviteCode?
         @Indirect
-        public var invites: Optional<[Com.Atproto.Server.Defs.InviteCode]>
+        public var invites: [Com.Atproto.Server.Defs.InviteCode]?
         @Indirect
-        public var invitesDisabled: Optional<Bool>
+        public var invitesDisabled: Bool?
         @Indirect
-        public var labels: Optional<[Com.Atproto.Label.Defs.Label]>
+        public var labels: [Com.Atproto.Label.Defs.Label]?
         @Indirect
         public var moderation: Com.Atproto.Admin.Defs.ModerationDetail
         @Indirect
         public var relatedRecords: [LexiconUnknownUnion]
         public init(
             did: String,
-            email: Optional<String> = nil,
+            email: String? = nil,
             handle: String,
             indexedAt: Date,
-            inviteNote: Optional<String> = nil,
-            invitedBy: Optional<Com.Atproto.Server.Defs.InviteCode> = nil,
-            invites: Optional<[Com.Atproto.Server.Defs.InviteCode]> = nil,
-            invitesDisabled: Optional<Bool> = nil,
-            labels: Optional<[Com.Atproto.Label.Defs.Label]> = nil,
+            inviteNote: String? = nil,
+            invitedBy: Com.Atproto.Server.Defs.InviteCode? = nil,
+            invites: [Com.Atproto.Server.Defs.InviteCode]? = nil,
+            invitesDisabled: Bool? = nil,
+            labels: [Com.Atproto.Label.Defs.Label]? = nil,
             moderation: Com.Atproto.Admin.Defs.ModerationDetail,
             relatedRecords: [LexiconUnknownUnion]
         ) {
@@ -4045,7 +4045,7 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var id: Int
         @Indirect
-        public var reason: Optional<String>
+        public var reason: String?
         @Indirect
         public var reasonType: Com.Atproto.Moderation.Defs.ReasonType
         @Indirect
@@ -4055,16 +4055,16 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>
         @Indirect
-        public var subjectRepoHandle: Optional<String>
+        public var subjectRepoHandle: String?
         public init(
             createdAt: Date,
             id: Int,
-            reason: Optional<String> = nil,
+            reason: String? = nil,
             reasonType: Com.Atproto.Moderation.Defs.ReasonType,
             reportedBy: String,
             resolvedByActionIds: [Int],
             subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>,
-            subjectRepoHandle: Optional<String> = nil
+            subjectRepoHandle: String? = nil
         ) {
             self._createdAt = .wrapped(createdAt)
             self._id = .wrapped(id)
@@ -4085,7 +4085,7 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var id: Int
         @Indirect
-        public var reason: Optional<String>
+        public var reason: String?
         @Indirect
         public var reasonType: Com.Atproto.Moderation.Defs.ReasonType
         @Indirect
@@ -4097,7 +4097,7 @@ public extension Com.Atproto.Admin.Defs {
         public init(
             createdAt: Date,
             id: Int,
-            reason: Optional<String> = nil,
+            reason: String? = nil,
             reasonType: Com.Atproto.Moderation.Defs.ReasonType,
             reportedBy: String,
             resolvedByActions: [Com.Atproto.Admin.Defs.ActionView],
@@ -4142,10 +4142,10 @@ public extension Com.Atproto.Admin {
             @Indirect
             public var account: String
             @Indirect
-            public var note: Optional<String>
+            public var note: String?
             public init(
                 account: String,
-                note: Optional<String> = nil
+                note: String? = nil
             ) {
                 self._account = .wrapped(account)
                 self._note = .wrapped(note)
@@ -4165,12 +4165,12 @@ public extension Com.Atproto.Admin {
     struct DisableInviteCodes: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
-            public var accounts: Optional<[String]>
+            public var accounts: [String]?
             @Indirect
-            public var codes: Optional<[String]>
+            public var codes: [String]?
             public init(
-                accounts: Optional<[String]> = nil,
-                codes: Optional<[String]> = nil
+                accounts: [String]? = nil,
+                codes: [String]? = nil
             ) {
                 self._accounts = .wrapped(accounts)
                 self._codes = .wrapped(codes)
@@ -4192,10 +4192,10 @@ public extension Com.Atproto.Admin {
             @Indirect
             public var account: String
             @Indirect
-            public var note: Optional<String>
+            public var note: String?
             public init(
                 account: String,
-                note: Optional<String> = nil
+                note: String? = nil
             ) {
                 self._account = .wrapped(account)
                 self._note = .wrapped(note)
@@ -4215,15 +4215,15 @@ public extension Com.Atproto.Admin {
     struct GetInviteCodes: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
-            public var sort: Optional<String>
+            public var sort: String?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
-                sort: Optional<String> = nil
+                cursor: String? = nil,
+                limit: Int? = nil,
+                sort: String? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -4242,10 +4242,10 @@ public extension Com.Atproto.Admin {
             @Indirect
             public var codes: [Com.Atproto.Server.Defs.InviteCode]
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             public init(
                 codes: [Com.Atproto.Server.Defs.InviteCode],
-                cursor: Optional<String> = nil
+                cursor: String? = nil
             ) {
                 self._codes = .wrapped(codes)
                 self._cursor = .wrapped(cursor)
@@ -4293,15 +4293,15 @@ public extension Com.Atproto.Admin {
     struct GetModerationActions: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
-            public var subject: Optional<String>
+            public var subject: String?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
-                subject: Optional<String> = nil
+                cursor: String? = nil,
+                limit: Int? = nil,
+                subject: String? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -4320,10 +4320,10 @@ public extension Com.Atproto.Admin {
             @Indirect
             public var actions: [Com.Atproto.Admin.Defs.ActionView]
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             public init(
                 actions: [Com.Atproto.Admin.Defs.ActionView],
-                cursor: Optional<String> = nil
+                cursor: String? = nil
             ) {
                 self._actions = .wrapped(actions)
                 self._cursor = .wrapped(cursor)
@@ -4371,33 +4371,33 @@ public extension Com.Atproto.Admin {
     struct GetModerationReports: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var actionType: Optional<String>
+            public var actionType: String?
             @Indirect
-            public var actionedBy: Optional<String>
+            public var actionedBy: String?
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var ignoreSubjects: Optional<[String]>
+            public var ignoreSubjects: [String]?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
-            public var reporters: Optional<[String]>
+            public var reporters: [String]?
             @Indirect
-            public var resolved: Optional<Bool>
+            public var resolved: Bool?
             @Indirect
-            public var reverse: Optional<Bool>
+            public var reverse: Bool?
             @Indirect
-            public var subject: Optional<String>
+            public var subject: String?
             public init(
-                actionType: Optional<String> = nil,
-                actionedBy: Optional<String> = nil,
-                cursor: Optional<String> = nil,
-                ignoreSubjects: Optional<[String]> = nil,
-                limit: Optional<Int> = nil,
-                reporters: Optional<[String]> = nil,
-                resolved: Optional<Bool> = nil,
-                reverse: Optional<Bool> = nil,
-                subject: Optional<String> = nil
+                actionType: String? = nil,
+                actionedBy: String? = nil,
+                cursor: String? = nil,
+                ignoreSubjects: [String]? = nil,
+                limit: Int? = nil,
+                reporters: [String]? = nil,
+                resolved: Bool? = nil,
+                reverse: Bool? = nil,
+                subject: String? = nil
             ) {
                 self._actionType = .wrapped(actionType)
                 self._actionedBy = .wrapped(actionedBy)
@@ -4426,11 +4426,11 @@ public extension Com.Atproto.Admin {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var reports: [Com.Atproto.Admin.Defs.ReportView]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 reports: [Com.Atproto.Admin.Defs.ReportView]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -4451,11 +4451,11 @@ public extension Com.Atproto.Admin {
     struct GetRecord: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cid: Optional<String>
+            public var cid: String?
             @Indirect
             public var uri: ATURI
             public init(
-                cid: Optional<String> = nil,
+                cid: String? = nil,
                 uri: ATURI
             ) {
                 self._cid = .wrapped(cid)
@@ -4572,21 +4572,21 @@ public extension Com.Atproto.Admin {
     struct SearchRepos: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var invitedBy: Optional<String>
+            public var invitedBy: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
-            public var q: Optional<String>
+            public var q: String?
             @Indirect
-            public var term: Optional<String>
+            public var term: String?
             public init(
-                cursor: Optional<String> = nil,
-                invitedBy: Optional<String> = nil,
-                limit: Optional<Int> = nil,
-                q: Optional<String> = nil,
-                term: Optional<String> = nil
+                cursor: String? = nil,
+                invitedBy: String? = nil,
+                limit: Int? = nil,
+                q: String? = nil,
+                term: String? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._invitedBy = .wrapped(invitedBy)
@@ -4607,11 +4607,11 @@ public extension Com.Atproto.Admin {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var repos: [Com.Atproto.Admin.Defs.RepoView]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 repos: [Com.Atproto.Admin.Defs.RepoView]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -4636,11 +4636,11 @@ public extension Com.Atproto.Admin {
             @Indirect
             public var recipientDid: String
             @Indirect
-            public var subject: Optional<String>
+            public var subject: String?
             public init(
                 content: String,
                 recipientDid: String,
-                subject: Optional<String> = nil
+                subject: String? = nil
             ) {
                 self._content = .wrapped(content)
                 self._recipientDid = .wrapped(recipientDid)
@@ -4672,28 +4672,28 @@ public extension Com.Atproto.Admin {
             @Indirect
             public var action: String
             @Indirect
-            public var createLabelVals: Optional<[String]>
+            public var createLabelVals: [String]?
             @Indirect
             public var createdBy: String
             @Indirect
-            public var durationInHours: Optional<Int>
+            public var durationInHours: Int?
             @Indirect
-            public var negateLabelVals: Optional<[String]>
+            public var negateLabelVals: [String]?
             @Indirect
             public var reason: String
             @Indirect
             public var subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>
             @Indirect
-            public var subjectBlobCids: Optional<[String]>
+            public var subjectBlobCids: [String]?
             public init(
                 action: String,
-                createLabelVals: Optional<[String]> = nil,
+                createLabelVals: [String]? = nil,
                 createdBy: String,
-                durationInHours: Optional<Int> = nil,
-                negateLabelVals: Optional<[String]> = nil,
+                durationInHours: Int? = nil,
+                negateLabelVals: [String]? = nil,
                 reason: String,
                 subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>,
-                subjectBlobCids: Optional<[String]> = nil
+                subjectBlobCids: [String]? = nil
             ) {
                 self._action = .wrapped(action)
                 self._createLabelVals = .wrapped(createLabelVals)
@@ -4826,11 +4826,11 @@ public extension Com.Atproto.Identity {
 public extension Com.Atproto.Label.Defs {
     public struct Label: UnionCodable, Hashable {
         @Indirect
-        public var cid: Optional<String>
+        public var cid: String?
         @Indirect
         public var cts: Date
         @Indirect
-        public var neg: Optional<Bool>
+        public var neg: Bool?
         @Indirect
         public var src: String
         @Indirect
@@ -4838,9 +4838,9 @@ public extension Com.Atproto.Label.Defs {
         @Indirect
         public var val: String
         public init(
-            cid: Optional<String> = nil,
+            cid: String? = nil,
             cts: Date,
-            neg: Optional<Bool> = nil,
+            neg: Bool? = nil,
             src: String,
             uri: SafeURL,
             val: String
@@ -4883,17 +4883,17 @@ public extension Com.Atproto.Label {
     struct QueryLabels: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
-            public var sources: Optional<[String]>
+            public var sources: [String]?
             @Indirect
             public var uriPatterns: [String]
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
-                sources: Optional<[String]> = nil,
+                cursor: String? = nil,
+                limit: Int? = nil,
+                sources: [String]? = nil,
                 uriPatterns: [String]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -4913,11 +4913,11 @@ public extension Com.Atproto.Label {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var labels: [Com.Atproto.Label.Defs.Label]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 labels: [Com.Atproto.Label.Defs.Label]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -4937,11 +4937,11 @@ public extension Com.Atproto.Label {
 public extension Com.Atproto.Label.SubscribeLabels {
     public struct Info: UnionCodable, Hashable {
         @Indirect
-        public var message: Optional<String>
+        public var message: String?
         @Indirect
         public var name: String
         public init(
-            message: Optional<String> = nil,
+            message: String? = nil,
             name: String
         ) {
             self._message = .wrapped(message)
@@ -4974,13 +4974,13 @@ public extension Com.Atproto.Moderation {
     struct CreateReport: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
-            public var reason: Optional<String>
+            public var reason: String?
             @Indirect
             public var reasonType: Com.Atproto.Moderation.Defs.ReasonType
             @Indirect
             public var subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>
             public init(
-                reason: Optional<String> = nil,
+                reason: String? = nil,
                 reasonType: Com.Atproto.Moderation.Defs.ReasonType,
                 subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>
             ) {
@@ -4995,7 +4995,7 @@ public extension Com.Atproto.Moderation {
             @Indirect
             public var id: Int
             @Indirect
-            public var reason: Optional<String>
+            public var reason: String?
             @Indirect
             public var reasonType: Com.Atproto.Moderation.Defs.ReasonType
             @Indirect
@@ -5005,7 +5005,7 @@ public extension Com.Atproto.Moderation {
             public init(
                 createdAt: Date,
                 id: Int,
-                reason: Optional<String> = nil,
+                reason: String? = nil,
                 reasonType: Com.Atproto.Moderation.Defs.ReasonType,
                 reportedBy: String,
                 subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>
@@ -5048,12 +5048,12 @@ public extension Com.Atproto.Repo.ApplyWrites {
         @Indirect
         public var collection: String
         @Indirect
-        public var rkey: Optional<String>
+        public var rkey: String?
         @Indirect
         public var value: LexiconUnknownUnion
         public init(
             collection: String,
-            rkey: Optional<String> = nil,
+            rkey: String? = nil,
             value: LexiconUnknownUnion
         ) {
             self._collection = .wrapped(collection)
@@ -5085,15 +5085,15 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var repo: String
             @Indirect
-            public var swapCommit: Optional<String>
+            public var swapCommit: String?
             @Indirect
-            public var validate: Optional<Bool>
+            public var validate: Bool?
             @Indirect
             public var writes: [Union3<Com.Atproto.Repo.ApplyWrites.Create, Com.Atproto.Repo.ApplyWrites.Update, Com.Atproto.Repo.ApplyWrites.Delete>]
             public init(
                 repo: String,
-                swapCommit: Optional<String> = nil,
-                validate: Optional<Bool> = nil,
+                swapCommit: String? = nil,
+                validate: Bool? = nil,
                 writes: [Union3<Com.Atproto.Repo.ApplyWrites.Create, Com.Atproto.Repo.ApplyWrites.Update, Com.Atproto.Repo.ApplyWrites.Delete>]
             ) {
                 self._repo = .wrapped(repo)
@@ -5142,18 +5142,18 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var repo: String
             @Indirect
-            public var rkey: Optional<String>
+            public var rkey: String?
             @Indirect
-            public var swapCommit: Optional<String>
+            public var swapCommit: String?
             @Indirect
-            public var validate: Optional<Bool>
+            public var validate: Bool?
             public init(
                 collection: String,
                 record: LexiconUnknownUnion,
                 repo: String,
-                rkey: Optional<String> = nil,
-                swapCommit: Optional<String> = nil,
-                validate: Optional<Bool> = nil
+                rkey: String? = nil,
+                swapCommit: String? = nil,
+                validate: Bool? = nil
             ) {
                 self._collection = .wrapped(collection)
                 self._record = .wrapped(record)
@@ -5196,15 +5196,15 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var rkey: String
             @Indirect
-            public var swapCommit: Optional<String>
+            public var swapCommit: String?
             @Indirect
-            public var swapRecord: Optional<String>
+            public var swapRecord: String?
             public init(
                 collection: String,
                 repo: String,
                 rkey: String,
-                swapCommit: Optional<String> = nil,
-                swapRecord: Optional<String> = nil
+                swapCommit: String? = nil,
+                swapRecord: String? = nil
             ) {
                 self._collection = .wrapped(collection)
                 self._repo = .wrapped(repo)
@@ -5279,7 +5279,7 @@ public extension Com.Atproto.Repo {
     struct GetRecord: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cid: Optional<String>
+            public var cid: String?
             @Indirect
             public var collection: String
             @Indirect
@@ -5287,7 +5287,7 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var rkey: String
             public init(
-                cid: Optional<String> = nil,
+                cid: String? = nil,
                 collection: String,
                 repo: String,
                 rkey: String
@@ -5309,13 +5309,13 @@ public extension Com.Atproto.Repo {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cid: Optional<String>
+            public var cid: String?
             @Indirect
             public var uri: ATURI
             @Indirect
             public var value: LexiconUnknownUnion
             public init(
-                cid: Optional<String> = nil,
+                cid: String? = nil,
                 uri: ATURI,
                 value: LexiconUnknownUnion
             ) {
@@ -5340,25 +5340,25 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var collection: String
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
             public var repo: String
             @Indirect
-            public var reverse: Optional<Bool>
+            public var reverse: Bool?
             @Indirect
-            public var rkeyEnd: Optional<String>
+            public var rkeyEnd: String?
             @Indirect
-            public var rkeyStart: Optional<String>
+            public var rkeyStart: String?
             public init(
                 collection: String,
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil,
+                cursor: String? = nil,
+                limit: Int? = nil,
                 repo: String,
-                reverse: Optional<Bool> = nil,
-                rkeyEnd: Optional<String> = nil,
-                rkeyStart: Optional<String> = nil
+                reverse: Bool? = nil,
+                rkeyEnd: String? = nil,
+                rkeyStart: String? = nil
             ) {
                 self._collection = .wrapped(collection)
                 self._cursor = .wrapped(cursor)
@@ -5383,11 +5383,11 @@ public extension Com.Atproto.Repo {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var records: [Com.Atproto.Repo.ListRecords.Record]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 records: [Com.Atproto.Repo.ListRecords.Record]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -5436,19 +5436,19 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var rkey: String
             @Indirect
-            public var swapCommit: Optional<String>
+            public var swapCommit: String?
             @Indirect
-            public var swapRecord: Optional<String>
+            public var swapRecord: String?
             @Indirect
-            public var validate: Optional<Bool>
+            public var validate: Bool?
             public init(
                 collection: String,
                 record: LexiconUnknownUnion,
                 repo: String,
                 rkey: String,
-                swapCommit: Optional<String> = nil,
-                swapRecord: Optional<String> = nil,
-                validate: Optional<Bool> = nil
+                swapCommit: String? = nil,
+                swapRecord: String? = nil,
+                validate: Bool? = nil
             ) {
                 self._collection = .wrapped(collection)
                 self._record = .wrapped(record)
@@ -5545,24 +5545,24 @@ public extension Com.Atproto.Server {
     struct CreateAccount: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
-            public var did: Optional<String>
+            public var did: String?
             @Indirect
             public var email: String
             @Indirect
             public var handle: String
             @Indirect
-            public var inviteCode: Optional<String>
+            public var inviteCode: String?
             @Indirect
             public var password: String
             @Indirect
-            public var recoveryKey: Optional<String>
+            public var recoveryKey: String?
             public init(
-                did: Optional<String> = nil,
+                did: String? = nil,
                 email: String,
                 handle: String,
-                inviteCode: Optional<String> = nil,
+                inviteCode: String? = nil,
                 password: String,
-                recoveryKey: Optional<String> = nil
+                recoveryKey: String? = nil
             ) {
                 self._did = .wrapped(did)
                 self._email = .wrapped(email)
@@ -5649,11 +5649,11 @@ public extension Com.Atproto.Server {
     struct CreateInviteCode: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
-            public var forAccount: Optional<String>
+            public var forAccount: String?
             @Indirect
             public var useCount: Int
             public init(
-                forAccount: Optional<String> = nil,
+                forAccount: String? = nil,
                 useCount: Int
             ) {
                 self._forAccount = .wrapped(forAccount)
@@ -5701,12 +5701,12 @@ public extension Com.Atproto.Server {
             @Indirect
             public var codeCount: Int
             @Indirect
-            public var forAccounts: Optional<[String]>
+            public var forAccounts: [String]?
             @Indirect
             public var useCount: Int
             public init(
                 codeCount: Int,
-                forAccounts: Optional<[String]> = nil,
+                forAccounts: [String]? = nil,
                 useCount: Int
             ) {
                 self._codeCount = .wrapped(codeCount)
@@ -5754,9 +5754,9 @@ public extension Com.Atproto.Server {
             @Indirect
             public var did: String
             @Indirect
-            public var email: Optional<String>
+            public var email: String?
             @Indirect
-            public var emailConfirmed: Optional<Bool>
+            public var emailConfirmed: Bool?
             @Indirect
             public var handle: String
             @Indirect
@@ -5764,8 +5764,8 @@ public extension Com.Atproto.Server {
             public init(
                 accessJwt: String,
                 did: String,
-                email: Optional<String> = nil,
-                emailConfirmed: Optional<Bool> = nil,
+                email: String? = nil,
+                emailConfirmed: Bool? = nil,
                 handle: String,
                 refreshJwt: String
             ) {
@@ -5882,12 +5882,12 @@ public extension Com.Atproto.Server {
 public extension Com.Atproto.Server.DescribeServer {
     public struct Links: UnionCodable, Hashable {
         @Indirect
-        public var privacyPolicy: Optional<String>
+        public var privacyPolicy: String?
         @Indirect
-        public var termsOfService: Optional<String>
+        public var termsOfService: String?
         public init(
-            privacyPolicy: Optional<String> = nil,
-            termsOfService: Optional<String> = nil
+            privacyPolicy: String? = nil,
+            termsOfService: String? = nil
         ) {
             self._privacyPolicy = .wrapped(privacyPolicy)
             self._termsOfService = .wrapped(termsOfService)
@@ -5901,13 +5901,13 @@ public extension Com.Atproto.Server {
             @Indirect
             public var availableUserDomains: [String]
             @Indirect
-            public var inviteCodeRequired: Optional<Bool>
+            public var inviteCodeRequired: Bool?
             @Indirect
-            public var links: Optional<Com.Atproto.Server.DescribeServer.Links>
+            public var links: Com.Atproto.Server.DescribeServer.Links?
             public init(
                 availableUserDomains: [String],
-                inviteCodeRequired: Optional<Bool> = nil,
-                links: Optional<Com.Atproto.Server.DescribeServer.Links> = nil
+                inviteCodeRequired: Bool? = nil,
+                links: Com.Atproto.Server.DescribeServer.Links? = nil
             ) {
                 self._availableUserDomains = .wrapped(availableUserDomains)
                 self._inviteCodeRequired = .wrapped(inviteCodeRequired)
@@ -5927,12 +5927,12 @@ public extension Com.Atproto.Server {
     struct GetAccountInviteCodes: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var createAvailable: Optional<Bool>
+            public var createAvailable: Bool?
             @Indirect
-            public var includeUsed: Optional<Bool>
+            public var includeUsed: Bool?
             public init(
-                createAvailable: Optional<Bool> = nil,
-                includeUsed: Optional<Bool> = nil
+                createAvailable: Bool? = nil,
+                includeUsed: Bool? = nil
             ) {
                 self._createAvailable = .wrapped(createAvailable)
                 self._includeUsed = .wrapped(includeUsed)
@@ -5970,15 +5970,15 @@ public extension Com.Atproto.Server {
             @Indirect
             public var did: String
             @Indirect
-            public var email: Optional<String>
+            public var email: String?
             @Indirect
-            public var emailConfirmed: Optional<Bool>
+            public var emailConfirmed: Bool?
             @Indirect
             public var handle: String
             public init(
                 did: String,
-                email: Optional<String> = nil,
-                emailConfirmed: Optional<Bool> = nil,
+                email: String? = nil,
+                emailConfirmed: Bool? = nil,
                 handle: String
             ) {
                 self._did = .wrapped(did)
@@ -6179,10 +6179,10 @@ public extension Com.Atproto.Server {
             @Indirect
             public var email: String
             @Indirect
-            public var token: Optional<String>
+            public var token: String?
             public init(
                 email: String,
-                token: Optional<String> = nil
+                token: String? = nil
             ) {
                 self._email = .wrapped(email)
                 self._token = .wrapped(token)
@@ -6371,14 +6371,14 @@ public extension Com.Atproto.Sync {
             @Indirect
             public var collection: String
             @Indirect
-            public var commit: Optional<String>
+            public var commit: String?
             @Indirect
             public var did: String
             @Indirect
             public var rkey: String
             public init(
                 collection: String,
-                commit: Optional<String> = nil,
+                commit: String? = nil,
                 did: String,
                 rkey: String
             ) {
@@ -6413,10 +6413,10 @@ public extension Com.Atproto.Sync {
             @Indirect
             public var did: String
             @Indirect
-            public var since: Optional<String>
+            public var since: String?
             public init(
                 did: String,
-                since: Optional<String> = nil
+                since: String? = nil
             ) {
                 self._did = .wrapped(did)
                 self._since = .wrapped(since)
@@ -6443,18 +6443,18 @@ public extension Com.Atproto.Sync {
     struct ListBlobs: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var did: String
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             @Indirect
-            public var since: Optional<String>
+            public var since: String?
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 did: String,
-                limit: Optional<Int> = nil,
-                since: Optional<String> = nil
+                limit: Int? = nil,
+                since: String? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._did = .wrapped(did)
@@ -6475,10 +6475,10 @@ public extension Com.Atproto.Sync {
             @Indirect
             public var cids: [String]
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             public init(
                 cids: [String],
-                cursor: Optional<String> = nil
+                cursor: String? = nil
             ) {
                 self._cids = .wrapped(cids)
                 self._cursor = .wrapped(cursor)
@@ -6498,12 +6498,12 @@ public extension Com.Atproto.Sync {
     struct ListRepos: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
-            public var limit: Optional<Int>
+            public var limit: Int?
             public init(
-                cursor: Optional<String> = nil,
-                limit: Optional<Int> = nil
+                cursor: String? = nil,
+                limit: Int? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._limit = .wrapped(limit)
@@ -6518,11 +6518,11 @@ public extension Com.Atproto.Sync {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: Optional<String>
+            public var cursor: String?
             @Indirect
             public var repos: [Com.Atproto.Sync.ListRepos.Repo]
             public init(
-                cursor: Optional<String> = nil,
+                cursor: String? = nil,
                 repos: [Com.Atproto.Sync.ListRepos.Repo]
             ) {
                 self._cursor = .wrapped(cursor)
@@ -6664,11 +6664,11 @@ public extension Com.Atproto.Sync.SubscribeRepos {
 public extension Com.Atproto.Sync.SubscribeRepos {
     public struct Info: UnionCodable, Hashable {
         @Indirect
-        public var message: Optional<String>
+        public var message: String?
         @Indirect
         public var name: String
         public init(
-            message: Optional<String> = nil,
+            message: String? = nil,
             name: String
         ) {
             self._message = .wrapped(message)
