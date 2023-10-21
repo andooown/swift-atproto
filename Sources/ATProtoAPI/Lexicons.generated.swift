@@ -413,12 +413,7 @@ public extension App.Bsky.Actor {
             ) {
 
             }
-            public var queryItems: [URLQueryItem] {
-                var parameters = [URLQueryItem] ()
-
-
-                return parameters
-            }
+            public let queryItems: [URLQueryItem] = []
         }
         public struct Output: Decodable, Hashable {
             @Indirect
