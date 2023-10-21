@@ -6540,12 +6540,16 @@ public extension Com.Atproto.Sync.ListRepos {
         public var did: String
         @Indirect
         public var head: String
+        @Indirect
+        public var rev: String
         public init(
             did: String,
-            head: String
+            head: String,
+            rev: String
         ) {
             self._did = .wrapped(did)
             self._head = .wrapped(head)
+            self._rev = .wrapped(rev)
         }
         public static let typeValue = #LexiconDefID("com.atproto.sync.listRepos#repo")
     }
