@@ -380,6 +380,8 @@ public extension App.Bsky.Actor.Defs {
         @Indirect
         public var blocking: ATURI?
         @Indirect
+        public var blockingByList: App.Bsky.Graph.Defs.ListViewBasic?
+        @Indirect
         public var followedBy: ATURI?
         @Indirect
         public var following: ATURI?
@@ -390,6 +392,7 @@ public extension App.Bsky.Actor.Defs {
         public init(
             blockedBy: Bool? = nil,
             blocking: ATURI? = nil,
+            blockingByList: App.Bsky.Graph.Defs.ListViewBasic? = nil,
             followedBy: ATURI? = nil,
             following: ATURI? = nil,
             muted: Bool? = nil,
@@ -397,6 +400,7 @@ public extension App.Bsky.Actor.Defs {
         ) {
             self._blockedBy = .wrapped(blockedBy)
             self._blocking = .wrapped(blocking)
+            self._blockingByList = .wrapped(blockingByList)
             self._followedBy = .wrapped(followedBy)
             self._following = .wrapped(following)
             self._muted = .wrapped(muted)
@@ -3585,6 +3589,46 @@ public extension App.Bsky.Unspecced {
     }
 }
 public extension Com.Atproto.Admin.Defs {
+    struct AccountView: UnionCodable, Hashable {
+        @Indirect
+        public var did: String
+        @Indirect
+        public var email: String?
+        @Indirect
+        public var handle: String
+        @Indirect
+        public var indexedAt: Date
+        @Indirect
+        public var inviteNote: String?
+        @Indirect
+        public var invitedBy: Com.Atproto.Server.Defs.InviteCode?
+        @Indirect
+        public var invites: [Com.Atproto.Server.Defs.InviteCode]?
+        @Indirect
+        public var invitesDisabled: Bool?
+        public init(
+            did: String,
+            email: String? = nil,
+            handle: String,
+            indexedAt: Date,
+            inviteNote: String? = nil,
+            invitedBy: Com.Atproto.Server.Defs.InviteCode? = nil,
+            invites: [Com.Atproto.Server.Defs.InviteCode]? = nil,
+            invitesDisabled: Bool? = nil
+        ) {
+            self._did = .wrapped(did)
+            self._email = .wrapped(email)
+            self._handle = .wrapped(handle)
+            self._indexedAt = .wrapped(indexedAt)
+            self._inviteNote = .wrapped(inviteNote)
+            self._invitedBy = .wrapped(invitedBy)
+            self._invites = .wrapped(invites)
+            self._invitesDisabled = .wrapped(invitesDisabled)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#accountView")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
 }
 public extension Com.Atproto.Admin.Defs {
     struct ActionReversal: UnionCodable, Hashable {
@@ -3914,6 +3958,26 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
+    struct RepoBlobRef: UnionCodable, Hashable {
+        @Indirect
+        public var cid: String
+        @Indirect
+        public var did: String
+        @Indirect
+        public var recordUri: ATURI?
+        public init(
+            cid: String,
+            did: String,
+            recordUri: ATURI? = nil
+        ) {
+            self._cid = .wrapped(cid)
+            self._did = .wrapped(did)
+            self._recordUri = .wrapped(recordUri)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#repoBlobRef")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
     struct RepoRef: UnionCodable, Hashable {
         @Indirect
         public var did: String
@@ -4110,6 +4174,22 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
+    struct StatusAttr: UnionCodable, Hashable {
+        @Indirect
+        public var applied: Bool
+        @Indirect
+        public var ref: String?
+        public init(
+            applied: Bool,
+            ref: String? = nil
+        ) {
+            self._applied = .wrapped(applied)
+            self._ref = .wrapped(ref)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#statusAttr")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
 }
 public extension Com.Atproto.Admin.Defs {
     struct VideoDetails: UnionCodable, Hashable {
@@ -4204,6 +4284,34 @@ public extension Com.Atproto.Admin {
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.admin.enableAccountInvites"
         public let input: Input?
+    }
+}
+public extension Com.Atproto.Admin {
+    struct GetAccountInfo: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var did: String
+            public init(
+                did: String
+            ) {
+                self._did = .wrapped(did)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem] ()
+                parameters.append(contentsOf: did.toQueryItems(name: "did"))
+
+                return parameters
+            }
+        }
+        public typealias Output = Com.Atproto.Admin.Defs.AccountView
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "com.atproto.admin.getAccountInfo"
+        public let parameters: Parameters
     }
 }
 public extension Com.Atproto.Admin {
@@ -4504,6 +4612,56 @@ public extension Com.Atproto.Admin {
     }
 }
 public extension Com.Atproto.Admin {
+    struct GetSubjectStatus: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var blob: String?
+            @Indirect
+            public var did: String?
+            @Indirect
+            public var uri: ATURI?
+            public init(
+                blob: String? = nil,
+                did: String? = nil,
+                uri: ATURI? = nil
+            ) {
+                self._blob = .wrapped(blob)
+                self._did = .wrapped(did)
+                self._uri = .wrapped(uri)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem] ()
+                parameters.append(contentsOf: blob.toQueryItems(name: "blob"))
+                parameters.append(contentsOf: did.toQueryItems(name: "did"))
+                parameters.append(contentsOf: uri.toQueryItems(name: "uri"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var subject: Union3<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef, Com.Atproto.Admin.Defs.RepoBlobRef>
+            @Indirect
+            public var takedown: Com.Atproto.Admin.Defs.StatusAttr?
+            public init(
+                subject: Union3<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef, Com.Atproto.Admin.Defs.RepoBlobRef>,
+                takedown: Com.Atproto.Admin.Defs.StatusAttr? = nil
+            ) {
+                self._subject = .wrapped(subject)
+                self._takedown = .wrapped(takedown)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "com.atproto.admin.getSubjectStatus"
+        public let parameters: Parameters
+    }
+}
+public extension Com.Atproto.Admin {
     struct ResolveModerationReports: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
@@ -4569,8 +4727,6 @@ public extension Com.Atproto.Admin {
             @Indirect
             public var cursor: String?
             @Indirect
-            public var invitedBy: String?
-            @Indirect
             public var limit: Int?
             @Indirect
             public var q: String?
@@ -4578,13 +4734,11 @@ public extension Com.Atproto.Admin {
             public var term: String?
             public init(
                 cursor: String? = nil,
-                invitedBy: String? = nil,
                 limit: Int? = nil,
                 q: String? = nil,
                 term: String? = nil
             ) {
                 self._cursor = .wrapped(cursor)
-                self._invitedBy = .wrapped(invitedBy)
                 self._limit = .wrapped(limit)
                 self._q = .wrapped(q)
                 self._term = .wrapped(term)
@@ -4592,7 +4746,6 @@ public extension Com.Atproto.Admin {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
-                parameters.append(contentsOf: invitedBy.toQueryItems(name: "invitedBy"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: q.toQueryItems(name: "q"))
                 parameters.append(contentsOf: term.toQueryItems(name: "term"))
@@ -4758,6 +4911,44 @@ public extension Com.Atproto.Admin {
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.admin.updateAccountHandle"
+        public let input: Input?
+    }
+}
+public extension Com.Atproto.Admin {
+    struct UpdateSubjectStatus: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var subject: Union3<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef, Com.Atproto.Admin.Defs.RepoBlobRef>
+            @Indirect
+            public var takedown: Com.Atproto.Admin.Defs.StatusAttr?
+            public init(
+                subject: Union3<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef, Com.Atproto.Admin.Defs.RepoBlobRef>,
+                takedown: Com.Atproto.Admin.Defs.StatusAttr? = nil
+            ) {
+                self._subject = .wrapped(subject)
+                self._takedown = .wrapped(takedown)
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var subject: Union3<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef, Com.Atproto.Admin.Defs.RepoBlobRef>
+            @Indirect
+            public var takedown: Com.Atproto.Admin.Defs.StatusAttr?
+            public init(
+                subject: Union3<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef, Com.Atproto.Admin.Defs.RepoBlobRef>,
+                takedown: Com.Atproto.Admin.Defs.StatusAttr? = nil
+            ) {
+                self._subject = .wrapped(subject)
+                self._takedown = .wrapped(takedown)
+            }
+        }
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.admin.updateSubjectStatus"
         public let input: Input?
     }
 }
@@ -5573,17 +5764,21 @@ public extension Com.Atproto.Server {
             @Indirect
             public var did: String
             @Indirect
+            public var didDoc: LexiconUnknownUnion?
+            @Indirect
             public var handle: String
             @Indirect
             public var refreshJwt: String
             public init(
                 accessJwt: String,
                 did: String,
+                didDoc: LexiconUnknownUnion? = nil,
                 handle: String,
                 refreshJwt: String
             ) {
                 self._accessJwt = .wrapped(accessJwt)
                 self._did = .wrapped(did)
+                self._didDoc = .wrapped(didDoc)
                 self._handle = .wrapped(handle)
                 self._refreshJwt = .wrapped(refreshJwt)
             }
@@ -5749,6 +5944,8 @@ public extension Com.Atproto.Server {
             @Indirect
             public var did: String
             @Indirect
+            public var didDoc: LexiconUnknownUnion?
+            @Indirect
             public var email: String?
             @Indirect
             public var emailConfirmed: Bool?
@@ -5759,6 +5956,7 @@ public extension Com.Atproto.Server {
             public init(
                 accessJwt: String,
                 did: String,
+                didDoc: LexiconUnknownUnion? = nil,
                 email: String? = nil,
                 emailConfirmed: Bool? = nil,
                 handle: String,
@@ -5766,6 +5964,7 @@ public extension Com.Atproto.Server {
             ) {
                 self._accessJwt = .wrapped(accessJwt)
                 self._did = .wrapped(did)
+                self._didDoc = .wrapped(didDoc)
                 self._email = .wrapped(email)
                 self._emailConfirmed = .wrapped(emailConfirmed)
                 self._handle = .wrapped(handle)
@@ -6035,17 +6234,21 @@ public extension Com.Atproto.Server {
             @Indirect
             public var did: String
             @Indirect
+            public var didDoc: LexiconUnknownUnion?
+            @Indirect
             public var handle: String
             @Indirect
             public var refreshJwt: String
             public init(
                 accessJwt: String,
                 did: String,
+                didDoc: LexiconUnknownUnion? = nil,
                 handle: String,
                 refreshJwt: String
             ) {
                 self._accessJwt = .wrapped(accessJwt)
                 self._did = .wrapped(did)
+                self._didDoc = .wrapped(didDoc)
                 self._handle = .wrapped(handle)
                 self._refreshJwt = .wrapped(refreshJwt)
             }
@@ -6120,6 +6323,26 @@ public extension Com.Atproto.Server {
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.server.requestPasswordReset"
         public let input: Input?
+    }
+}
+public extension Com.Atproto.Server {
+    struct ReserveSigningKey: XRPCRequest {
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var signingKey: String
+            public init(
+                signingKey: String
+            ) {
+                self._signingKey = .wrapped(signingKey)
+            }
+        }
+        public init(
+
+        ) {
+
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.server.reserveSigningKey"
     }
 }
 public extension Com.Atproto.Server {
