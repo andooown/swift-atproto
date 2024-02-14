@@ -102,6 +102,10 @@ public extension Com.Atproto {
     enum Sync {
     }
 }
+public extension Com.Atproto {
+    enum Temp {
+    }
+}
 public typealias LexiconUnknownUnion = Union11<App.Bsky.Actor.Profile, App.Bsky.Feed.Generator, App.Bsky.Feed.Like, App.Bsky.Feed.Post, App.Bsky.Feed.Repost, App.Bsky.Feed.Threadgate, App.Bsky.Graph.Block, App.Bsky.Graph.Follow, App.Bsky.Graph.List, App.Bsky.Graph.Listblock, App.Bsky.Graph.Listitem>
 public extension LexiconUnknownUnion {
     var asProfile: App.Bsky.Actor.Profile? {
@@ -199,6 +203,18 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
+    struct InterestsPref: UnionCodable, Hashable {
+        @Indirect
+        public var tags: [String]
+        public init(
+            tags: [String]
+        ) {
+            self._tags = .wrapped(tags)
+        }
+        public static let typeValue = #LexiconDefID("app.bsky.actor.defs#interestsPref")
+    }
+}
+public extension App.Bsky.Actor.Defs {
     struct PersonalDetailsPref: UnionCodable, Hashable {
         @Indirect
         public var birthDate: Date?
@@ -211,7 +227,7 @@ public extension App.Bsky.Actor.Defs {
     }
 }
 public extension App.Bsky.Actor.Defs {
-    typealias Preferences = [Union6<App.Bsky.Actor.Defs.AdultContentPref, App.Bsky.Actor.Defs.ContentLabelPref, App.Bsky.Actor.Defs.SavedFeedsPref, App.Bsky.Actor.Defs.PersonalDetailsPref, App.Bsky.Actor.Defs.FeedViewPref, App.Bsky.Actor.Defs.ThreadViewPref>]
+    typealias Preferences = [Union7<App.Bsky.Actor.Defs.AdultContentPref, App.Bsky.Actor.Defs.ContentLabelPref, App.Bsky.Actor.Defs.SavedFeedsPref, App.Bsky.Actor.Defs.PersonalDetailsPref, App.Bsky.Actor.Defs.FeedViewPref, App.Bsky.Actor.Defs.ThreadViewPref, App.Bsky.Actor.Defs.InterestsPref>]
 }
 public extension App.Bsky.Actor.Defs {
     struct ProfileView: UnionCodable, Hashable {
@@ -1225,18 +1241,14 @@ public extension App.Bsky.Feed.Defs {
         public var post: App.Bsky.Feed.Defs.PostView
         @Indirect
         public var replies: [Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>]?
-        @Indirect
-        public var viewer: App.Bsky.Feed.Defs.ViewerThreadState?
         public init(
             parent: Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>? = nil,
             post: App.Bsky.Feed.Defs.PostView,
-            replies: [Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>]? = nil,
-            viewer: App.Bsky.Feed.Defs.ViewerThreadState? = nil
+            replies: [Union3<App.Bsky.Feed.Defs.ThreadViewPost, App.Bsky.Feed.Defs.NotFoundPost, App.Bsky.Feed.Defs.BlockedPost>]? = nil
         ) {
             self._parent = .wrapped(parent)
             self._post = .wrapped(post)
             self._replies = .wrapped(replies)
-            self._viewer = .wrapped(viewer)
         }
         public static let typeValue = #LexiconDefID("app.bsky.feed.defs#threadViewPost")
     }
@@ -1270,27 +1282,19 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var like: ATURI?
         @Indirect
+        public var replyDisabled: Bool?
+        @Indirect
         public var repost: ATURI?
         public init(
             like: ATURI? = nil,
+            replyDisabled: Bool? = nil,
             repost: ATURI? = nil
         ) {
             self._like = .wrapped(like)
+            self._replyDisabled = .wrapped(replyDisabled)
             self._repost = .wrapped(repost)
         }
         public static let typeValue = #LexiconDefID("app.bsky.feed.defs#viewerState")
-    }
-}
-public extension App.Bsky.Feed.Defs {
-    struct ViewerThreadState: UnionCodable, Hashable {
-        @Indirect
-        public var canReply: Bool?
-        public init(
-            canReply: Bool? = nil
-        ) {
-            self._canReply = .wrapped(canReply)
-        }
-        public static let typeValue = #LexiconDefID("app.bsky.feed.defs#viewerThreadState")
     }
 }
 public extension App.Bsky.Feed.DescribeFeedGenerator {
@@ -2345,10 +2349,14 @@ public extension App.Bsky.Graph.Defs {
     struct ListItemView: UnionCodable, Hashable {
         @Indirect
         public var subject: App.Bsky.Actor.Defs.ProfileView
+        @Indirect
+        public var uri: ATURI
         public init(
-            subject: App.Bsky.Actor.Defs.ProfileView
+            subject: App.Bsky.Actor.Defs.ProfileView,
+            uri: ATURI
         ) {
             self._subject = .wrapped(subject)
+            self._uri = .wrapped(uri)
         }
         public static let typeValue = #LexiconDefID("app.bsky.graph.defs#listItemView")
     }
@@ -2457,6 +2465,42 @@ public extension App.Bsky.Graph.Defs {
     }
 }
 public extension App.Bsky.Graph.Defs {
+}
+public extension App.Bsky.Graph.Defs {
+    struct NotFoundActor: UnionCodable, Hashable {
+        @Indirect
+        public var actor: String
+        @Indirect
+        public var notFound: Bool
+        public init(
+            actor: String,
+            notFound: Bool
+        ) {
+            self._actor = .wrapped(actor)
+            self._notFound = .wrapped(notFound)
+        }
+        public static let typeValue = #LexiconDefID("app.bsky.graph.defs#notFoundActor")
+    }
+}
+public extension App.Bsky.Graph.Defs {
+    struct Relationship: UnionCodable, Hashable {
+        @Indirect
+        public var did: String
+        @Indirect
+        public var followedBy: ATURI?
+        @Indirect
+        public var following: ATURI?
+        public init(
+            did: String,
+            followedBy: ATURI? = nil,
+            following: ATURI? = nil
+        ) {
+            self._did = .wrapped(did)
+            self._followedBy = .wrapped(followedBy)
+            self._following = .wrapped(following)
+        }
+        public static let typeValue = #LexiconDefID("app.bsky.graph.defs#relationship")
+    }
 }
 public extension App.Bsky.Graph {
     struct Follow: UnionCodable, Hashable {
@@ -2867,6 +2911,51 @@ public extension App.Bsky.Graph {
     }
 }
 public extension App.Bsky.Graph {
+    struct GetRelationships: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var actor: String
+            @Indirect
+            public var others: [String]?
+            public init(
+                actor: String,
+                others: [String]? = nil
+            ) {
+                self._actor = .wrapped(actor)
+                self._others = .wrapped(others)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem] ()
+                parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
+                parameters.append(contentsOf: others.toQueryItems(name: "others"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var actor: String?
+            @Indirect
+            public var relationships: [Union2<App.Bsky.Graph.Defs.Relationship, App.Bsky.Graph.Defs.NotFoundActor>]
+            public init(
+                actor: String? = nil,
+                relationships: [Union2<App.Bsky.Graph.Defs.Relationship, App.Bsky.Graph.Defs.NotFoundActor>]
+            ) {
+                self._actor = .wrapped(actor)
+                self._relationships = .wrapped(relationships)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "app.bsky.graph.getRelationships"
+        public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Graph {
     struct GetSuggestedFollowsByActor: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
@@ -3122,12 +3211,16 @@ public extension App.Bsky.Notification {
             public var cursor: String?
             @Indirect
             public var notifications: [App.Bsky.Notification.ListNotifications.Notification]
+            @Indirect
+            public var seenAt: Date?
             public init(
                 cursor: String? = nil,
-                notifications: [App.Bsky.Notification.ListNotifications.Notification]
+                notifications: [App.Bsky.Notification.ListNotifications.Notification],
+                seenAt: Date? = nil
             ) {
                 self._cursor = .wrapped(cursor)
                 self._notifications = .wrapped(notifications)
+                self._seenAt = .wrapped(seenAt)
             }
         }
         public init(
@@ -3331,56 +3424,6 @@ public extension App.Bsky.Unspecced.Defs {
     }
 }
 public extension App.Bsky.Unspecced {
-    struct GetPopular: XRPCRequest {
-        public struct Parameters: XRPCRequestParametersConvertible {
-            @Indirect
-            public var cursor: String?
-            @Indirect
-            public var includeNsfw: Bool?
-            @Indirect
-            public var limit: Int?
-            public init(
-                cursor: String? = nil,
-                includeNsfw: Bool? = nil,
-                limit: Int? = nil
-            ) {
-                self._cursor = .wrapped(cursor)
-                self._includeNsfw = .wrapped(includeNsfw)
-                self._limit = .wrapped(limit)
-            }
-            public var queryItems: [URLQueryItem] {
-                var parameters = [URLQueryItem] ()
-                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
-                parameters.append(contentsOf: includeNsfw.toQueryItems(name: "includeNsfw"))
-                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
-                return parameters
-            }
-        }
-        public struct Output: Decodable, Hashable {
-            @Indirect
-            public var cursor: String?
-            @Indirect
-            public var feed: [App.Bsky.Feed.Defs.FeedViewPost]
-            public init(
-                cursor: String? = nil,
-                feed: [App.Bsky.Feed.Defs.FeedViewPost]
-            ) {
-                self._cursor = .wrapped(cursor)
-                self._feed = .wrapped(feed)
-            }
-        }
-        public init(
-            parameters: Parameters
-        ) {
-            self.parameters = parameters
-        }
-        public let type = XRPCRequestType.query
-        public let requestIdentifier = "app.bsky.unspecced.getPopular"
-        public let parameters: Parameters
-    }
-}
-public extension App.Bsky.Unspecced {
     struct GetPopularFeedGenerators: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
@@ -3431,38 +3474,22 @@ public extension App.Bsky.Unspecced {
     }
 }
 public extension App.Bsky.Unspecced {
-    struct GetTimelineSkeleton: XRPCRequest {
+    struct GetTaggedSuggestions: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
-            @Indirect
-            public var cursor: String?
-            @Indirect
-            public var limit: Int?
             public init(
-                cursor: String? = nil,
-                limit: Int? = nil
-            ) {
-                self._cursor = .wrapped(cursor)
-                self._limit = .wrapped(limit)
-            }
-            public var queryItems: [URLQueryItem] {
-                var parameters = [URLQueryItem] ()
-                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
-                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
 
-                return parameters
+            ) {
+
             }
+            public let queryItems: [URLQueryItem] = []
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var cursor: String?
-            @Indirect
-            public var feed: [App.Bsky.Feed.Defs.SkeletonFeedPost]
+            public var suggestions: [App.Bsky.Unspecced.GetTaggedSuggestions.Suggestion]
             public init(
-                cursor: String? = nil,
-                feed: [App.Bsky.Feed.Defs.SkeletonFeedPost]
+                suggestions: [App.Bsky.Unspecced.GetTaggedSuggestions.Suggestion]
             ) {
-                self._cursor = .wrapped(cursor)
-                self._feed = .wrapped(feed)
+                self._suggestions = .wrapped(suggestions)
             }
         }
         public init(
@@ -3471,8 +3498,28 @@ public extension App.Bsky.Unspecced {
             self.parameters = parameters
         }
         public let type = XRPCRequestType.query
-        public let requestIdentifier = "app.bsky.unspecced.getTimelineSkeleton"
+        public let requestIdentifier = "app.bsky.unspecced.getTaggedSuggestions"
         public let parameters: Parameters
+    }
+}
+public extension App.Bsky.Unspecced.GetTaggedSuggestions {
+    struct Suggestion: UnionCodable, Hashable {
+        @Indirect
+        public var subject: SafeURL
+        @Indirect
+        public var subjectType: String
+        @Indirect
+        public var tag: String
+        public init(
+            subject: SafeURL,
+            subjectType: String,
+            tag: String
+        ) {
+            self._subject = .wrapped(subject)
+            self._subjectType = .wrapped(subjectType)
+            self._tag = .wrapped(tag)
+        }
+        public static let typeValue = #LexiconDefID("app.bsky.unspecced.getTaggedSuggestions#suggestion")
     }
 }
 public extension App.Bsky.Unspecced {
@@ -3588,12 +3635,48 @@ public extension App.Bsky.Unspecced {
         public let parameters: Parameters
     }
 }
+public extension Com.Atproto.Admin {
+    struct CreateCommunicationTemplate: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var contentMarkdown: String
+            @Indirect
+            public var createdBy: String?
+            @Indirect
+            public var name: String
+            @Indirect
+            public var subject: String
+            public init(
+                contentMarkdown: String,
+                createdBy: String? = nil,
+                name: String,
+                subject: String
+            ) {
+                self._contentMarkdown = .wrapped(contentMarkdown)
+                self._createdBy = .wrapped(createdBy)
+                self._name = .wrapped(name)
+                self._subject = .wrapped(subject)
+            }
+        }
+        public typealias Output = Com.Atproto.Admin.Defs.CommunicationTemplateView
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.admin.createCommunicationTemplate"
+        public let input: Input?
+    }
+}
 public extension Com.Atproto.Admin.Defs {
     struct AccountView: UnionCodable, Hashable {
         @Indirect
         public var did: String
         @Indirect
         public var email: String?
+        @Indirect
+        public var emailConfirmedAt: Date?
         @Indirect
         public var handle: String
         @Indirect
@@ -3606,183 +3689,32 @@ public extension Com.Atproto.Admin.Defs {
         public var invites: [Com.Atproto.Server.Defs.InviteCode]?
         @Indirect
         public var invitesDisabled: Bool?
+        @Indirect
+        public var relatedRecords: [LexiconUnknownUnion]?
         public init(
             did: String,
             email: String? = nil,
+            emailConfirmedAt: Date? = nil,
             handle: String,
             indexedAt: Date,
             inviteNote: String? = nil,
             invitedBy: Com.Atproto.Server.Defs.InviteCode? = nil,
             invites: [Com.Atproto.Server.Defs.InviteCode]? = nil,
-            invitesDisabled: Bool? = nil
+            invitesDisabled: Bool? = nil,
+            relatedRecords: [LexiconUnknownUnion]? = nil
         ) {
             self._did = .wrapped(did)
             self._email = .wrapped(email)
+            self._emailConfirmedAt = .wrapped(emailConfirmedAt)
             self._handle = .wrapped(handle)
             self._indexedAt = .wrapped(indexedAt)
             self._inviteNote = .wrapped(inviteNote)
             self._invitedBy = .wrapped(invitedBy)
             self._invites = .wrapped(invites)
             self._invitesDisabled = .wrapped(invitesDisabled)
+            self._relatedRecords = .wrapped(relatedRecords)
         }
         public static let typeValue = #LexiconDefID("com.atproto.admin.defs#accountView")
-    }
-}
-public extension Com.Atproto.Admin.Defs {
-}
-public extension Com.Atproto.Admin.Defs {
-    struct ActionReversal: UnionCodable, Hashable {
-        @Indirect
-        public var createdAt: Date
-        @Indirect
-        public var createdBy: String
-        @Indirect
-        public var reason: String
-        public init(
-            createdAt: Date,
-            createdBy: String,
-            reason: String
-        ) {
-            self._createdAt = .wrapped(createdAt)
-            self._createdBy = .wrapped(createdBy)
-            self._reason = .wrapped(reason)
-        }
-        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#actionReversal")
-    }
-}
-public extension Com.Atproto.Admin.Defs {
-    typealias ActionType = String
-}
-public extension Com.Atproto.Admin.Defs {
-    struct ActionView: UnionCodable, Hashable {
-        @Indirect
-        public var action: Com.Atproto.Admin.Defs.ActionType
-        @Indirect
-        public var createLabelVals: [String]?
-        @Indirect
-        public var createdAt: Date
-        @Indirect
-        public var createdBy: String
-        @Indirect
-        public var durationInHours: Int?
-        @Indirect
-        public var id: Int
-        @Indirect
-        public var negateLabelVals: [String]?
-        @Indirect
-        public var reason: String
-        @Indirect
-        public var resolvedReportIds: [Int]
-        @Indirect
-        public var reversal: Com.Atproto.Admin.Defs.ActionReversal?
-        @Indirect
-        public var subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>
-        @Indirect
-        public var subjectBlobCids: [String]
-        public init(
-            action: Com.Atproto.Admin.Defs.ActionType,
-            createLabelVals: [String]? = nil,
-            createdAt: Date,
-            createdBy: String,
-            durationInHours: Int? = nil,
-            id: Int,
-            negateLabelVals: [String]? = nil,
-            reason: String,
-            resolvedReportIds: [Int],
-            reversal: Com.Atproto.Admin.Defs.ActionReversal? = nil,
-            subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>,
-            subjectBlobCids: [String]
-        ) {
-            self._action = .wrapped(action)
-            self._createLabelVals = .wrapped(createLabelVals)
-            self._createdAt = .wrapped(createdAt)
-            self._createdBy = .wrapped(createdBy)
-            self._durationInHours = .wrapped(durationInHours)
-            self._id = .wrapped(id)
-            self._negateLabelVals = .wrapped(negateLabelVals)
-            self._reason = .wrapped(reason)
-            self._resolvedReportIds = .wrapped(resolvedReportIds)
-            self._reversal = .wrapped(reversal)
-            self._subject = .wrapped(subject)
-            self._subjectBlobCids = .wrapped(subjectBlobCids)
-        }
-        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#actionView")
-    }
-}
-public extension Com.Atproto.Admin.Defs {
-    struct ActionViewCurrent: UnionCodable, Hashable {
-        @Indirect
-        public var action: Com.Atproto.Admin.Defs.ActionType
-        @Indirect
-        public var durationInHours: Int?
-        @Indirect
-        public var id: Int
-        public init(
-            action: Com.Atproto.Admin.Defs.ActionType,
-            durationInHours: Int? = nil,
-            id: Int
-        ) {
-            self._action = .wrapped(action)
-            self._durationInHours = .wrapped(durationInHours)
-            self._id = .wrapped(id)
-        }
-        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#actionViewCurrent")
-    }
-}
-public extension Com.Atproto.Admin.Defs {
-    struct ActionViewDetail: UnionCodable, Hashable {
-        @Indirect
-        public var action: Com.Atproto.Admin.Defs.ActionType
-        @Indirect
-        public var createLabelVals: [String]?
-        @Indirect
-        public var createdAt: Date
-        @Indirect
-        public var createdBy: String
-        @Indirect
-        public var durationInHours: Int?
-        @Indirect
-        public var id: Int
-        @Indirect
-        public var negateLabelVals: [String]?
-        @Indirect
-        public var reason: String
-        @Indirect
-        public var resolvedReports: [Com.Atproto.Admin.Defs.ReportView]
-        @Indirect
-        public var reversal: Com.Atproto.Admin.Defs.ActionReversal?
-        @Indirect
-        public var subject: Union4<Com.Atproto.Admin.Defs.RepoView, Com.Atproto.Admin.Defs.RepoViewNotFound, Com.Atproto.Admin.Defs.RecordView, Com.Atproto.Admin.Defs.RecordViewNotFound>
-        @Indirect
-        public var subjectBlobs: [Com.Atproto.Admin.Defs.BlobView]
-        public init(
-            action: Com.Atproto.Admin.Defs.ActionType,
-            createLabelVals: [String]? = nil,
-            createdAt: Date,
-            createdBy: String,
-            durationInHours: Int? = nil,
-            id: Int,
-            negateLabelVals: [String]? = nil,
-            reason: String,
-            resolvedReports: [Com.Atproto.Admin.Defs.ReportView],
-            reversal: Com.Atproto.Admin.Defs.ActionReversal? = nil,
-            subject: Union4<Com.Atproto.Admin.Defs.RepoView, Com.Atproto.Admin.Defs.RepoViewNotFound, Com.Atproto.Admin.Defs.RecordView, Com.Atproto.Admin.Defs.RecordViewNotFound>,
-            subjectBlobs: [Com.Atproto.Admin.Defs.BlobView]
-        ) {
-            self._action = .wrapped(action)
-            self._createLabelVals = .wrapped(createLabelVals)
-            self._createdAt = .wrapped(createdAt)
-            self._createdBy = .wrapped(createdBy)
-            self._durationInHours = .wrapped(durationInHours)
-            self._id = .wrapped(id)
-            self._negateLabelVals = .wrapped(negateLabelVals)
-            self._reason = .wrapped(reason)
-            self._resolvedReports = .wrapped(resolvedReports)
-            self._reversal = .wrapped(reversal)
-            self._subject = .wrapped(subject)
-            self._subjectBlobs = .wrapped(subjectBlobs)
-        }
-        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#actionViewDetail")
     }
 }
 public extension Com.Atproto.Admin.Defs {
@@ -3818,8 +3750,44 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
-}
-public extension Com.Atproto.Admin.Defs {
+    struct CommunicationTemplateView: UnionCodable, Hashable {
+        @Indirect
+        public var contentMarkdown: String
+        @Indirect
+        public var createdAt: Date
+        @Indirect
+        public var disabled: Bool
+        @Indirect
+        public var id: String
+        @Indirect
+        public var lastUpdatedBy: String
+        @Indirect
+        public var name: String
+        @Indirect
+        public var subject: String?
+        @Indirect
+        public var updatedAt: Date
+        public init(
+            contentMarkdown: String,
+            createdAt: Date,
+            disabled: Bool,
+            id: String,
+            lastUpdatedBy: String,
+            name: String,
+            subject: String? = nil,
+            updatedAt: Date
+        ) {
+            self._contentMarkdown = .wrapped(contentMarkdown)
+            self._createdAt = .wrapped(createdAt)
+            self._disabled = .wrapped(disabled)
+            self._id = .wrapped(id)
+            self._lastUpdatedBy = .wrapped(lastUpdatedBy)
+            self._name = .wrapped(name)
+            self._subject = .wrapped(subject)
+            self._updatedAt = .wrapped(updatedAt)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#communicationTemplateView")
+    }
 }
 public extension Com.Atproto.Admin.Defs {
     struct ImageDetails: UnionCodable, Hashable {
@@ -3838,13 +3806,245 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
+    struct ModEventAcknowledge: UnionCodable, Hashable {
+        @Indirect
+        public var comment: String?
+        public init(
+            comment: String? = nil
+        ) {
+            self._comment = .wrapped(comment)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventAcknowledge")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventComment: UnionCodable, Hashable {
+        @Indirect
+        public var comment: String
+        @Indirect
+        public var sticky: Bool?
+        public init(
+            comment: String,
+            sticky: Bool? = nil
+        ) {
+            self._comment = .wrapped(comment)
+            self._sticky = .wrapped(sticky)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventComment")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventEmail: UnionCodable, Hashable {
+        @Indirect
+        public var comment: String?
+        @Indirect
+        public var subjectLine: String
+        public init(
+            comment: String? = nil,
+            subjectLine: String
+        ) {
+            self._comment = .wrapped(comment)
+            self._subjectLine = .wrapped(subjectLine)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventEmail")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventEscalate: UnionCodable, Hashable {
+        @Indirect
+        public var comment: String?
+        public init(
+            comment: String? = nil
+        ) {
+            self._comment = .wrapped(comment)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventEscalate")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventLabel: UnionCodable, Hashable {
+        @Indirect
+        public var comment: String?
+        @Indirect
+        public var createLabelVals: [String]
+        @Indirect
+        public var negateLabelVals: [String]
+        public init(
+            comment: String? = nil,
+            createLabelVals: [String],
+            negateLabelVals: [String]
+        ) {
+            self._comment = .wrapped(comment)
+            self._createLabelVals = .wrapped(createLabelVals)
+            self._negateLabelVals = .wrapped(negateLabelVals)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventLabel")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventMute: UnionCodable, Hashable {
+        @Indirect
+        public var comment: String?
+        @Indirect
+        public var durationInHours: Int
+        public init(
+            comment: String? = nil,
+            durationInHours: Int
+        ) {
+            self._comment = .wrapped(comment)
+            self._durationInHours = .wrapped(durationInHours)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventMute")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventReport: UnionCodable, Hashable {
+        @Indirect
+        public var comment: String?
+        @Indirect
+        public var reportType: Com.Atproto.Moderation.Defs.ReasonType
+        public init(
+            comment: String? = nil,
+            reportType: Com.Atproto.Moderation.Defs.ReasonType
+        ) {
+            self._comment = .wrapped(comment)
+            self._reportType = .wrapped(reportType)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventReport")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventResolveAppeal: UnionCodable, Hashable {
+        @Indirect
+        public var comment: String?
+        public init(
+            comment: String? = nil
+        ) {
+            self._comment = .wrapped(comment)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventResolveAppeal")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventReverseTakedown: UnionCodable, Hashable {
+        @Indirect
+        public var comment: String?
+        public init(
+            comment: String? = nil
+        ) {
+            self._comment = .wrapped(comment)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventReverseTakedown")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventTakedown: UnionCodable, Hashable {
+        @Indirect
+        public var comment: String?
+        @Indirect
+        public var durationInHours: Int?
+        public init(
+            comment: String? = nil,
+            durationInHours: Int? = nil
+        ) {
+            self._comment = .wrapped(comment)
+            self._durationInHours = .wrapped(durationInHours)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventTakedown")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventUnmute: UnionCodable, Hashable {
+        @Indirect
+        public var comment: String?
+        public init(
+            comment: String? = nil
+        ) {
+            self._comment = .wrapped(comment)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventUnmute")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventView: UnionCodable, Hashable {
+        @Indirect
+        public var createdAt: Date
+        @Indirect
+        public var createdBy: String
+        @Indirect
+        public var creatorHandle: String?
+        @Indirect
+        public var event: Union9<Com.Atproto.Admin.Defs.ModEventTakedown, Com.Atproto.Admin.Defs.ModEventReverseTakedown, Com.Atproto.Admin.Defs.ModEventComment, Com.Atproto.Admin.Defs.ModEventReport, Com.Atproto.Admin.Defs.ModEventLabel, Com.Atproto.Admin.Defs.ModEventAcknowledge, Com.Atproto.Admin.Defs.ModEventEscalate, Com.Atproto.Admin.Defs.ModEventMute, Com.Atproto.Admin.Defs.ModEventEmail>
+        @Indirect
+        public var id: Int
+        @Indirect
+        public var subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>
+        @Indirect
+        public var subjectBlobCids: [String]
+        @Indirect
+        public var subjectHandle: String?
+        public init(
+            createdAt: Date,
+            createdBy: String,
+            creatorHandle: String? = nil,
+            event: Union9<Com.Atproto.Admin.Defs.ModEventTakedown, Com.Atproto.Admin.Defs.ModEventReverseTakedown, Com.Atproto.Admin.Defs.ModEventComment, Com.Atproto.Admin.Defs.ModEventReport, Com.Atproto.Admin.Defs.ModEventLabel, Com.Atproto.Admin.Defs.ModEventAcknowledge, Com.Atproto.Admin.Defs.ModEventEscalate, Com.Atproto.Admin.Defs.ModEventMute, Com.Atproto.Admin.Defs.ModEventEmail>,
+            id: Int,
+            subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>,
+            subjectBlobCids: [String],
+            subjectHandle: String? = nil
+        ) {
+            self._createdAt = .wrapped(createdAt)
+            self._createdBy = .wrapped(createdBy)
+            self._creatorHandle = .wrapped(creatorHandle)
+            self._event = .wrapped(event)
+            self._id = .wrapped(id)
+            self._subject = .wrapped(subject)
+            self._subjectBlobCids = .wrapped(subjectBlobCids)
+            self._subjectHandle = .wrapped(subjectHandle)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventView")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
+    struct ModEventViewDetail: UnionCodable, Hashable {
+        @Indirect
+        public var createdAt: Date
+        @Indirect
+        public var createdBy: String
+        @Indirect
+        public var event: Union9<Com.Atproto.Admin.Defs.ModEventTakedown, Com.Atproto.Admin.Defs.ModEventReverseTakedown, Com.Atproto.Admin.Defs.ModEventComment, Com.Atproto.Admin.Defs.ModEventReport, Com.Atproto.Admin.Defs.ModEventLabel, Com.Atproto.Admin.Defs.ModEventAcknowledge, Com.Atproto.Admin.Defs.ModEventEscalate, Com.Atproto.Admin.Defs.ModEventMute, Com.Atproto.Admin.Defs.ModEventResolveAppeal>
+        @Indirect
+        public var id: Int
+        @Indirect
+        public var subject: Union4<Com.Atproto.Admin.Defs.RepoView, Com.Atproto.Admin.Defs.RepoViewNotFound, Com.Atproto.Admin.Defs.RecordView, Com.Atproto.Admin.Defs.RecordViewNotFound>
+        @Indirect
+        public var subjectBlobs: [Com.Atproto.Admin.Defs.BlobView]
+        public init(
+            createdAt: Date,
+            createdBy: String,
+            event: Union9<Com.Atproto.Admin.Defs.ModEventTakedown, Com.Atproto.Admin.Defs.ModEventReverseTakedown, Com.Atproto.Admin.Defs.ModEventComment, Com.Atproto.Admin.Defs.ModEventReport, Com.Atproto.Admin.Defs.ModEventLabel, Com.Atproto.Admin.Defs.ModEventAcknowledge, Com.Atproto.Admin.Defs.ModEventEscalate, Com.Atproto.Admin.Defs.ModEventMute, Com.Atproto.Admin.Defs.ModEventResolveAppeal>,
+            id: Int,
+            subject: Union4<Com.Atproto.Admin.Defs.RepoView, Com.Atproto.Admin.Defs.RepoViewNotFound, Com.Atproto.Admin.Defs.RecordView, Com.Atproto.Admin.Defs.RecordViewNotFound>,
+            subjectBlobs: [Com.Atproto.Admin.Defs.BlobView]
+        ) {
+            self._createdAt = .wrapped(createdAt)
+            self._createdBy = .wrapped(createdBy)
+            self._event = .wrapped(event)
+            self._id = .wrapped(id)
+            self._subject = .wrapped(subject)
+            self._subjectBlobs = .wrapped(subjectBlobs)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#modEventViewDetail")
+    }
+}
+public extension Com.Atproto.Admin.Defs {
     struct Moderation: UnionCodable, Hashable {
         @Indirect
-        public var currentAction: Com.Atproto.Admin.Defs.ActionViewCurrent?
+        public var subjectStatus: Com.Atproto.Admin.Defs.SubjectStatusView?
         public init(
-            currentAction: Com.Atproto.Admin.Defs.ActionViewCurrent? = nil
+            subjectStatus: Com.Atproto.Admin.Defs.SubjectStatusView? = nil
         ) {
-            self._currentAction = .wrapped(currentAction)
+            self._subjectStatus = .wrapped(subjectStatus)
         }
         public static let typeValue = #LexiconDefID("com.atproto.admin.defs#moderation")
     }
@@ -3852,19 +4052,11 @@ public extension Com.Atproto.Admin.Defs {
 public extension Com.Atproto.Admin.Defs {
     struct ModerationDetail: UnionCodable, Hashable {
         @Indirect
-        public var actions: [Com.Atproto.Admin.Defs.ActionView]
-        @Indirect
-        public var currentAction: Com.Atproto.Admin.Defs.ActionViewCurrent?
-        @Indirect
-        public var reports: [Com.Atproto.Admin.Defs.ReportView]
+        public var subjectStatus: Com.Atproto.Admin.Defs.SubjectStatusView?
         public init(
-            actions: [Com.Atproto.Admin.Defs.ActionView],
-            currentAction: Com.Atproto.Admin.Defs.ActionViewCurrent? = nil,
-            reports: [Com.Atproto.Admin.Defs.ReportView]
+            subjectStatus: Com.Atproto.Admin.Defs.SubjectStatusView? = nil
         ) {
-            self._actions = .wrapped(actions)
-            self._currentAction = .wrapped(currentAction)
-            self._reports = .wrapped(reports)
+            self._subjectStatus = .wrapped(subjectStatus)
         }
         public static let typeValue = #LexiconDefID("com.atproto.admin.defs#moderationDetail")
     }
@@ -4040,6 +4232,8 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var email: String?
         @Indirect
+        public var emailConfirmedAt: Date?
+        @Indirect
         public var handle: String
         @Indirect
         public var indexedAt: Date
@@ -4060,6 +4254,7 @@ public extension Com.Atproto.Admin.Defs {
         public init(
             did: String,
             email: String? = nil,
+            emailConfirmedAt: Date? = nil,
             handle: String,
             indexedAt: Date,
             inviteNote: String? = nil,
@@ -4072,6 +4267,7 @@ public extension Com.Atproto.Admin.Defs {
         ) {
             self._did = .wrapped(did)
             self._email = .wrapped(email)
+            self._emailConfirmedAt = .wrapped(emailConfirmedAt)
             self._handle = .wrapped(handle)
             self._indexedAt = .wrapped(indexedAt)
             self._inviteNote = .wrapped(inviteNote)
@@ -4100,11 +4296,11 @@ public extension Com.Atproto.Admin.Defs {
 public extension Com.Atproto.Admin.Defs {
     struct ReportView: UnionCodable, Hashable {
         @Indirect
+        public var comment: String?
+        @Indirect
         public var createdAt: Date
         @Indirect
         public var id: Int
-        @Indirect
-        public var reason: String?
         @Indirect
         public var reasonType: Com.Atproto.Moderation.Defs.ReasonType
         @Indirect
@@ -4116,18 +4312,18 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var subjectRepoHandle: String?
         public init(
+            comment: String? = nil,
             createdAt: Date,
             id: Int,
-            reason: String? = nil,
             reasonType: Com.Atproto.Moderation.Defs.ReasonType,
             reportedBy: String,
             resolvedByActionIds: [Int],
             subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>,
             subjectRepoHandle: String? = nil
         ) {
+            self._comment = .wrapped(comment)
             self._createdAt = .wrapped(createdAt)
             self._id = .wrapped(id)
-            self._reason = .wrapped(reason)
             self._reasonType = .wrapped(reasonType)
             self._reportedBy = .wrapped(reportedBy)
             self._resolvedByActionIds = .wrapped(resolvedByActionIds)
@@ -4140,38 +4336,48 @@ public extension Com.Atproto.Admin.Defs {
 public extension Com.Atproto.Admin.Defs {
     struct ReportViewDetail: UnionCodable, Hashable {
         @Indirect
+        public var comment: String?
+        @Indirect
         public var createdAt: Date
         @Indirect
         public var id: Int
-        @Indirect
-        public var reason: String?
         @Indirect
         public var reasonType: Com.Atproto.Moderation.Defs.ReasonType
         @Indirect
         public var reportedBy: String
         @Indirect
-        public var resolvedByActions: [Com.Atproto.Admin.Defs.ActionView]
+        public var resolvedByActions: [Com.Atproto.Admin.Defs.ModEventView]
         @Indirect
         public var subject: Union4<Com.Atproto.Admin.Defs.RepoView, Com.Atproto.Admin.Defs.RepoViewNotFound, Com.Atproto.Admin.Defs.RecordView, Com.Atproto.Admin.Defs.RecordViewNotFound>
+        @Indirect
+        public var subjectStatus: Com.Atproto.Admin.Defs.SubjectStatusView?
         public init(
+            comment: String? = nil,
             createdAt: Date,
             id: Int,
-            reason: String? = nil,
             reasonType: Com.Atproto.Moderation.Defs.ReasonType,
             reportedBy: String,
-            resolvedByActions: [Com.Atproto.Admin.Defs.ActionView],
-            subject: Union4<Com.Atproto.Admin.Defs.RepoView, Com.Atproto.Admin.Defs.RepoViewNotFound, Com.Atproto.Admin.Defs.RecordView, Com.Atproto.Admin.Defs.RecordViewNotFound>
+            resolvedByActions: [Com.Atproto.Admin.Defs.ModEventView],
+            subject: Union4<Com.Atproto.Admin.Defs.RepoView, Com.Atproto.Admin.Defs.RepoViewNotFound, Com.Atproto.Admin.Defs.RecordView, Com.Atproto.Admin.Defs.RecordViewNotFound>,
+            subjectStatus: Com.Atproto.Admin.Defs.SubjectStatusView? = nil
         ) {
+            self._comment = .wrapped(comment)
             self._createdAt = .wrapped(createdAt)
             self._id = .wrapped(id)
-            self._reason = .wrapped(reason)
             self._reasonType = .wrapped(reasonType)
             self._reportedBy = .wrapped(reportedBy)
             self._resolvedByActions = .wrapped(resolvedByActions)
             self._subject = .wrapped(subject)
+            self._subjectStatus = .wrapped(subjectStatus)
         }
         public static let typeValue = #LexiconDefID("com.atproto.admin.defs#reportViewDetail")
     }
+}
+public extension Com.Atproto.Admin.Defs {
+}
+public extension Com.Atproto.Admin.Defs {
+}
+public extension Com.Atproto.Admin.Defs {
 }
 public extension Com.Atproto.Admin.Defs {
     struct StatusAttr: UnionCodable, Hashable {
@@ -4190,6 +4396,79 @@ public extension Com.Atproto.Admin.Defs {
     }
 }
 public extension Com.Atproto.Admin.Defs {
+    typealias SubjectReviewState = String
+}
+public extension Com.Atproto.Admin.Defs {
+    struct SubjectStatusView: UnionCodable, Hashable {
+        @Indirect
+        public var appealed: Bool?
+        @Indirect
+        public var comment: String?
+        @Indirect
+        public var createdAt: Date
+        @Indirect
+        public var id: Int
+        @Indirect
+        public var lastAppealedAt: Date?
+        @Indirect
+        public var lastReportedAt: Date?
+        @Indirect
+        public var lastReviewedAt: Date?
+        @Indirect
+        public var lastReviewedBy: String?
+        @Indirect
+        public var muteUntil: Date?
+        @Indirect
+        public var reviewState: Com.Atproto.Admin.Defs.SubjectReviewState
+        @Indirect
+        public var subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>
+        @Indirect
+        public var subjectBlobCids: [String]?
+        @Indirect
+        public var subjectRepoHandle: String?
+        @Indirect
+        public var suspendUntil: Date?
+        @Indirect
+        public var takendown: Bool?
+        @Indirect
+        public var updatedAt: Date
+        public init(
+            appealed: Bool? = nil,
+            comment: String? = nil,
+            createdAt: Date,
+            id: Int,
+            lastAppealedAt: Date? = nil,
+            lastReportedAt: Date? = nil,
+            lastReviewedAt: Date? = nil,
+            lastReviewedBy: String? = nil,
+            muteUntil: Date? = nil,
+            reviewState: Com.Atproto.Admin.Defs.SubjectReviewState,
+            subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>,
+            subjectBlobCids: [String]? = nil,
+            subjectRepoHandle: String? = nil,
+            suspendUntil: Date? = nil,
+            takendown: Bool? = nil,
+            updatedAt: Date
+        ) {
+            self._appealed = .wrapped(appealed)
+            self._comment = .wrapped(comment)
+            self._createdAt = .wrapped(createdAt)
+            self._id = .wrapped(id)
+            self._lastAppealedAt = .wrapped(lastAppealedAt)
+            self._lastReportedAt = .wrapped(lastReportedAt)
+            self._lastReviewedAt = .wrapped(lastReviewedAt)
+            self._lastReviewedBy = .wrapped(lastReviewedBy)
+            self._muteUntil = .wrapped(muteUntil)
+            self._reviewState = .wrapped(reviewState)
+            self._subject = .wrapped(subject)
+            self._subjectBlobCids = .wrapped(subjectBlobCids)
+            self._subjectRepoHandle = .wrapped(subjectRepoHandle)
+            self._suspendUntil = .wrapped(suspendUntil)
+            self._takendown = .wrapped(takendown)
+            self._updatedAt = .wrapped(updatedAt)
+        }
+        public static let typeValue = #LexiconDefID("com.atproto.admin.defs#subjectStatusView")
+    }
 }
 public extension Com.Atproto.Admin.Defs {
     struct VideoDetails: UnionCodable, Hashable {
@@ -4209,6 +4488,48 @@ public extension Com.Atproto.Admin.Defs {
             self._width = .wrapped(width)
         }
         public static let typeValue = #LexiconDefID("com.atproto.admin.defs#videoDetails")
+    }
+}
+public extension Com.Atproto.Admin {
+    struct DeleteAccount: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var did: String
+            public init(
+                did: String
+            ) {
+                self._did = .wrapped(did)
+            }
+        }
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.admin.deleteAccount"
+        public let input: Input?
+    }
+}
+public extension Com.Atproto.Admin {
+    struct DeleteCommunicationTemplate: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var id: String
+            public init(
+                id: String
+            ) {
+                self._id = .wrapped(id)
+            }
+        }
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.admin.deleteCommunicationTemplate"
+        public let input: Input?
     }
 }
 public extension Com.Atproto.Admin {
@@ -4258,6 +4579,40 @@ public extension Com.Atproto.Admin {
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.admin.disableInviteCodes"
+        public let input: Input?
+    }
+}
+public extension Com.Atproto.Admin {
+    struct EmitModerationEvent: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var createdBy: String
+            @Indirect
+            public var event: Union10<Com.Atproto.Admin.Defs.ModEventTakedown, Com.Atproto.Admin.Defs.ModEventAcknowledge, Com.Atproto.Admin.Defs.ModEventEscalate, Com.Atproto.Admin.Defs.ModEventComment, Com.Atproto.Admin.Defs.ModEventLabel, Com.Atproto.Admin.Defs.ModEventReport, Com.Atproto.Admin.Defs.ModEventMute, Com.Atproto.Admin.Defs.ModEventReverseTakedown, Com.Atproto.Admin.Defs.ModEventUnmute, Com.Atproto.Admin.Defs.ModEventEmail>
+            @Indirect
+            public var subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>
+            @Indirect
+            public var subjectBlobCids: [String]?
+            public init(
+                createdBy: String,
+                event: Union10<Com.Atproto.Admin.Defs.ModEventTakedown, Com.Atproto.Admin.Defs.ModEventAcknowledge, Com.Atproto.Admin.Defs.ModEventEscalate, Com.Atproto.Admin.Defs.ModEventComment, Com.Atproto.Admin.Defs.ModEventLabel, Com.Atproto.Admin.Defs.ModEventReport, Com.Atproto.Admin.Defs.ModEventMute, Com.Atproto.Admin.Defs.ModEventReverseTakedown, Com.Atproto.Admin.Defs.ModEventUnmute, Com.Atproto.Admin.Defs.ModEventEmail>,
+                subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>,
+                subjectBlobCids: [String]? = nil
+            ) {
+                self._createdBy = .wrapped(createdBy)
+                self._event = .wrapped(event)
+                self._subject = .wrapped(subject)
+                self._subjectBlobCids = .wrapped(subjectBlobCids)
+            }
+        }
+        public typealias Output = Com.Atproto.Admin.Defs.ModEventView
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.admin.emitModerationEvent"
         public let input: Input?
     }
 }
@@ -4315,6 +4670,42 @@ public extension Com.Atproto.Admin {
     }
 }
 public extension Com.Atproto.Admin {
+    struct GetAccountInfos: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var dids: [String]
+            public init(
+                dids: [String]
+            ) {
+                self._dids = .wrapped(dids)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem] ()
+                parameters.append(contentsOf: dids.toQueryItems(name: "dids"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var infos: [Com.Atproto.Admin.Defs.AccountView]
+            public init(
+                infos: [Com.Atproto.Admin.Defs.AccountView]
+            ) {
+                self._infos = .wrapped(infos)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "com.atproto.admin.getAccountInfos"
+        public let parameters: Parameters
+    }
+}
+public extension Com.Atproto.Admin {
     struct GetInviteCodes: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
@@ -4365,7 +4756,7 @@ public extension Com.Atproto.Admin {
     }
 }
 public extension Com.Atproto.Admin {
-    struct GetModerationAction: XRPCRequest {
+    struct GetModerationEvent: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
             public var id: Int
@@ -4381,172 +4772,14 @@ public extension Com.Atproto.Admin {
                 return parameters
             }
         }
-        public typealias Output = Com.Atproto.Admin.Defs.ActionViewDetail
+        public typealias Output = Com.Atproto.Admin.Defs.ModEventViewDetail
         public init(
             parameters: Parameters
         ) {
             self.parameters = parameters
         }
         public let type = XRPCRequestType.query
-        public let requestIdentifier = "com.atproto.admin.getModerationAction"
-        public let parameters: Parameters
-    }
-}
-public extension Com.Atproto.Admin {
-    struct GetModerationActions: XRPCRequest {
-        public struct Parameters: XRPCRequestParametersConvertible {
-            @Indirect
-            public var cursor: String?
-            @Indirect
-            public var limit: Int?
-            @Indirect
-            public var subject: String?
-            public init(
-                cursor: String? = nil,
-                limit: Int? = nil,
-                subject: String? = nil
-            ) {
-                self._cursor = .wrapped(cursor)
-                self._limit = .wrapped(limit)
-                self._subject = .wrapped(subject)
-            }
-            public var queryItems: [URLQueryItem] {
-                var parameters = [URLQueryItem] ()
-                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
-                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-                parameters.append(contentsOf: subject.toQueryItems(name: "subject"))
-
-                return parameters
-            }
-        }
-        public struct Output: Decodable, Hashable {
-            @Indirect
-            public var actions: [Com.Atproto.Admin.Defs.ActionView]
-            @Indirect
-            public var cursor: String?
-            public init(
-                actions: [Com.Atproto.Admin.Defs.ActionView],
-                cursor: String? = nil
-            ) {
-                self._actions = .wrapped(actions)
-                self._cursor = .wrapped(cursor)
-            }
-        }
-        public init(
-            parameters: Parameters
-        ) {
-            self.parameters = parameters
-        }
-        public let type = XRPCRequestType.query
-        public let requestIdentifier = "com.atproto.admin.getModerationActions"
-        public let parameters: Parameters
-    }
-}
-public extension Com.Atproto.Admin {
-    struct GetModerationReport: XRPCRequest {
-        public struct Parameters: XRPCRequestParametersConvertible {
-            @Indirect
-            public var id: Int
-            public init(
-                id: Int
-            ) {
-                self._id = .wrapped(id)
-            }
-            public var queryItems: [URLQueryItem] {
-                var parameters = [URLQueryItem] ()
-                parameters.append(contentsOf: id.toQueryItems(name: "id"))
-
-                return parameters
-            }
-        }
-        public typealias Output = Com.Atproto.Admin.Defs.ReportViewDetail
-        public init(
-            parameters: Parameters
-        ) {
-            self.parameters = parameters
-        }
-        public let type = XRPCRequestType.query
-        public let requestIdentifier = "com.atproto.admin.getModerationReport"
-        public let parameters: Parameters
-    }
-}
-public extension Com.Atproto.Admin {
-    struct GetModerationReports: XRPCRequest {
-        public struct Parameters: XRPCRequestParametersConvertible {
-            @Indirect
-            public var actionType: String?
-            @Indirect
-            public var actionedBy: String?
-            @Indirect
-            public var cursor: String?
-            @Indirect
-            public var ignoreSubjects: [String]?
-            @Indirect
-            public var limit: Int?
-            @Indirect
-            public var reporters: [String]?
-            @Indirect
-            public var resolved: Bool?
-            @Indirect
-            public var reverse: Bool?
-            @Indirect
-            public var subject: String?
-            public init(
-                actionType: String? = nil,
-                actionedBy: String? = nil,
-                cursor: String? = nil,
-                ignoreSubjects: [String]? = nil,
-                limit: Int? = nil,
-                reporters: [String]? = nil,
-                resolved: Bool? = nil,
-                reverse: Bool? = nil,
-                subject: String? = nil
-            ) {
-                self._actionType = .wrapped(actionType)
-                self._actionedBy = .wrapped(actionedBy)
-                self._cursor = .wrapped(cursor)
-                self._ignoreSubjects = .wrapped(ignoreSubjects)
-                self._limit = .wrapped(limit)
-                self._reporters = .wrapped(reporters)
-                self._resolved = .wrapped(resolved)
-                self._reverse = .wrapped(reverse)
-                self._subject = .wrapped(subject)
-            }
-            public var queryItems: [URLQueryItem] {
-                var parameters = [URLQueryItem] ()
-                parameters.append(contentsOf: actionType.toQueryItems(name: "actionType"))
-                parameters.append(contentsOf: actionedBy.toQueryItems(name: "actionedBy"))
-                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
-                parameters.append(contentsOf: ignoreSubjects.toQueryItems(name: "ignoreSubjects"))
-                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-                parameters.append(contentsOf: reporters.toQueryItems(name: "reporters"))
-                parameters.append(contentsOf: resolved.toQueryItems(name: "resolved"))
-                parameters.append(contentsOf: reverse.toQueryItems(name: "reverse"))
-                parameters.append(contentsOf: subject.toQueryItems(name: "subject"))
-
-                return parameters
-            }
-        }
-        public struct Output: Decodable, Hashable {
-            @Indirect
-            public var cursor: String?
-            @Indirect
-            public var reports: [Com.Atproto.Admin.Defs.ReportView]
-            public init(
-                cursor: String? = nil,
-                reports: [Com.Atproto.Admin.Defs.ReportView]
-            ) {
-                self._cursor = .wrapped(cursor)
-                self._reports = .wrapped(reports)
-            }
-        }
-        public init(
-            parameters: Parameters
-        ) {
-            self.parameters = parameters
-        }
-        public let type = XRPCRequestType.query
-        public let requestIdentifier = "com.atproto.admin.getModerationReports"
+        public let requestIdentifier = "com.atproto.admin.getModerationEvent"
         public let parameters: Parameters
     }
 }
@@ -4662,63 +4895,208 @@ public extension Com.Atproto.Admin {
     }
 }
 public extension Com.Atproto.Admin {
-    struct ResolveModerationReports: XRPCRequest {
-        public struct Input: Encodable {
+    struct ListCommunicationTemplates: XRPCRequest {
+        public struct Output: Decodable, Hashable {
             @Indirect
-            public var actionId: Int
-            @Indirect
-            public var createdBy: String
-            @Indirect
-            public var reportIds: [Int]
+            public var communicationTemplates: [Com.Atproto.Admin.Defs.CommunicationTemplateView]
             public init(
-                actionId: Int,
-                createdBy: String,
-                reportIds: [Int]
+                communicationTemplates: [Com.Atproto.Admin.Defs.CommunicationTemplateView]
             ) {
-                self._actionId = .wrapped(actionId)
-                self._createdBy = .wrapped(createdBy)
-                self._reportIds = .wrapped(reportIds)
+                self._communicationTemplates = .wrapped(communicationTemplates)
             }
         }
-        public typealias Output = Com.Atproto.Admin.Defs.ActionView
         public init(
-            input: Input
+
         ) {
-            self.input = input
+
         }
-        public let type = XRPCRequestType.procedure
-        public let requestIdentifier = "com.atproto.admin.resolveModerationReports"
-        public let input: Input?
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "com.atproto.admin.listCommunicationTemplates"
     }
 }
 public extension Com.Atproto.Admin {
-    struct ReverseModerationAction: XRPCRequest {
-        public struct Input: Encodable {
+    struct QueryModerationEvents: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
             @Indirect
-            public var createdBy: String
+            public var createdBy: String?
             @Indirect
-            public var id: Int
+            public var cursor: String?
             @Indirect
-            public var reason: String
+            public var includeAllUserRecords: Bool?
+            @Indirect
+            public var limit: Int?
+            @Indirect
+            public var sortDirection: String?
+            @Indirect
+            public var subject: SafeURL?
+            @Indirect
+            public var types: [String]?
             public init(
-                createdBy: String,
-                id: Int,
-                reason: String
+                createdBy: String? = nil,
+                cursor: String? = nil,
+                includeAllUserRecords: Bool? = nil,
+                limit: Int? = nil,
+                sortDirection: String? = nil,
+                subject: SafeURL? = nil,
+                types: [String]? = nil
             ) {
                 self._createdBy = .wrapped(createdBy)
-                self._id = .wrapped(id)
-                self._reason = .wrapped(reason)
+                self._cursor = .wrapped(cursor)
+                self._includeAllUserRecords = .wrapped(includeAllUserRecords)
+                self._limit = .wrapped(limit)
+                self._sortDirection = .wrapped(sortDirection)
+                self._subject = .wrapped(subject)
+                self._types = .wrapped(types)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem] ()
+                parameters.append(contentsOf: createdBy.toQueryItems(name: "createdBy"))
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: includeAllUserRecords.toQueryItems(name: "includeAllUserRecords"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: sortDirection.toQueryItems(name: "sortDirection"))
+                parameters.append(contentsOf: subject.toQueryItems(name: "subject"))
+                parameters.append(contentsOf: types.toQueryItems(name: "types"))
+
+                return parameters
             }
         }
-        public typealias Output = Com.Atproto.Admin.Defs.ActionView
-        public init(
-            input: Input
-        ) {
-            self.input = input
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var cursor: String?
+            @Indirect
+            public var events: [Com.Atproto.Admin.Defs.ModEventView]
+            public init(
+                cursor: String? = nil,
+                events: [Com.Atproto.Admin.Defs.ModEventView]
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._events = .wrapped(events)
+            }
         }
-        public let type = XRPCRequestType.procedure
-        public let requestIdentifier = "com.atproto.admin.reverseModerationAction"
-        public let input: Input?
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "com.atproto.admin.queryModerationEvents"
+        public let parameters: Parameters
+    }
+}
+public extension Com.Atproto.Admin {
+    struct QueryModerationStatuses: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var appealed: Bool?
+            @Indirect
+            public var comment: String?
+            @Indirect
+            public var cursor: String?
+            @Indirect
+            public var ignoreSubjects: [SafeURL]?
+            @Indirect
+            public var includeMuted: Bool?
+            @Indirect
+            public var lastReviewedBy: String?
+            @Indirect
+            public var limit: Int?
+            @Indirect
+            public var reportedAfter: Date?
+            @Indirect
+            public var reportedBefore: Date?
+            @Indirect
+            public var reviewState: String?
+            @Indirect
+            public var reviewedAfter: Date?
+            @Indirect
+            public var reviewedBefore: Date?
+            @Indirect
+            public var sortDirection: String?
+            @Indirect
+            public var sortField: String?
+            @Indirect
+            public var subject: SafeURL?
+            @Indirect
+            public var takendown: Bool?
+            public init(
+                appealed: Bool? = nil,
+                comment: String? = nil,
+                cursor: String? = nil,
+                ignoreSubjects: [SafeURL]? = nil,
+                includeMuted: Bool? = nil,
+                lastReviewedBy: String? = nil,
+                limit: Int? = nil,
+                reportedAfter: Date? = nil,
+                reportedBefore: Date? = nil,
+                reviewState: String? = nil,
+                reviewedAfter: Date? = nil,
+                reviewedBefore: Date? = nil,
+                sortDirection: String? = nil,
+                sortField: String? = nil,
+                subject: SafeURL? = nil,
+                takendown: Bool? = nil
+            ) {
+                self._appealed = .wrapped(appealed)
+                self._comment = .wrapped(comment)
+                self._cursor = .wrapped(cursor)
+                self._ignoreSubjects = .wrapped(ignoreSubjects)
+                self._includeMuted = .wrapped(includeMuted)
+                self._lastReviewedBy = .wrapped(lastReviewedBy)
+                self._limit = .wrapped(limit)
+                self._reportedAfter = .wrapped(reportedAfter)
+                self._reportedBefore = .wrapped(reportedBefore)
+                self._reviewState = .wrapped(reviewState)
+                self._reviewedAfter = .wrapped(reviewedAfter)
+                self._reviewedBefore = .wrapped(reviewedBefore)
+                self._sortDirection = .wrapped(sortDirection)
+                self._sortField = .wrapped(sortField)
+                self._subject = .wrapped(subject)
+                self._takendown = .wrapped(takendown)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem] ()
+                parameters.append(contentsOf: appealed.toQueryItems(name: "appealed"))
+                parameters.append(contentsOf: comment.toQueryItems(name: "comment"))
+                parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
+                parameters.append(contentsOf: ignoreSubjects.toQueryItems(name: "ignoreSubjects"))
+                parameters.append(contentsOf: includeMuted.toQueryItems(name: "includeMuted"))
+                parameters.append(contentsOf: lastReviewedBy.toQueryItems(name: "lastReviewedBy"))
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: reportedAfter.toQueryItems(name: "reportedAfter"))
+                parameters.append(contentsOf: reportedBefore.toQueryItems(name: "reportedBefore"))
+                parameters.append(contentsOf: reviewState.toQueryItems(name: "reviewState"))
+                parameters.append(contentsOf: reviewedAfter.toQueryItems(name: "reviewedAfter"))
+                parameters.append(contentsOf: reviewedBefore.toQueryItems(name: "reviewedBefore"))
+                parameters.append(contentsOf: sortDirection.toQueryItems(name: "sortDirection"))
+                parameters.append(contentsOf: sortField.toQueryItems(name: "sortField"))
+                parameters.append(contentsOf: subject.toQueryItems(name: "subject"))
+                parameters.append(contentsOf: takendown.toQueryItems(name: "takendown"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var cursor: String?
+            @Indirect
+            public var subjectStatuses: [Com.Atproto.Admin.Defs.SubjectStatusView]
+            public init(
+                cursor: String? = nil,
+                subjectStatuses: [Com.Atproto.Admin.Defs.SubjectStatusView]
+            ) {
+                self._cursor = .wrapped(cursor)
+                self._subjectStatuses = .wrapped(subjectStatuses)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "com.atproto.admin.queryModerationStatuses"
+        public let parameters: Parameters
     }
 }
 public extension Com.Atproto.Admin {
@@ -4780,18 +5158,26 @@ public extension Com.Atproto.Admin {
     struct SendEmail: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
+            public var comment: String?
+            @Indirect
             public var content: String
             @Indirect
             public var recipientDid: String
             @Indirect
+            public var senderDid: String
+            @Indirect
             public var subject: String?
             public init(
+                comment: String? = nil,
                 content: String,
                 recipientDid: String,
+                senderDid: String,
                 subject: String? = nil
             ) {
+                self._comment = .wrapped(comment)
                 self._content = .wrapped(content)
                 self._recipientDid = .wrapped(recipientDid)
+                self._senderDid = .wrapped(senderDid)
                 self._subject = .wrapped(subject)
             }
         }
@@ -4811,56 +5197,6 @@ public extension Com.Atproto.Admin {
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.admin.sendEmail"
-        public let input: Input?
-    }
-}
-public extension Com.Atproto.Admin {
-    struct TakeModerationAction: XRPCRequest {
-        public struct Input: Encodable {
-            @Indirect
-            public var action: String
-            @Indirect
-            public var createLabelVals: [String]?
-            @Indirect
-            public var createdBy: String
-            @Indirect
-            public var durationInHours: Int?
-            @Indirect
-            public var negateLabelVals: [String]?
-            @Indirect
-            public var reason: String
-            @Indirect
-            public var subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>
-            @Indirect
-            public var subjectBlobCids: [String]?
-            public init(
-                action: String,
-                createLabelVals: [String]? = nil,
-                createdBy: String,
-                durationInHours: Int? = nil,
-                negateLabelVals: [String]? = nil,
-                reason: String,
-                subject: Union2<Com.Atproto.Admin.Defs.RepoRef, Com.Atproto.Repo.StrongRef>,
-                subjectBlobCids: [String]? = nil
-            ) {
-                self._action = .wrapped(action)
-                self._createLabelVals = .wrapped(createLabelVals)
-                self._createdBy = .wrapped(createdBy)
-                self._durationInHours = .wrapped(durationInHours)
-                self._negateLabelVals = .wrapped(negateLabelVals)
-                self._reason = .wrapped(reason)
-                self._subject = .wrapped(subject)
-                self._subjectBlobCids = .wrapped(subjectBlobCids)
-            }
-        }
-        public typealias Output = Com.Atproto.Admin.Defs.ActionView
-        public init(
-            input: Input
-        ) {
-            self.input = input
-        }
-        public let type = XRPCRequestType.procedure
-        public let requestIdentifier = "com.atproto.admin.takeModerationAction"
         public let input: Input?
     }
 }
@@ -4911,6 +5247,48 @@ public extension Com.Atproto.Admin {
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.admin.updateAccountHandle"
+        public let input: Input?
+    }
+}
+public extension Com.Atproto.Admin {
+    struct UpdateCommunicationTemplate: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var contentMarkdown: String?
+            @Indirect
+            public var disabled: Bool?
+            @Indirect
+            public var id: String
+            @Indirect
+            public var name: String?
+            @Indirect
+            public var subject: String?
+            @Indirect
+            public var updatedBy: String?
+            public init(
+                contentMarkdown: String? = nil,
+                disabled: Bool? = nil,
+                id: String,
+                name: String? = nil,
+                subject: String? = nil,
+                updatedBy: String? = nil
+            ) {
+                self._contentMarkdown = .wrapped(contentMarkdown)
+                self._disabled = .wrapped(disabled)
+                self._id = .wrapped(id)
+                self._name = .wrapped(name)
+                self._subject = .wrapped(subject)
+                self._updatedBy = .wrapped(updatedBy)
+            }
+        }
+        public typealias Output = Com.Atproto.Admin.Defs.CommunicationTemplateView
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.admin.updateCommunicationTemplate"
         public let input: Input?
     }
 }
@@ -5213,6 +5591,8 @@ public extension Com.Atproto.Moderation {
         public let requestIdentifier = "com.atproto.moderation.createReport"
         public let input: Input?
     }
+}
+public extension Com.Atproto.Moderation.Defs {
 }
 public extension Com.Atproto.Moderation.Defs {
 }
@@ -5733,29 +6113,41 @@ public extension Com.Atproto.Server {
             @Indirect
             public var did: String?
             @Indirect
-            public var email: String
+            public var email: String?
             @Indirect
             public var handle: String
             @Indirect
             public var inviteCode: String?
             @Indirect
-            public var password: String
+            public var password: String?
+            @Indirect
+            public var plcOp: LexiconUnknownUnion?
             @Indirect
             public var recoveryKey: String?
+            @Indirect
+            public var verificationCode: String?
+            @Indirect
+            public var verificationPhone: String?
             public init(
                 did: String? = nil,
-                email: String,
+                email: String? = nil,
                 handle: String,
                 inviteCode: String? = nil,
-                password: String,
-                recoveryKey: String? = nil
+                password: String? = nil,
+                plcOp: LexiconUnknownUnion? = nil,
+                recoveryKey: String? = nil,
+                verificationCode: String? = nil,
+                verificationPhone: String? = nil
             ) {
                 self._did = .wrapped(did)
                 self._email = .wrapped(email)
                 self._handle = .wrapped(handle)
                 self._inviteCode = .wrapped(inviteCode)
                 self._password = .wrapped(password)
+                self._plcOp = .wrapped(plcOp)
                 self._recoveryKey = .wrapped(recoveryKey)
+                self._verificationCode = .wrapped(verificationCode)
+                self._verificationPhone = .wrapped(verificationPhone)
             }
         }
         public struct Output: Decodable, Hashable {
@@ -6098,14 +6490,18 @@ public extension Com.Atproto.Server {
             public var inviteCodeRequired: Bool?
             @Indirect
             public var links: Com.Atproto.Server.DescribeServer.Links?
+            @Indirect
+            public var phoneVerificationRequired: Bool?
             public init(
                 availableUserDomains: [String],
                 inviteCodeRequired: Bool? = nil,
-                links: Com.Atproto.Server.DescribeServer.Links? = nil
+                links: Com.Atproto.Server.DescribeServer.Links? = nil,
+                phoneVerificationRequired: Bool? = nil
             ) {
                 self._availableUserDomains = .wrapped(availableUserDomains)
                 self._inviteCodeRequired = .wrapped(inviteCodeRequired)
                 self._links = .wrapped(links)
+                self._phoneVerificationRequired = .wrapped(phoneVerificationRequired)
             }
         }
         public init(
@@ -6164,6 +6560,8 @@ public extension Com.Atproto.Server {
             @Indirect
             public var did: String
             @Indirect
+            public var didDoc: LexiconUnknownUnion?
+            @Indirect
             public var email: String?
             @Indirect
             public var emailConfirmed: Bool?
@@ -6171,11 +6569,13 @@ public extension Com.Atproto.Server {
             public var handle: String
             public init(
                 did: String,
+                didDoc: LexiconUnknownUnion? = nil,
                 email: String? = nil,
                 emailConfirmed: Bool? = nil,
                 handle: String
             ) {
                 self._did = .wrapped(did)
+                self._didDoc = .wrapped(didDoc)
                 self._email = .wrapped(email)
                 self._emailConfirmed = .wrapped(emailConfirmed)
                 self._handle = .wrapped(handle)
@@ -6327,6 +6727,15 @@ public extension Com.Atproto.Server {
 }
 public extension Com.Atproto.Server {
     struct ReserveSigningKey: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var did: String?
+            public init(
+                did: String? = nil
+            ) {
+                self._did = .wrapped(did)
+            }
+        }
         public struct Output: Decodable, Hashable {
             @Indirect
             public var signingKey: String
@@ -6337,12 +6746,13 @@ public extension Com.Atproto.Server {
             }
         }
         public init(
-
+            input: Input
         ) {
-
+            self.input = input
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.server.reserveSigningKey"
+        public let input: Input?
     }
 }
 public extension Com.Atproto.Server {
@@ -6961,5 +7371,199 @@ public extension Com.Atproto.Sync.SubscribeRepos {
             self._time = .wrapped(time)
         }
         public static let typeValue = #LexiconDefID("com.atproto.sync.subscribeRepos#tombstone")
+    }
+}
+public extension Com.Atproto.Temp {
+    struct CheckSignupQueue: XRPCRequest {
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var activated: Bool
+            @Indirect
+            public var estimatedTimeMs: Int?
+            @Indirect
+            public var placeInQueue: Int?
+            public init(
+                activated: Bool,
+                estimatedTimeMs: Int? = nil,
+                placeInQueue: Int? = nil
+            ) {
+                self._activated = .wrapped(activated)
+                self._estimatedTimeMs = .wrapped(estimatedTimeMs)
+                self._placeInQueue = .wrapped(placeInQueue)
+            }
+        }
+        public init(
+
+        ) {
+
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "com.atproto.temp.checkSignupQueue"
+    }
+}
+public extension Com.Atproto.Temp {
+    struct FetchLabels: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var limit: Int?
+            @Indirect
+            public var since: Int?
+            public init(
+                limit: Int? = nil,
+                since: Int? = nil
+            ) {
+                self._limit = .wrapped(limit)
+                self._since = .wrapped(since)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem] ()
+                parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
+                parameters.append(contentsOf: since.toQueryItems(name: "since"))
+
+                return parameters
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var labels: [Com.Atproto.Label.Defs.Label]
+            public init(
+                labels: [Com.Atproto.Label.Defs.Label]
+            ) {
+                self._labels = .wrapped(labels)
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.query
+        public let requestIdentifier = "com.atproto.temp.fetchLabels"
+        public let parameters: Parameters
+    }
+}
+public extension Com.Atproto.Temp {
+    struct ImportRepo: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var did: String
+            public init(
+                did: String
+            ) {
+                self._did = .wrapped(did)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem] ()
+                parameters.append(contentsOf: did.toQueryItems(name: "did"))
+
+                return parameters
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.temp.importRepo"
+        public let parameters: Parameters
+    }
+}
+public extension Com.Atproto.Temp {
+    struct PushBlob: XRPCRequest {
+        public struct Parameters: XRPCRequestParametersConvertible {
+            @Indirect
+            public var did: String
+            public init(
+                did: String
+            ) {
+                self._did = .wrapped(did)
+            }
+            public var queryItems: [URLQueryItem] {
+                var parameters = [URLQueryItem] ()
+                parameters.append(contentsOf: did.toQueryItems(name: "did"))
+
+                return parameters
+            }
+        }
+        public init(
+            parameters: Parameters
+        ) {
+            self.parameters = parameters
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.temp.pushBlob"
+        public let parameters: Parameters
+    }
+}
+public extension Com.Atproto.Temp {
+    struct RequestPhoneVerification: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var phoneNumber: String
+            public init(
+                phoneNumber: String
+            ) {
+                self._phoneNumber = .wrapped(phoneNumber)
+            }
+        }
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.temp.requestPhoneVerification"
+        public let input: Input?
+    }
+}
+public extension Com.Atproto.Temp {
+    struct TransferAccount: XRPCRequest {
+        public struct Input: Encodable {
+            @Indirect
+            public var did: String
+            @Indirect
+            public var handle: String
+            @Indirect
+            public var plcOp: LexiconUnknownUnion
+            public init(
+                did: String,
+                handle: String,
+                plcOp: LexiconUnknownUnion
+            ) {
+                self._did = .wrapped(did)
+                self._handle = .wrapped(handle)
+                self._plcOp = .wrapped(plcOp)
+            }
+        }
+        public struct Output: Decodable, Hashable {
+            @Indirect
+            public var accessJwt: String
+            @Indirect
+            public var did: String
+            @Indirect
+            public var handle: String
+            @Indirect
+            public var refreshJwt: String
+            public init(
+                accessJwt: String,
+                did: String,
+                handle: String,
+                refreshJwt: String
+            ) {
+                self._accessJwt = .wrapped(accessJwt)
+                self._did = .wrapped(did)
+                self._handle = .wrapped(handle)
+                self._refreshJwt = .wrapped(refreshJwt)
+            }
+        }
+        public init(
+            input: Input
+        ) {
+            self.input = input
+        }
+        public let type = XRPCRequestType.procedure
+        public let requestIdentifier = "com.atproto.temp.transferAccount"
+        public let input: Input?
     }
 }
