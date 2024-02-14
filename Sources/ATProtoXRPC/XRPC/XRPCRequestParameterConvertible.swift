@@ -47,6 +47,12 @@ extension ATURI: XRPCRequestParameterConvertible {
     }
 }
 
+extension SafeURL: XRPCRequestParameterConvertible {
+    public func toQueryItems(name: String) -> [URLQueryItem] {
+        [URLQueryItem(name: name, value: rawValue)]
+    }
+}
+
 extension Optional: XRPCRequestParameterConvertible where Wrapped: XRPCRequestParameterConvertible {
     public func toQueryItems(name: String) -> [URLQueryItem] {
         switch self {
