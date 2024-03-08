@@ -2,6 +2,7 @@ import ATProtoCore
 import ATProtoMacro
 import ATProtoXRPC
 import Foundation
+import AnyCodable
 public enum App {
 }
 public extension App {
@@ -112,45 +113,6 @@ public extension Com.Atproto {
 }
 public extension Com.Atproto {
     enum Temp {
-    }
-}
-public typealias LexiconUnknownUnion = Union12<App.Bsky.Actor.Profile, App.Bsky.Feed.Generator, App.Bsky.Feed.Like, App.Bsky.Feed.Post, App.Bsky.Feed.Repost, App.Bsky.Feed.Threadgate, App.Bsky.Graph.Block, App.Bsky.Graph.Follow, App.Bsky.Graph.List, App.Bsky.Graph.Listblock, App.Bsky.Graph.Listitem, App.Bsky.Labeler.Service>
-public extension LexiconUnknownUnion {
-    var asProfile: App.Bsky.Actor.Profile? {
-        asType0
-    }
-    var asGenerator: App.Bsky.Feed.Generator? {
-        asType1
-    }
-    var asLike: App.Bsky.Feed.Like? {
-        asType2
-    }
-    var asPost: App.Bsky.Feed.Post? {
-        asType3
-    }
-    var asRepost: App.Bsky.Feed.Repost? {
-        asType4
-    }
-    var asThreadgate: App.Bsky.Feed.Threadgate? {
-        asType5
-    }
-    var asBlock: App.Bsky.Graph.Block? {
-        asType6
-    }
-    var asFollow: App.Bsky.Graph.Follow? {
-        asType7
-    }
-    var asList: App.Bsky.Graph.List? {
-        asType8
-    }
-    var asListblock: App.Bsky.Graph.Listblock? {
-        asType9
-    }
-    var asListitem: App.Bsky.Graph.Listitem? {
-        asType10
-    }
-    var asService: App.Bsky.Labeler.Service? {
-        asType11
     }
 }
 public extension App.Bsky.Actor.Defs {
@@ -539,9 +501,9 @@ public extension App.Bsky.Actor {
     struct GetPreferences: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             public init(
-
+                
             ) {
-
+                
             }
             public let queryItems: [URLQueryItem] = []
         }
@@ -577,7 +539,7 @@ public extension App.Bsky.Actor {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
-
+                
                 return parameters
             }
         }
@@ -605,7 +567,7 @@ public extension App.Bsky.Actor {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: actors.toQueryItems(name: "actors"))
-
+                
                 return parameters
             }
         }
@@ -646,7 +608,7 @@ public extension App.Bsky.Actor {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -742,7 +704,7 @@ public extension App.Bsky.Actor {
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: q.toQueryItems(name: "q"))
                 parameters.append(contentsOf: term.toQueryItems(name: "term"))
-
+                
                 return parameters
             }
         }
@@ -792,7 +754,7 @@ public extension App.Bsky.Actor {
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: q.toQueryItems(name: "q"))
                 parameters.append(contentsOf: term.toQueryItems(name: "term"))
-
+                
                 return parameters
             }
         }
@@ -1038,7 +1000,7 @@ public extension App.Bsky.Embed.Record {
         @Indirect
         public var uri: ATURI
         @Indirect
-        public var value: LexiconUnknownUnion
+        public var value: [String: AnyCodable]
         public init(
             author: App.Bsky.Actor.Defs.ProfileViewBasic,
             cid: String,
@@ -1046,7 +1008,7 @@ public extension App.Bsky.Embed.Record {
             indexedAt: Date,
             labels: [Com.Atproto.Label.Defs.Label]? = nil,
             uri: ATURI,
-            value: LexiconUnknownUnion
+            value: [String: AnyCodable]
         ) {
             self._author = .wrapped(author)
             self._cid = .wrapped(cid)
@@ -1242,7 +1204,7 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var likeCount: Int?
         @Indirect
-        public var record: LexiconUnknownUnion
+        public var record: [String: AnyCodable]
         @Indirect
         public var replyCount: Int?
         @Indirect
@@ -1260,7 +1222,7 @@ public extension App.Bsky.Feed.Defs {
             indexedAt: Date,
             labels: [Com.Atproto.Label.Defs.Label]? = nil,
             likeCount: Int? = nil,
-            record: LexiconUnknownUnion,
+            record: [String: AnyCodable],
             replyCount: Int? = nil,
             repostCount: Int? = nil,
             threadgate: App.Bsky.Feed.Defs.ThreadgateView? = nil,
@@ -1370,13 +1332,13 @@ public extension App.Bsky.Feed.Defs {
         @Indirect
         public var lists: [App.Bsky.Graph.Defs.ListViewBasic]?
         @Indirect
-        public var record: LexiconUnknownUnion?
+        public var record: [String: AnyCodable]?
         @Indirect
         public var uri: ATURI?
         public init(
             cid: String? = nil,
             lists: [App.Bsky.Graph.Defs.ListViewBasic]? = nil,
-            record: LexiconUnknownUnion? = nil,
+            record: [String: AnyCodable]? = nil,
             uri: ATURI? = nil
         ) {
             self._cid = .wrapped(cid)
@@ -1455,9 +1417,9 @@ public extension App.Bsky.Feed {
             }
         }
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "app.bsky.feed.describeFeedGenerator"
@@ -1518,7 +1480,7 @@ public extension App.Bsky.Feed {
                 parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -1568,7 +1530,7 @@ public extension App.Bsky.Feed {
                 parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -1623,7 +1585,7 @@ public extension App.Bsky.Feed {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: filter.toQueryItems(name: "filter"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -1673,7 +1635,7 @@ public extension App.Bsky.Feed {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: feed.toQueryItems(name: "feed"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -1713,7 +1675,7 @@ public extension App.Bsky.Feed {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: feed.toQueryItems(name: "feed"))
-
+                
                 return parameters
             }
         }
@@ -1757,7 +1719,7 @@ public extension App.Bsky.Feed {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: feeds.toQueryItems(name: "feeds"))
-
+                
                 return parameters
             }
         }
@@ -1803,7 +1765,7 @@ public extension App.Bsky.Feed {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: feed.toQueryItems(name: "feed"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -1878,7 +1840,7 @@ public extension App.Bsky.Feed {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: uri.toQueryItems(name: "uri"))
-
+                
                 return parameters
             }
         }
@@ -1936,7 +1898,7 @@ public extension App.Bsky.Feed {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: list.toQueryItems(name: "list"))
-
+                
                 return parameters
             }
         }
@@ -1986,7 +1948,7 @@ public extension App.Bsky.Feed {
                 parameters.append(contentsOf: depth.toQueryItems(name: "depth"))
                 parameters.append(contentsOf: parentHeight.toQueryItems(name: "parentHeight"))
                 parameters.append(contentsOf: uri.toQueryItems(name: "uri"))
-
+                
                 return parameters
             }
         }
@@ -2022,7 +1984,7 @@ public extension App.Bsky.Feed {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: uris.toQueryItems(name: "uris"))
-
+                
                 return parameters
             }
         }
@@ -2073,7 +2035,7 @@ public extension App.Bsky.Feed {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: uri.toQueryItems(name: "uri"))
-
+                
                 return parameters
             }
         }
@@ -2126,7 +2088,7 @@ public extension App.Bsky.Feed {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -2176,7 +2138,7 @@ public extension App.Bsky.Feed {
                 parameters.append(contentsOf: algorithm.toQueryItems(name: "algorithm"))
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -2354,7 +2316,7 @@ public extension App.Bsky.Feed {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: q.toQueryItems(name: "q"))
-
+                
                 return parameters
             }
         }
@@ -2388,9 +2350,9 @@ public extension App.Bsky.Feed {
 public extension App.Bsky.Feed.Threadgate {
     struct FollowingRule: UnionCodable, Hashable {
         public init(
-
+            
         ) {
-
+            
         }
         public static let typeValue = #LexiconDefID("app.bsky.feed.threadgate#followingRule")
     }
@@ -2430,9 +2392,9 @@ public extension App.Bsky.Feed {
 public extension App.Bsky.Feed.Threadgate {
     struct MentionRule: UnionCodable, Hashable {
         public init(
-
+            
         ) {
-
+            
         }
         public static let typeValue = #LexiconDefID("app.bsky.feed.threadgate#mentionRule")
     }
@@ -2646,7 +2608,7 @@ public extension App.Bsky.Graph {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -2696,7 +2658,7 @@ public extension App.Bsky.Graph {
                 parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -2750,7 +2712,7 @@ public extension App.Bsky.Graph {
                 parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -2804,7 +2766,7 @@ public extension App.Bsky.Graph {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: list.toQueryItems(name: "list"))
-
+                
                 return parameters
             }
         }
@@ -2853,7 +2815,7 @@ public extension App.Bsky.Graph {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -2898,7 +2860,7 @@ public extension App.Bsky.Graph {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -2948,7 +2910,7 @@ public extension App.Bsky.Graph {
                 parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -2993,7 +2955,7 @@ public extension App.Bsky.Graph {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -3038,7 +3000,7 @@ public extension App.Bsky.Graph {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
                 parameters.append(contentsOf: others.toQueryItems(name: "others"))
-
+                
                 return parameters
             }
         }
@@ -3078,7 +3040,7 @@ public extension App.Bsky.Graph {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: actor.toQueryItems(name: "actor"))
-
+                
                 return parameters
             }
         }
@@ -3375,7 +3337,7 @@ public extension App.Bsky.Labeler {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: detailed.toQueryItems(name: "detailed"))
                 parameters.append(contentsOf: dids.toQueryItems(name: "dids"))
-
+                
                 return parameters
             }
         }
@@ -3431,7 +3393,7 @@ public extension App.Bsky.Notification {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: seenAt.toQueryItems(name: "seenAt"))
-
+                
                 return parameters
             }
         }
@@ -3477,7 +3439,7 @@ public extension App.Bsky.Notification {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: seenAt.toQueryItems(name: "seenAt"))
-
+                
                 return parameters
             }
         }
@@ -3525,7 +3487,7 @@ public extension App.Bsky.Notification.ListNotifications {
         @Indirect
         public var reasonSubject: ATURI?
         @Indirect
-        public var record: LexiconUnknownUnion
+        public var record: [String: AnyCodable]
         @Indirect
         public var uri: ATURI
         public init(
@@ -3536,7 +3498,7 @@ public extension App.Bsky.Notification.ListNotifications {
             labels: [Com.Atproto.Label.Defs.Label]? = nil,
             reason: String,
             reasonSubject: ATURI? = nil,
-            record: LexiconUnknownUnion,
+            record: [String: AnyCodable],
             uri: ATURI
         ) {
             self._author = .wrapped(author)
@@ -3721,7 +3683,7 @@ public extension App.Bsky.Unspecced {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: query.toQueryItems(name: "query"))
-
+                
                 return parameters
             }
         }
@@ -3752,9 +3714,9 @@ public extension App.Bsky.Unspecced {
     struct GetTaggedSuggestions: XRPCRequest {
         public struct Parameters: XRPCRequestParametersConvertible {
             public init(
-
+                
             ) {
-
+                
             }
             public let queryItems: [URLQueryItem] = []
         }
@@ -3825,7 +3787,7 @@ public extension App.Bsky.Unspecced {
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: q.toQueryItems(name: "q"))
                 parameters.append(contentsOf: typeahead.toQueryItems(name: "typeahead"))
-
+                
                 return parameters
             }
         }
@@ -3879,7 +3841,7 @@ public extension App.Bsky.Unspecced {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: q.toQueryItems(name: "q"))
-
+                
                 return parameters
             }
         }
@@ -3965,7 +3927,7 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var invitesDisabled: Bool?
         @Indirect
-        public var relatedRecords: [LexiconUnknownUnion]?
+        public var relatedRecords: [[String: AnyCodable]]?
         public init(
             did: String,
             email: String? = nil,
@@ -3976,7 +3938,7 @@ public extension Com.Atproto.Admin.Defs {
             invitedBy: Com.Atproto.Server.Defs.InviteCode? = nil,
             invites: [Com.Atproto.Server.Defs.InviteCode]? = nil,
             invitesDisabled: Bool? = nil,
-            relatedRecords: [LexiconUnknownUnion]? = nil
+            relatedRecords: [[String: AnyCodable]]? = nil
         ) {
             self._did = .wrapped(did)
             self._email = .wrapped(email)
@@ -4375,7 +4337,7 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var uri: ATURI
         @Indirect
-        public var value: LexiconUnknownUnion
+        public var value: [String: AnyCodable]
         public init(
             blobCids: [String],
             cid: String,
@@ -4383,7 +4345,7 @@ public extension Com.Atproto.Admin.Defs {
             moderation: Com.Atproto.Admin.Defs.Moderation,
             repo: Com.Atproto.Admin.Defs.RepoView,
             uri: ATURI,
-            value: LexiconUnknownUnion
+            value: [String: AnyCodable]
         ) {
             self._blobCids = .wrapped(blobCids)
             self._cid = .wrapped(cid)
@@ -4413,7 +4375,7 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var uri: ATURI
         @Indirect
-        public var value: LexiconUnknownUnion
+        public var value: [String: AnyCodable]
         public init(
             blobs: [Com.Atproto.Admin.Defs.BlobView],
             cid: String,
@@ -4422,7 +4384,7 @@ public extension Com.Atproto.Admin.Defs {
             moderation: Com.Atproto.Admin.Defs.ModerationDetail,
             repo: Com.Atproto.Admin.Defs.RepoView,
             uri: ATURI,
-            value: LexiconUnknownUnion
+            value: [String: AnyCodable]
         ) {
             self._blobs = .wrapped(blobs)
             self._cid = .wrapped(cid)
@@ -4499,7 +4461,7 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var moderation: Com.Atproto.Admin.Defs.Moderation
         @Indirect
-        public var relatedRecords: [LexiconUnknownUnion]
+        public var relatedRecords: [[String: AnyCodable]]
         public init(
             did: String,
             email: String? = nil,
@@ -4509,7 +4471,7 @@ public extension Com.Atproto.Admin.Defs {
             invitedBy: Com.Atproto.Server.Defs.InviteCode? = nil,
             invitesDisabled: Bool? = nil,
             moderation: Com.Atproto.Admin.Defs.Moderation,
-            relatedRecords: [LexiconUnknownUnion]
+            relatedRecords: [[String: AnyCodable]]
         ) {
             self._did = .wrapped(did)
             self._email = .wrapped(email)
@@ -4549,7 +4511,7 @@ public extension Com.Atproto.Admin.Defs {
         @Indirect
         public var moderation: Com.Atproto.Admin.Defs.ModerationDetail
         @Indirect
-        public var relatedRecords: [LexiconUnknownUnion]
+        public var relatedRecords: [[String: AnyCodable]]
         public init(
             did: String,
             email: String? = nil,
@@ -4562,7 +4524,7 @@ public extension Com.Atproto.Admin.Defs {
             invitesDisabled: Bool? = nil,
             labels: [Com.Atproto.Label.Defs.Label]? = nil,
             moderation: Com.Atproto.Admin.Defs.ModerationDetail,
-            relatedRecords: [LexiconUnknownUnion]
+            relatedRecords: [[String: AnyCodable]]
         ) {
             self._did = .wrapped(did)
             self._email = .wrapped(email)
@@ -4959,7 +4921,7 @@ public extension Com.Atproto.Admin {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
-
+                
                 return parameters
             }
         }
@@ -4987,7 +4949,7 @@ public extension Com.Atproto.Admin {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: dids.toQueryItems(name: "dids"))
-
+                
                 return parameters
             }
         }
@@ -5033,7 +4995,7 @@ public extension Com.Atproto.Admin {
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: sort.toQueryItems(name: "sort"))
-
+                
                 return parameters
             }
         }
@@ -5073,7 +5035,7 @@ public extension Com.Atproto.Admin {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: id.toQueryItems(name: "id"))
-
+                
                 return parameters
             }
         }
@@ -5106,7 +5068,7 @@ public extension Com.Atproto.Admin {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cid.toQueryItems(name: "cid"))
                 parameters.append(contentsOf: uri.toQueryItems(name: "uri"))
-
+                
                 return parameters
             }
         }
@@ -5134,7 +5096,7 @@ public extension Com.Atproto.Admin {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
-
+                
                 return parameters
             }
         }
@@ -5172,7 +5134,7 @@ public extension Com.Atproto.Admin {
                 parameters.append(contentsOf: blob.toQueryItems(name: "blob"))
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
                 parameters.append(contentsOf: uri.toQueryItems(name: "uri"))
-
+                
                 return parameters
             }
         }
@@ -5211,9 +5173,9 @@ public extension Com.Atproto.Admin {
             }
         }
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "com.atproto.admin.listCommunicationTemplates"
@@ -5307,7 +5269,7 @@ public extension Com.Atproto.Admin {
                 parameters.append(contentsOf: sortDirection.toQueryItems(name: "sortDirection"))
                 parameters.append(contentsOf: subject.toQueryItems(name: "subject"))
                 parameters.append(contentsOf: types.toQueryItems(name: "types"))
-
+                
                 return parameters
             }
         }
@@ -5432,7 +5394,7 @@ public extension Com.Atproto.Admin {
                 parameters.append(contentsOf: subject.toQueryItems(name: "subject"))
                 parameters.append(contentsOf: tags.toQueryItems(name: "tags"))
                 parameters.append(contentsOf: takendown.toQueryItems(name: "takendown"))
-
+                
                 return parameters
             }
         }
@@ -5487,7 +5449,7 @@ public extension Com.Atproto.Admin {
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: q.toQueryItems(name: "q"))
                 parameters.append(contentsOf: term.toQueryItems(name: "term"))
-
+                
                 return parameters
             }
         }
@@ -5723,14 +5685,14 @@ public extension Com.Atproto.Identity {
             @Indirect
             public var rotationKeys: [String]?
             @Indirect
-            public var services: LexiconUnknownUnion?
+            public var services: [String: AnyCodable]?
             @Indirect
-            public var verificationMethods: LexiconUnknownUnion?
+            public var verificationMethods: [String: AnyCodable]?
             public init(
                 alsoKnownAs: [String]? = nil,
                 rotationKeys: [String]? = nil,
-                services: LexiconUnknownUnion? = nil,
-                verificationMethods: LexiconUnknownUnion? = nil
+                services: [String: AnyCodable]? = nil,
+                verificationMethods: [String: AnyCodable]? = nil
             ) {
                 self._alsoKnownAs = .wrapped(alsoKnownAs)
                 self._rotationKeys = .wrapped(rotationKeys)
@@ -5739,9 +5701,9 @@ public extension Com.Atproto.Identity {
             }
         }
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "com.atproto.identity.getRecommendedDidCredentials"
@@ -5750,9 +5712,9 @@ public extension Com.Atproto.Identity {
 public extension Com.Atproto.Identity {
     struct RequestPlcOperationSignature: XRPCRequest {
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.identity.requestPlcOperationSignature"
@@ -5771,7 +5733,7 @@ public extension Com.Atproto.Identity {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: handle.toQueryItems(name: "handle"))
-
+                
                 return parameters
             }
         }
@@ -5802,17 +5764,17 @@ public extension Com.Atproto.Identity {
             @Indirect
             public var rotationKeys: [String]?
             @Indirect
-            public var services: LexiconUnknownUnion?
+            public var services: [String: AnyCodable]?
             @Indirect
             public var token: String?
             @Indirect
-            public var verificationMethods: LexiconUnknownUnion?
+            public var verificationMethods: [String: AnyCodable]?
             public init(
                 alsoKnownAs: [String]? = nil,
                 rotationKeys: [String]? = nil,
-                services: LexiconUnknownUnion? = nil,
+                services: [String: AnyCodable]? = nil,
                 token: String? = nil,
-                verificationMethods: LexiconUnknownUnion? = nil
+                verificationMethods: [String: AnyCodable]? = nil
             ) {
                 self._alsoKnownAs = .wrapped(alsoKnownAs)
                 self._rotationKeys = .wrapped(rotationKeys)
@@ -5823,9 +5785,9 @@ public extension Com.Atproto.Identity {
         }
         public struct Output: Decodable, Hashable {
             @Indirect
-            public var operation: LexiconUnknownUnion
+            public var operation: [String: AnyCodable]
             public init(
-                operation: LexiconUnknownUnion
+                operation: [String: AnyCodable]
             ) {
                 self._operation = .wrapped(operation)
             }
@@ -5844,9 +5806,9 @@ public extension Com.Atproto.Identity {
     struct SubmitPlcOperation: XRPCRequest {
         public struct Input: Encodable {
             @Indirect
-            public var operation: LexiconUnknownUnion
+            public var operation: [String: AnyCodable]
             public init(
-                operation: LexiconUnknownUnion
+                operation: [String: AnyCodable]
             ) {
                 self._operation = .wrapped(operation)
             }
@@ -6013,7 +5975,7 @@ public extension Com.Atproto.Label {
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: sources.toQueryItems(name: "sources"))
                 parameters.append(contentsOf: uriPatterns.toQueryItems(name: "uriPatterns"))
-
+                
                 return parameters
             }
         }
@@ -6158,11 +6120,11 @@ public extension Com.Atproto.Repo.ApplyWrites {
         @Indirect
         public var rkey: String?
         @Indirect
-        public var value: LexiconUnknownUnion
+        public var value: [String: AnyCodable]
         public init(
             collection: String,
             rkey: String? = nil,
-            value: LexiconUnknownUnion
+            value: [String: AnyCodable]
         ) {
             self._collection = .wrapped(collection)
             self._rkey = .wrapped(rkey)
@@ -6227,11 +6189,11 @@ public extension Com.Atproto.Repo.ApplyWrites {
         @Indirect
         public var rkey: String
         @Indirect
-        public var value: LexiconUnknownUnion
+        public var value: [String: AnyCodable]
         public init(
             collection: String,
             rkey: String,
-            value: LexiconUnknownUnion
+            value: [String: AnyCodable]
         ) {
             self._collection = .wrapped(collection)
             self._rkey = .wrapped(rkey)
@@ -6246,7 +6208,7 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var collection: String
             @Indirect
-            public var record: LexiconUnknownUnion
+            public var record: [String: AnyCodable]
             @Indirect
             public var repo: String
             @Indirect
@@ -6257,7 +6219,7 @@ public extension Com.Atproto.Repo {
             public var validate: Bool?
             public init(
                 collection: String,
-                record: LexiconUnknownUnion,
+                record: [String: AnyCodable],
                 repo: String,
                 rkey: String? = nil,
                 swapCommit: String? = nil,
@@ -6344,7 +6306,7 @@ public extension Com.Atproto.Repo {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: repo.toQueryItems(name: "repo"))
-
+                
                 return parameters
             }
         }
@@ -6354,7 +6316,7 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var did: String
             @Indirect
-            public var didDoc: LexiconUnknownUnion
+            public var didDoc: [String: AnyCodable]
             @Indirect
             public var handle: String
             @Indirect
@@ -6362,7 +6324,7 @@ public extension Com.Atproto.Repo {
             public init(
                 collections: [String],
                 did: String,
-                didDoc: LexiconUnknownUnion,
+                didDoc: [String: AnyCodable],
                 handle: String,
                 handleIsCorrect: Bool
             ) {
@@ -6411,7 +6373,7 @@ public extension Com.Atproto.Repo {
                 parameters.append(contentsOf: collection.toQueryItems(name: "collection"))
                 parameters.append(contentsOf: repo.toQueryItems(name: "repo"))
                 parameters.append(contentsOf: rkey.toQueryItems(name: "rkey"))
-
+                
                 return parameters
             }
         }
@@ -6421,11 +6383,11 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var uri: ATURI
             @Indirect
-            public var value: LexiconUnknownUnion
+            public var value: [String: AnyCodable]
             public init(
                 cid: String? = nil,
                 uri: ATURI,
-                value: LexiconUnknownUnion
+                value: [String: AnyCodable]
             ) {
                 self._cid = .wrapped(cid)
                 self._uri = .wrapped(uri)
@@ -6445,9 +6407,9 @@ public extension Com.Atproto.Repo {
 public extension Com.Atproto.Repo {
     struct ImportRepo: XRPCRequest {
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.repo.importRepo"
@@ -6471,7 +6433,7 @@ public extension Com.Atproto.Repo {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -6557,7 +6519,7 @@ public extension Com.Atproto.Repo {
                 parameters.append(contentsOf: reverse.toQueryItems(name: "reverse"))
                 parameters.append(contentsOf: rkeyEnd.toQueryItems(name: "rkeyEnd"))
                 parameters.append(contentsOf: rkeyStart.toQueryItems(name: "rkeyStart"))
-
+                
                 return parameters
             }
         }
@@ -6591,11 +6553,11 @@ public extension Com.Atproto.Repo.ListRecords {
         @Indirect
         public var uri: ATURI
         @Indirect
-        public var value: LexiconUnknownUnion
+        public var value: [String: AnyCodable]
         public init(
             cid: String,
             uri: ATURI,
-            value: LexiconUnknownUnion
+            value: [String: AnyCodable]
         ) {
             self._cid = .wrapped(cid)
             self._uri = .wrapped(uri)
@@ -6610,7 +6572,7 @@ public extension Com.Atproto.Repo {
             @Indirect
             public var collection: String
             @Indirect
-            public var record: LexiconUnknownUnion
+            public var record: [String: AnyCodable]
             @Indirect
             public var repo: String
             @Indirect
@@ -6623,7 +6585,7 @@ public extension Com.Atproto.Repo {
             public var validate: Bool?
             public init(
                 collection: String,
-                record: LexiconUnknownUnion,
+                record: [String: AnyCodable],
                 repo: String,
                 rkey: String,
                 swapCommit: String? = nil,
@@ -6682,15 +6644,15 @@ public extension Com.Atproto.Repo {
     struct UploadBlob: XRPCRequest {
         public struct Output: Decodable, Hashable {
             public init(
-
+                
             ) {
-
+                
             }
         }
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.repo.uploadBlob"
@@ -6699,9 +6661,9 @@ public extension Com.Atproto.Repo {
 public extension Com.Atproto.Server {
     struct ActivateAccount: XRPCRequest {
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.server.activateAccount"
@@ -6751,9 +6713,9 @@ public extension Com.Atproto.Server {
             }
         }
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "com.atproto.server.checkAccountStatus"
@@ -6798,7 +6760,7 @@ public extension Com.Atproto.Server {
             @Indirect
             public var password: String?
             @Indirect
-            public var plcOp: LexiconUnknownUnion?
+            public var plcOp: [String: AnyCodable]?
             @Indirect
             public var recoveryKey: String?
             @Indirect
@@ -6811,7 +6773,7 @@ public extension Com.Atproto.Server {
                 handle: String,
                 inviteCode: String? = nil,
                 password: String? = nil,
-                plcOp: LexiconUnknownUnion? = nil,
+                plcOp: [String: AnyCodable]? = nil,
                 recoveryKey: String? = nil,
                 verificationCode: String? = nil,
                 verificationPhone: String? = nil
@@ -6833,7 +6795,7 @@ public extension Com.Atproto.Server {
             @Indirect
             public var did: String
             @Indirect
-            public var didDoc: LexiconUnknownUnion?
+            public var didDoc: [String: AnyCodable]?
             @Indirect
             public var handle: String
             @Indirect
@@ -6841,7 +6803,7 @@ public extension Com.Atproto.Server {
             public init(
                 accessJwt: String,
                 did: String,
-                didDoc: LexiconUnknownUnion? = nil,
+                didDoc: [String: AnyCodable]? = nil,
                 handle: String,
                 refreshJwt: String
             ) {
@@ -7013,7 +6975,7 @@ public extension Com.Atproto.Server {
             @Indirect
             public var did: String
             @Indirect
-            public var didDoc: LexiconUnknownUnion?
+            public var didDoc: [String: AnyCodable]?
             @Indirect
             public var email: String?
             @Indirect
@@ -7025,7 +6987,7 @@ public extension Com.Atproto.Server {
             public init(
                 accessJwt: String,
                 did: String,
-                didDoc: LexiconUnknownUnion? = nil,
+                didDoc: [String: AnyCodable]? = nil,
                 email: String? = nil,
                 emailConfirmed: Bool? = nil,
                 handle: String,
@@ -7155,9 +7117,9 @@ public extension Com.Atproto.Server {
 public extension Com.Atproto.Server {
     struct DeleteSession: XRPCRequest {
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.server.deleteSession"
@@ -7207,9 +7169,9 @@ public extension Com.Atproto.Server {
             }
         }
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "com.atproto.server.describeServer"
@@ -7233,7 +7195,7 @@ public extension Com.Atproto.Server {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: createAvailable.toQueryItems(name: "createAvailable"))
                 parameters.append(contentsOf: includeUsed.toQueryItems(name: "includeUsed"))
-
+                
                 return parameters
             }
         }
@@ -7269,7 +7231,7 @@ public extension Com.Atproto.Server {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: aud.toQueryItems(name: "aud"))
-
+                
                 return parameters
             }
         }
@@ -7298,7 +7260,7 @@ public extension Com.Atproto.Server {
             @Indirect
             public var did: String
             @Indirect
-            public var didDoc: LexiconUnknownUnion?
+            public var didDoc: [String: AnyCodable]?
             @Indirect
             public var email: String?
             @Indirect
@@ -7307,7 +7269,7 @@ public extension Com.Atproto.Server {
             public var handle: String
             public init(
                 did: String,
-                didDoc: LexiconUnknownUnion? = nil,
+                didDoc: [String: AnyCodable]? = nil,
                 email: String? = nil,
                 emailConfirmed: Bool? = nil,
                 handle: String
@@ -7320,9 +7282,9 @@ public extension Com.Atproto.Server {
             }
         }
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "com.atproto.server.getSession"
@@ -7356,9 +7318,9 @@ public extension Com.Atproto.Server {
             }
         }
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "com.atproto.server.listAppPasswords"
@@ -7372,7 +7334,7 @@ public extension Com.Atproto.Server {
             @Indirect
             public var did: String
             @Indirect
-            public var didDoc: LexiconUnknownUnion?
+            public var didDoc: [String: AnyCodable]?
             @Indirect
             public var handle: String
             @Indirect
@@ -7380,7 +7342,7 @@ public extension Com.Atproto.Server {
             public init(
                 accessJwt: String,
                 did: String,
-                didDoc: LexiconUnknownUnion? = nil,
+                didDoc: [String: AnyCodable]? = nil,
                 handle: String,
                 refreshJwt: String
             ) {
@@ -7392,9 +7354,9 @@ public extension Com.Atproto.Server {
             }
         }
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.server.refreshSession"
@@ -7403,9 +7365,9 @@ public extension Com.Atproto.Server {
 public extension Com.Atproto.Server {
     struct RequestAccountDelete: XRPCRequest {
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.server.requestAccountDelete"
@@ -7414,9 +7376,9 @@ public extension Com.Atproto.Server {
 public extension Com.Atproto.Server {
     struct RequestEmailConfirmation: XRPCRequest {
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.server.requestEmailConfirmation"
@@ -7434,9 +7396,9 @@ public extension Com.Atproto.Server {
             }
         }
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.procedure
         public let requestIdentifier = "com.atproto.server.requestEmailUpdate"
@@ -7582,7 +7544,7 @@ public extension Com.Atproto.Sync {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cid.toQueryItems(name: "cid"))
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
-
+                
                 return parameters
             }
         }
@@ -7614,7 +7576,7 @@ public extension Com.Atproto.Sync {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cids.toQueryItems(name: "cids"))
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
-
+                
                 return parameters
             }
         }
@@ -7641,7 +7603,7 @@ public extension Com.Atproto.Sync {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
-
+                
                 return parameters
             }
         }
@@ -7668,7 +7630,7 @@ public extension Com.Atproto.Sync {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
-
+                
                 return parameters
             }
         }
@@ -7704,7 +7666,7 @@ public extension Com.Atproto.Sync {
             public var queryItems: [URLQueryItem] {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
-
+                
                 return parameters
             }
         }
@@ -7759,7 +7721,7 @@ public extension Com.Atproto.Sync {
                 parameters.append(contentsOf: commit.toQueryItems(name: "commit"))
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
                 parameters.append(contentsOf: rkey.toQueryItems(name: "rkey"))
-
+                
                 return parameters
             }
         }
@@ -7791,7 +7753,7 @@ public extension Com.Atproto.Sync {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
                 parameters.append(contentsOf: since.toQueryItems(name: "since"))
-
+                
                 return parameters
             }
         }
@@ -7833,7 +7795,7 @@ public extension Com.Atproto.Sync {
                 parameters.append(contentsOf: did.toQueryItems(name: "did"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: since.toQueryItems(name: "since"))
-
+                
                 return parameters
             }
         }
@@ -7878,7 +7840,7 @@ public extension Com.Atproto.Sync {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: cursor.toQueryItems(name: "cursor"))
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
-
+                
                 return parameters
             }
         }
@@ -8151,9 +8113,9 @@ public extension Com.Atproto.Temp {
             }
         }
         public init(
-
+            
         ) {
-
+            
         }
         public let type = XRPCRequestType.query
         public let requestIdentifier = "com.atproto.temp.checkSignupQueue"
@@ -8177,7 +8139,7 @@ public extension Com.Atproto.Temp {
                 var parameters = [URLQueryItem] ()
                 parameters.append(contentsOf: limit.toQueryItems(name: "limit"))
                 parameters.append(contentsOf: since.toQueryItems(name: "since"))
-
+                
                 return parameters
             }
         }
