@@ -35,6 +35,7 @@ let package = Package(
         .package(url: "https://github.com/pointfreeco/swift-parsing.git", from: "0.13.0"),
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-syntax.git", from: "509.0.0"),
+        .package(url: "https://github.com/Flight-School/AnyCodable", from: "0.6.0"),
     ],
     targets: [
         .target(
@@ -51,6 +52,7 @@ let package = Package(
                 "ATProtoXRPC",
                 "ATProtoCore",
                 "ATProtoMacro",
+                .product(name: "AnyCodable", package: "AnyCodable"),
             ]
         ),
         .target(
